@@ -1,0 +1,23 @@
+.nav-header {
+    display: flex;
+    align-items: center; /* Pour aligner verticalement les éléments */
+  }
+  
+  .nav-header img {
+    width: 120px;
+    margin-left: 2%;
+    margin-top: -10px;
+  }
+  
+  .nav-header h3 {
+    margin-left: -10px; /* Pour aligner le titre à droite */
+  }
+  
+  .esprit {
+    color: red; /* Couleur rouge pour "Esprit" */
+  }
+  
+  .gather {
+    color: black; /* Couleur noire pour "Gather" */
+  }
+  

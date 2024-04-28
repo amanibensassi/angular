@@ -1,0 +1,177 @@
+<html>
+<div class="content-body">
+
+  <div class="container-fluid">
+
+    <div class="row page-titles">
+      <ol class="breadcrumb">
+
+        <li class="breadcrumb-item">List of Users</li>
+      </ol>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-sm mb-0 table-striped">
+                <thead>
+                  <tr>
+
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+
+
+                    <th>Address</th>
+                    <th>Role</th>
+                    <th>Approuved</th>
+
+                  </tr>
+                </thead>
+                <tbody id="customers">
+                  <tr class="btn-reveal-trigger" *ngFor="let user of userList">
+
+                    <td class="py-3">
+                      {{user.firstName}} {{user.lastName}}
+                    </td>
+                    <td class="py-2">
+                      {{user.mail}}
+                    </td>
+                    <td class="py-2">{{user.telNumber}} </td>
+                    <td class="py-2">{{user.address}}</td>
+                    <td class="py-2 ">{{user.role}}</td>
+                    <td class="py-2">{{user.approuvement}} </td>
+
+                    <td class="py-2 text-end">
+                      <div class="dropdown"><button class="btn btn-primary tp-btn-light sharp" type="button"
+                          data-bs-toggle="dropdown"><span class="fs--1"><svg xmlns="http://www.w3.org/2000/svg"
+                              xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24"
+                              version="1.1">
+                              <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect x="0" y="0" width="24" height="24"></rect>
+                                <circle fill="#000000" cx="5" cy="12" r="2"></circle>
+                                <circle fill="#000000" cx="12" cy="12" r="2"></circle>
+                                <circle fill="#000000" cx="19" cy="12" r="2"></circle>
+                              </g>
+                            </svg></span></button>
+                        <div class="dropdown-menu dropdown-menu-end border py-0">
+                          <div class="py-2">
+                            <a class="dropdown-item text-danger" (click)="deleteUser(user.idUser)">Delete</a>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Your existing HTML code for displaying user list -->
+<!-- Ensure this is inside the body section -->
+
+<!-- Modal -->
+<div class="modal fade" id="EditAddUser" tabindex="-1" user="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" user="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="">First and last name</span>
+          </div>
+          <input type="text" class="form-control" [(ngModel)]="userToModify.firstName">
+          <input type="text" class="form-control" [(ngModel)]="userToModify.lastName">
+
+        </div><br>
+
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="">Email</span>
+          </div>
+
+          <input type="text" class="form-control" [(ngModel)]="userToModify.mail">
+
+        </div><br>
+
+        <div class="input-group mb-3">
+          <label class="input-group-text mb-0">Role</label>
+          <select class="default-select form-control wide" [(ngModel)]="userToModify.role">
+
+            <option disabled selected>Choose...</option>
+            <option value="user">user</option>
+            <option value="club">club</option>
+
+          </select>
+        </div><br>
+
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="">Telephone</span>
+          </div>
+
+          <input type="text" class="form-control" [(ngModel)]="userToModify.telNumber">
+
+        </div><br>
+
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="">BirthDay</span>
+          </div>
+
+          <input type="date" class="form-control" [(ngModel)]="userToModify.birthDay">
+
+        </div><br>
+
+
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="">Address</span>
+          </div>
+
+          <input type="text" class="form-control" [(ngModel)]="userToModify.address">
+
+        </div><br>
+
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="">Password</span>
+          </div>
+
+          <input type="password" class="form-control" [(ngModel)]="userToModify.password">
+
+        </div><br>
+
+
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" *ngIf="!creatingMode" (click)="modifyUser()">Modify User</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Your existing HTML code continues... -->
+
+
+
+
+</html>

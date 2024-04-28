@@ -1,0 +1,77 @@
+<html>
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-3 col-lg-6 col-md-6 col-xxl-5 ">
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <img class="img-fluid" src="../../../assets/images/{{selectedUser.imagePath}}"
+                                        alt="" style="width: 300px;height: 300px;">
+
+                                    <!-- Your tab content -->
+                                </div>
+                                <div class="tab-slide-content new-arrival-product mb-4 mb-xl-0">
+                                    <!-- Nav tabs -->
+                                    <!-- Your tab navigation -->
+                                </div>
+                            </div>
+                            <div class="col-xl-9 col-lg-6 col-md-6 col-xxl-7 col-sm-12">
+                                <div class="product-detail-content">
+                                    <!-- Product details -->
+                                    <div class="new-arrival-content pr">
+                                        <div class="row">
+                                            <div class="d-table mb-2">
+                                                <p class="price float-start d-block">{{ selectedUser.clubName }} </p>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <div class="col-md-6">
+
+                                                <h6><span class="label">Club Creator:</span> <span class="item">{{
+                                                        selectedUser.firstName }} {{ selectedUser.lastName }}</span>
+                                                </h6>
+                                                <h6><span class="label">Club Type:</span> <span class="item">{{
+                                                        selectedUser.clubTypes }}</span></h6>
+                                                <h6><span class="label">Email:</span> <span class="item">{{
+                                                        selectedUser.mail }}</span></h6>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h6><span class="label">Role:</span> <span class="item">{{
+                                                        selectedUser.role }}</span></h6>
+                                                <h6><span class="label">PhoneNumber:</span> <span class="item">{{
+                                                        selectedUser.telNumber }}</span></h6>
+                                                <h6><span class="label">Address:</span> <span class="item">{{
+                                                        selectedUser.address }}</span></h6>
+                                            </div>
+                                        </div>
+                                        <!-- Add to cart button and quantity input -->
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- review -->
+            <!-- Your review modal -->
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="profile-blog">
+                    <h3 class="text-primary d-inline">Club Description</h3>
+                    <br>
+                    <hr>
+                    <p class="mb-0">{{ selectedUser.clubDetails}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

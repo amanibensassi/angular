@@ -1,0 +1,85 @@
+<html lang="en">
+
+        <div class="col-lg-50">
+
+            <div class="card">
+                <div class="card-header">
+                    <button *ngIf="!bolnumberVolunteers" type="button" class="btn btn-primary" (click)="approveVolunteersForTask()">Approve Volunteers 
+                      <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2"
+                      fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-1">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                      <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                      <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                  </svg></button>
+                   <!-- <button type="button" class="btn btn-primary"  [routerLink]="['/tasksuser']">Close</button> -->            
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-responsive-md">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name Volunteer</th>
+                                    <th scope="col">Approval</th>
+                                    <th scope="col">Why do you want to join ?</th>
+                                    <th scope="col">Availability</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let volunteer of getVolunteersForPage(currentPage)">
+                                    <td class="text-center">{{ volunteer.nameVolunteer }}</td>
+                                    <td class="text-center">{{ volunteer.approuvement }}</td>
+                                    <td class="text-center">{{ volunteer.reason }}</td>
+                                    <td class="text-center">{{ volunteer.availabilityVolunteer }}</td>
+
+                                    <td class="text-center">
+                                        <div class="btn-group mb-1">
+                                            <a type="button" class="btn btn-primary light px-3"
+                                                data-toggle="modal" data-target="#EditAddvolunteer"
+                                                (click)="openModel(volunteer)">
+                                                <i class="fa fa-exclamation-circle"></i>
+                                            </a>
+                                            <a type="button" class="btn btn-primary light px-3"
+                                                (click)="deleteVolunteers(volunteer.idVolunteer)">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+
+
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <br>
+                        <nav>
+                            <ul class="pagination pagination-gutter">
+                              <li class="page-item page-indicator">
+                                <a class="page-link" href="javascript:void(0)" (click)="decrementPage()">
+                                  <i class="la la-angle-left"></i>
+                                </a>
+                              </li>
+                              <li *ngFor="let chunk of volunteersChunks; let i = index"
+                                  [class.active]="currentPage === i + 1" class="page-item">
+                                <a class="page-link" href="javascript:void(0)" (click)="changePage(i + 1)">
+                                  {{ i + 1 }}
+                                </a>
+                              </li>
+                              <li class="page-item page-indicator">
+                                <a class="page-link" href="javascript:void(0)" (click)="incrementPage()">
+                                  <i class="la la-angle-right"></i>
+                                </a>
+                              </li>
+                            </ul>
+                          </nav>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+</html>

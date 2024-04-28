@@ -1,0 +1,146 @@
+<html lang="en">
+
+<div class="content-body">
+    <div class="container-fluid">
+
+        <div class="shopping-cart  mb-2 me-3">
+            <a class="btn btn-primary text-white" data-toggle="modal" data-target="#EditAddticket"
+                (click)="openModel()"><i class="fa fa-shopping-basket me-2"></i>Reserver un ticket</a>
+        </div>
+
+
+        <div class="row">
+            <div *ngFor="let ticket of tickets" class="col-xl-3 col-lg-6 col-sm-6">
+                <div class="h-100">
+                    <div class="card h-900 mb-6">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <div class="new-arrival-product" id="pdfTable" #pdfTable>
+                                <div class="new-arrival-content text-center mt-3">
+                                    <h3>Ticket ID : {{ ticket.idTicket }}</h3>
+                                    <div class="zoom-effect">
+                                        <img [src]="ticket.qrCodeURL" alt="QR Code">
+                                    </div>                                    <h4>Number of tickets : {{ ticket.nbts }}</h4>
+                                    <br>
+                                    <span class="badge badge-success light">{{ ticket.dateAchat | date }}</span>
+                                    <br>
+                                    <br>
+                                    <span class="price">{{ ticket.typePay }}</span>
+                                    <br>
+                                    <br>
+                                    <div>
+                                        <h4 class="mb-0 fs-24 font-w600">{{ ticket.event.price * ticket.nbts }}</h4>
+                                        <span class="price">Total Price</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mail-list rounded mt-4">
+                                <a data-toggle="modal" data-target="#EditAddticket" (click)="openModel(ticket)"
+                                    class="list-group-item"><i class="fa fa-paper-plane font-18 align-middle me-2"></i>Modify</a>
+                                <a (click)="deleteTicket(ticket.idTicket)" class="list-group-item"><i
+                                        class="fa fa-trash font-18 align-middle me-2"></i>Trash</a>
+                                        <a (click)="downloadTicketPDF(ticket.idTicket)" class="list-group-item"><i class="fa fa-paper-plane"></i>Download</a>
+                            </div>
+                            <br>
+                            <div class="d-flex justify-content-center">
+                                <button *ngIf="ticket.typePay === 'online'" class="btn btn-warning btn-sm">Pay<span
+                                        class="btn-icon-end"><i class="fa fa-star"></i></span></button>
+                                <div *ngIf="ticket.typePay !== 'online'" class="flex-grow-1"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        
+
+
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="EditAddticket" tabindex="-1" ticket="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal" ticket="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Ticket</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">nbts</span>
+                            </div>
+                            <input type="number" class="form-control" [(ngModel)]="newTicket.nbts">
+                        </div>
+                        <div class="input-group mb-3">
+                            <label class="input-group-text mb-0">type de ticket</label>
+                            <select class="default-select form-control wide" [(ngModel)]="newTicket.typePay">
+
+                                <option selected>Choose...</option>
+                                <option value="inPerson">in person</option>
+                                <option value="online">online</option>
+                            </select>
+                        </div>
+
+
+                    </div>
+
+                    <div *ngIf="exceedsAvailableTickets" class="alert alert-primary alert-dismissible fade show">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                            <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                            <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                        </svg>
+                        <strong>Error!</strong> Cannot select more tickets than available.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
+                        </button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" *ngIf="creatingMode"
+                            (click)="createTicketbyEvent()">Create Ticket</button>
+
+                        <button type="button" class="btn btn-primary" *ngIf="!creatingMode"
+                            (click)="modifyTicket()">Modify Ticket</button>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+</html>
+<style>
+    .button-group {
+        display: flex;
+        align-items: center;
+        /* Alignement vertical */
+    }
+
+    .button-group a {
+        margin-right: 8px;
+        /* Espacement entre les boutons */
+    }
+
+    .zoom-effect img {
+    transition: transform 0.3s;
+}
+
+.zoom-effect img:hover {
+    transform: scale(1.1);
+}
+
+</style>

@@ -1,0 +1,86 @@
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <!--Tab slider End-->
+                            <div class="col-xl-9 col-lg-6 col-md-6 col-xxl-7 col-sm-12">
+                                <div class="product-detail-content">
+                                    <!--Product details-->
+                                    <div class="new-arrival-content pr">
+                                        <h1>{{volunteer.nameVolunteer}}</h1>
+  
+                                        <p>Availability : <span class="item">{{volunteer.availabilityVolunteer}} </span>
+                                        </p>
+  
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-md-6 col-xxl-5">
+                                <!-- Tab panes -->
+                                <br>
+  
+                                <div class="tab-content">
+                                    <h1>Why to join ? </h1>
+                                    <br>
+                                    <br>
+                                    <p class="description">{{volunteer.reason}}</p>
+                                </div>
+                            </div>
+  
+                    </div>
+                </div>
+            </div>
+  
+        </div>
+    </div>
+  </div>
+  
+  <style>
+    /* Ajoutez ces styles dans votre fichier CSS */
+  
+  /* Ajustement de la largeur de la zone de contenu */
+  .product-detail-content {
+    padding: 20px;
+  }
+  
+  /* Ajustement de la taille du badge */
+  .badge {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+  
+  /* Ajustement de la position du badge */
+  .badge-success.light {
+    position: relative;
+    top: -2px;
+  }
+  
+  /* Ajustement de l'espacement entre les éléments */
+  .mb-2 {
+    margin-bottom: 10px;
+  }
+  
+  /* Ajustement de la position du bouton "Buy a ticket" */
+  .shopping-cart {
+    margin-top: 20px;
+  }
+  
+  /* Ajustement de la taille de la description de l'événement */
+  .tab-content h4,
+  .tab-content p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .tab-content p.description {
+    font-size: 16px; /* Modifiez la taille de la police selon vos préférences */
+    line-height: 1.8; /* Modifiez l'espacement entre les lignes selon vos préférences */
+  }
+  
+  .col-push-right {
+    margin-left: 10px; /* Ajustez la valeur selon vos besoins */
+  }
+  
+  </style>

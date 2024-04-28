@@ -1,0 +1,272 @@
+<app-side-bar></app-side-bar>
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+
+
+                        <div class="row">
+                            <!--Tab slider End-->
+
+
+
+                            <div class="col-6">
+                                <div class="product-detail-content">
+                                    <div role="tabpanel" class="tab-pane fade show active" id="first">
+                                        <img class="img-fluid" src="../../../assets/images/{{event.imagePath}}" alt="">
+                                    </div>
+
+                                    <br>
+                                    <br>
+                                    <!--Product details-->
+                                    <div class="new-arrival-content pr">
+                                        <h1>{{event.nameEvent}}</h1>
+                                        <div class="comment-review star-rating">
+                                            <ul>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star-half-empty"></i></li>
+                                                <li><i class="fa fa-star-half-empty"></i></li>
+                                            </ul>
+                                            
+                                        </div>
+                                        <div class="d-table mb-1">
+                                            <p class="price float-start d-block">{{event.price}} TND</p>
+                                        </div>
+                                        <br>
+                                        <h4>Availability : {{event.nbt}} </h4>
+                                        <span *ngIf="event.nbt > 0; else soldOut">
+                                            <span class="badge badge-success">Available<span
+                                                    class="ms-1 fa fa-check"></span></span>
+                                        </span>
+                                        <ng-template #soldOut>
+                                            <span class="badge badge-primary">Sold out<span
+                                                    class="ms-1 fa fa-redo"></span></span>
+                                        </ng-template>
+
+
+
+
+                                        <p>Start at :</p>
+                                        <span class="badge badge-success light">{{event.dateStart | date}}</span>
+                                        <p>End at : </p>
+                                        <span class="badge badge-success light">{{event.dateFinish | date}}</span>
+
+                                        <div class="d-flex align-items-end flex-wrap mt-4">
+
+                                            <div class="shopping-cart mb-2 me-3">
+                                                <a class="btn btn-primary nav-link blinking"
+                                                    routerLink="/buyticket/{{ event.idEvent }}">
+                                                    <i class="fa fa-shopping-basket me-2"></i>Buy a ticket now
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-6">
+
+                                <div class="d-inline-block">
+                                    <button type="button" class="btn btn-secondary mr-2" routerLink="/publication/user/{{event.idEvent}}">Publications <span class="btn-icon-end"><i class="fa fa-envelope"></i></span>
+                                    </button>
+                                </div>
+                                <div class="d-inline-block">
+                                    <button type="button" class="btn btn-warning mr-2" routerLink="/tasksuser/{{event.idEvent}}">Tasks <span class="btn-icon-end"><i class="fa fa-star"></i></span>
+                                    </button>
+                                </div>
+                                <div class="d-inline-block">
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#EditAddfeedback" (click)="openModel()">Feedback <span class="btn-icon-end"><i class="fa fa-check"></i></span>
+                                    </button>
+                                </div>
+                                
+                                <br>
+                                <div class="product-detail-content">
+                                    <h1>Description of the event : </h1>
+                                    <br>
+                                    <br>
+                                    <p class="description">{{event.description}}</p>
+                                </div>
+
+
+
+
+                            </div>
+
+                            <div class="alert alert-secondary alert-dismissible fade show">
+                                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2"
+                                    fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2">
+                                    <path
+                                        d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3">
+                                    </path>
+                                </svg>
+                                <strong>Volunteer!</strong> Be part of the staff.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="modal fade" id="EditAddfeedback" tabindex="-1" event="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl" event="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Feedback</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+
+                    <div class="modal-body">
+
+                        <div class="input-group mb-3">
+                            <label class="input-group-text mb-0">Type</label>
+                            <select class="default-select form-control wide" [(ngModel)]="newFeedback.serviceType">
+                                <option value="equipement">equipement</option>
+                                <option value="emplacement">emplacement</option>
+                                <option value="horaire">horaire</option>
+                                <option value="tarification">tarification</option>
+                                <option value="services">services</option>
+                                <option value="nouriture">nourriture</option>
+                                <option value="autre">autre</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Titre du
+                                    feedback</span>
+                            </div>
+                            <input type="text" class="form-control" [(ngModel)]="newFeedback.title">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Corps</span>
+                            </div>
+                            <input type="text" class="form-control" [(ngModel)]="newFeedback.body">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <label class="input-group-text mb-0">Type</label>
+                            <select class="default-select form-control wide" [(ngModel)]="newFeedback.note">
+                                <option value="mauvais">mauvais</option>
+                                <option value="insuffisant">insuffisant</option>
+                                <option value="moyen">moyen</option>
+                                <option value="bien">bien</option>
+                                <option value="excellent">excellent</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" *ngIf="creatingMode"
+                            (click)="createFeedback()">Create Feedback</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Ajoutez ces styles dans votre fichier CSS */
+
+    /* Ajustement de la largeur de la zone de contenu */
+    .product-detail-content {
+        padding: 20px;
+    }
+
+    /* Ajustement de la taille du badge */
+    .badge {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    /* Ajustement de la position du badge */
+    .badge-success.light {
+        position: relative;
+        top: -2px;
+    }
+
+    /* Ajustement de l'espacement entre les éléments */
+    .mb-2 {
+        margin-bottom: 10px;
+    }
+
+    /* Ajustement de la position du bouton "Buy a ticket" */
+    .shopping-cart {
+        margin-top: 20px;
+    }
+
+    /* Ajustement de la taille de la description de l'événement */
+    .tab-content h4,
+    .tab-content p {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .tab-content p.description {
+        font-size: 16px;
+        /* Modifiez la taille de la police selon vos préférences */
+        line-height: 1.8;
+        /* Modifiez l'espacement entre les lignes selon vos préférences */
+    }
+
+    .col-push-right {
+        margin-left: 10px;
+        /* Ajustez la valeur selon vos besoins */
+    }
+
+    .product-detail-content .tab-pane.fade.show.active .img-fluid {
+        width: 60%;
+        /* Ajustez la largeur selon vos besoins */
+        height: auto;
+        /* Garantit que l'image conserve ses proportions */
+        border-radius: 15px;
+        /* Ajoute des coins arrondis */
+        transform: scale(1.1);
+        /* Agrandit légèrement l'image */
+        transition: transform 0.3s ease;
+        /* Animation de transition fluide */
+    }
+
+    .product-detail-content .tab-pane.fade.show.active .img-fluid:hover {
+        transform: scale(1.15);
+        /* Augmente encore la taille de l'image au survol */
+    }
+
+    @keyframes blink {
+        0% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .blinking {
+        animation: blink 1s infinite;
+    }
+</style>

@@ -1,0 +1,53 @@
+.nav-wizard {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+}
+
+.circle {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    text-align: center;
+    line-height: 30px;
+    position: relative;
+}
+
+.highlight {
+    background-color: red;
+}
+
+.line {
+    height: 2px;
+    width: 40px; /* Longueur de la ligne */
+    background-color: #ccc;
+}
+
+li {
+    position: relative;
+}
+
+.line {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.line:nth-child(odd) {
+    right: -20px; /* Position de la ligne à droite */
+}
+
+.line:nth-child(even) {
+    left: -20px; /* Position de la ligne à gauche */
+}
+.half-width {
+    width: 50%;
+}
+.custom-width {
+    max-width: 800px; /* Ajustez la largeur selon vos besoins */
+    width: 80%; /* Utilisez une valeur en pourcentage ou en pixels pour la largeur */
+}

@@ -1,0 +1,96 @@
+<body>
+    <div class="background-image">
+        <div class="title">
+            <h1 style="color: black;">Welcome to Esprit Gather</h1> <!-- Title added in the middle -->
+        </div>
+        <div class="buttons-container">
+            
+            <div class="text-center">
+                <button class="btn btn-primary btn-block club-button" routerLink="/ClubRegister">Sign up as a Club</button>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary btn-block user-button"routerLink="/register">Sign up as a User</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const background = document.querySelector(".background-image");
+            const overlay = document.querySelector(".background-overlay");
+            const clubButton = document.querySelector(".club-button");
+            const userButton = document.querySelector(".user-button");
+
+            // Add hover effect to buttons
+            function addHoverEffect(button) {
+                button.addEventListener("mouseover", function() {
+                    button.style.backgroundColor = "#ff6666"; // Change color on hover to lighter red
+                });
+
+                button.addEventListener("mouseout", function() {
+                    button.style.backgroundColor = "#ff0000"; // Revert to original color (red)
+                });
+            }
+
+            // Add click effect to buttons
+            function addClickEffect(button) {
+                button.addEventListener("click", function() {
+                    button.style.transform = "scale(0.9)"; // Add scaling effect on click
+
+                    setTimeout(function() {
+                        button.style.transform = "scale(1)"; // Revert back to original size after a short delay
+                    }, 200); // Adjust the delay (in milliseconds) as needed
+                });
+            }
+
+            // Add hover and click effects to buttons
+            addHoverEffect(clubButton);
+            addHoverEffect(userButton);
+            addClickEffect(clubButton);
+            addClickEffect(userButton);
+
+            // Scroll event for the fade effect
+            window.addEventListener("scroll", function() {
+                let offset = window.pageYOffset;
+                let opacity = offset / 500; // Adjust the speed of the fade
+
+                // Limit the opacity to the range [0, 1]
+                opacity = Math.min(Math.max(opacity, 0), 1);
+
+                // Set the opacity of the overlay
+                overlay.style.opacity = opacity.toFixed(2);
+            });
+        });
+    </script>
+
+<style>
+    .background-image {
+        background-image: url('../../assets/images/etudiants.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 100vh;
+        position: relative;
+    }
+
+    .background-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6); /* Réglage de l'opacité pour une teinte plus foncée */
+        
+    }
+
+    .title {
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: black; /* Couleur du texte */
+        text-align: center; /* Centrage horizontal */
+    }
+</style>
+
+</body>

@@ -1,0 +1,35 @@
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">List of Interactions</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-responsive-md">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Interaction ID</th>
+                                    <th scope="col">Liked</th>
+                                    <th scope="col">Disliked</th>
+                                    <th scope="col">Publication</th>
+                                    <th scope="col">User</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let interaction of interactions">
+                                    <td class="text-center">{{ interaction.idInteraction }}</td>
+                                    <td class="text-center">{{ interaction.liked }}</td>
+                                    <td class="text-center">{{ interaction.dislike }}</td>
+                                    <td class="text-center">{{ interaction.publication }}</td>
+                                    <td class="text-center">{{ interaction.user }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

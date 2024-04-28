@@ -1,0 +1,134 @@
+<html lang="en">
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="col-lg-12">
+
+
+
+
+
+            <div class="d-flex justify-content-center mb-5" *ngIf="id===0">
+                <a href="javascript:void()" data-toggle="modal" data-target="#EditAddManagement"
+                    class="btn btn-primary btn-event w-20" (click)="openModel()">
+                    <span class="align-middle"><i class="ti-plus"></i></span> Create New
+                </a>
+            </div>
+
+            <div>
+                <li>
+                    <h4> My Management details:</h4> 
+                </li>
+
+            </div>
+
+
+            <div class="row" *ngIf="id!==0">
+                <div class="col-lg-12 col-xl-17">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="menu-product d-flex">
+                                <div class="content-detail-wrap">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <h3 style="color: #B22222;">Nom de l'événement : {{ management.event.nameEvent }}</h3>
+                                                <div class="d-flex justify-content-end">
+                                                    <h3>
+                                                        {{ management.approuvement ? "Approuvé" : "Non approuvé" }}
+                                                        <svg *ngIf="management.approuvement; else notApproved" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2">
+                                                            <circle cx="12" cy="12" r="10"></circle>
+                                                            <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                                                            <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                                                            <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                                                        </svg>
+                                                        <ng-template #notApproved>
+                                                            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2">
+                                                                <circle cx="12" cy="12" r="10" style="fill: none; stroke: red;"></circle>
+                                                                <line x1="8" y1="8" x2="16" y2="16" style="stroke: red;"></line>
+                                                                <line x1="16" y1="8" x2="8" y2="16" style="stroke: red;"></line>
+                                                            </svg>
+                                                        </ng-template>
+                                                    </h3>
+                                                    
+                                                    
+                                                    <hr class="transparent-hr">
+
+                                                </div>
+                                                <hr class="transparent-hr">
+
+                                                <div class="d-flex justify-content-end">
+                                                    <div>
+                                                        <h5>du {{ management.event.dateStart | date:'MMM dd, yyyy à HH:mm' }}</h5>
+                                                        <h5>jusqu'à {{ management.event.dateFinish | date:'MMM dd, yyyy à HH:mm' }}</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row mt-4">
+                                            <div class="col-md-12">
+                                               
+                                                <h5 class="mb-0">La demande : </h5>
+                                                <h5 class="mb-0">{{ management.details }}</h5>
+                                                <hr class="transparent-hr">
+
+                                                <h5 class="mb-0">La salle allouée : </h5>
+                                                <h5 class="mb-0">{{ management.bloc === "" ? "" : management.bloc }} {{ management.classe === "" ? "Non traité" : management.classe }}</h5>
+                                            </div>
+                                            <hr class="transparent-hr">
+
+                                        </div>
+                                        <div class="row mt-4">
+                                            <div class="col-md-12 d-flex justify-content-end">
+                                                <button type="button" class="btn btn-warning me-2" data-toggle="modal" data-target="#EditAddManagement" (click)="openModel(management)">Modifier <span class="btn-icon-end"><i class="fa fa-star"></i></span></button>
+                                                <button type="button" class="btn btn-danger" (click)="deleteManagement(management.idManagement)">Supprimer <span class="btn-icon-end"><i class="fas fa-times"></i></span></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+
+            <!-- Modal -->
+
+
+            <div class="modal fade" id="EditAddManagement" tabindex="-1" event="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-xl" event="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Management</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Détails concernant la
+                                        demande :</span>
+                                </div>
+                                <input type="text" class="form-control" [(ngModel)]="newManagement.details">
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" *ngIf="creatingMode"
+                                    (click)="createManagement()">Create Management</button>
+                                <button type="button" class="btn btn-primary" *ngIf="!creatingMode"
+                                    (click)="modifyManagement()">Modify Management</button>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>

@@ -1,0 +1,5 @@
+.label-option {
+    font-size: 12px; /* Ajuste la taille de la police */
+    color: gray; /* Change la couleur du texte */
+    margin-left: 5px; /* Ajoute un espace à gauche du texte */
+}

@@ -1,0 +1,164 @@
+<html lang="en">
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="col-lg-12">
+
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Liste des équipements</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-responsive-md">
+                            <thead>
+                                <tr>
+                                    <th scope="col">type équipement</th>
+                                    <th scope="col">équipement</th>
+                                    <th scope="col">Quantité</th>
+                                    <th scope="col">Prix éstimé</th>
+                                    <th scope="col">Evenement concerné</th>
+                                    <th scope="col">Date administration</th>
+                                    <th scope="col">Aprouvement</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let equipement of equipement">
+                                    <td class="text-center">{{equipement.metric=="all"?"ND":equipement.metric}}</td>
+                                    <td class="text-center">{{equipement.equipement}}</td>
+                                    <td class="text-center">{{equipement.quantite}}
+                                        {{equipement.typeequip=="nothing"?"":equipement.typeequip}}</td>
+                                    <td class="text-center">{{equipement.price}} DT</td>
+                                    <td class="text-center">{{equipement.event.nameEvent}}</td>
+                                    <td class="text-center">{{equipement.datemeeting | date:'MMM dd, yyyy à HH:mm '}}
+                                    </td>
+                                    
+                                    
+                                    <td class="text-center">
+                                        <ng-container *ngIf="equipement.approuvement; else editButton">
+                                            Approuvé
+                                        </ng-container>
+                                        <ng-template #editButton>
+                                            <a class="btn btn-primary light px-3"
+                                                (click)="EditApprouvement(equipement)">
+                                                <i class="fa fa-shopping-basket me-2"></i>Approuvé?
+                                            </a>
+                                        </ng-template>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="d-flex justify-content-center">
+                                            <a type="button" class="btn btn-primary light px-3"
+                                                data-toggle="modal" data-target="#EditAddEquipement"
+                                                (click)="openModel(equipement)">
+                                                <i class="fa fa-shopping-basket me-2"></i>Edit?
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <br>
+                        <nav>
+                            <ul class="pagination pagination-gutter">
+                                <li class="page-item page-indicator">
+                                    <a class="page-link" href="javascript:void(0)" (click)="decrementPage()">
+                                        <i class="la la-angle-left"></i>
+                                    </a>
+                                </li>
+                                <li *ngFor="let chunk of equipementChunks; let i = index"
+                                    [class.active]="currentPage === i + 1" class="page-item">
+                                    <a class="page-link" href="javascript:void(0)" (click)="changePage(i + 1)">
+                                        {{ i + 1 }}
+                                    </a>
+                                </li>
+                                <li class="page-item page-indicator">
+                                    <a class="page-link" href="javascript:void(0)" (click)="incrementPage()">
+                                        <i class="la la-angle-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-equipement-charts></app-equipement-charts>
+        <div class="modal fade" id="EditAddEquipement" tabindex="-1" event="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl" event="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Equipement</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Date rendez vous
+                                    administrative</span>
+                            </div>
+                            <input type="text" class="form-control" [(ngModel)]="newEquipement.datemeeting">
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" *ngIf="creatingMode == true"
+                                (click)="createEquipement()">Create Equipement</button>
+                            <button type="button" class="btn btn-primary" *ngIf="creatingMode == false"
+                                (click)="modifyEquipement()">Modify Equipement</button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- Modal 
+        
+        <div class="modal fade" id="#EditAddEquipement" tabindex="-1" event="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl" event="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Feedback</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" *ngIf="creatingMode"
+                            >Create Equipement</button>
+                        <button type="button" class="btn btn-primary" *ngIf="!creatingMode"
+                            >Modify Equipement</button>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>

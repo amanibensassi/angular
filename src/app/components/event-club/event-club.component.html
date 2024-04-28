@@ -1,0 +1,538 @@
+<html lang="en">
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="col-lg-12">
+
+            <div class="shopping-cart  mb-2 me-3">
+                <a class="btn btn-primary text-white" data-toggle="modal" data-target="#EditAddevent"
+                    (click)="openModel()"><i class="fa fa-shopping-basket me-2"></i>Create New event</a>
+            </div>
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="card-title mb-0">Liste des événements</h4>
+                    <div>
+                        <button class="btn btn-outline-primary btn-xs mr-2" (click)="getAllEvents()">Upcoming events</button>
+                        <button class="btn btn-outline-primary btn-xs" (click)="showArchivedEvents()">Past events</button>
+                    </div>
+                </div>
+                
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-responsive-md">
+                            <thead>
+                                <tr>
+                                    <th><strong>Event Name</strong></th>
+                                    <th><strong>date Start</strong></th>
+                                    <th><strong>date Finish</strong></th>
+                                    <th><strong>Tickets</strong></th>
+                                    <th><strong>Place</strong></th>
+                                    <th><strong>Ticket</strong></th>
+
+                                    <th><strong>Price</strong></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let event of getEventsForPage(currentPage)">
+                                    <td>{{ event.nameEvent }}</td>
+                                    <td class="text-center">{{ event.dateStart | date }}</td>
+                                    <td class="text-center">{{ event.dateFinish | date }}</td>
+                                    <td class="text-center">{{ event.nbt }}</td>
+                                    <td class="text-center">{{ event.place }}</td>
+                                    <td class="text-center">{{ event.typeticket }}</td>
+                                    <td class="text-center">{{ event.price }}</td>
+
+                                    <td class="text-center">
+                                        <div class="btn-group mb-1">
+
+
+                                            <button type="button" class="btn btn-primary light px-3" data-toggle="modal"
+                                                data-target="#EditAddevent" (click)="openModel(event)"><i
+                                                    class="fa fa-exclamation-circle"></i></button>
+
+
+                                            <button type="button" class="btn btn-primary light px-3" data-toggle="modal"
+                                                [attr.data-target]="'#delete-' + event.idEvent">
+                                                <i class="fa fa-trash"></i> Delete Event
+                                            </button>
+                                            <button type="button" class="btn btn-primary light px-3" data-toggle="modal"
+                                                [attr.data-target]="'#details-' + event.idEvent">
+                                                Details
+                                            </button>
+
+                                            <a class="btn btn-primary light px-3 nav-link"
+                                                routerLink="/tickets/{{ event.idEvent }}">
+                                                tickets
+                                            </a>
+                                            <button type="button" class="btn btn-primary light px-3" data-toggle="modal" data-target="#EditAddtask" (click)="selectEvent(event.idEvent)">
+                                                Add Task
+                                            </button>
+
+
+                                        </div>
+                                    </td>
+                                    <div class="modal fade" [id]="'delete-' + event.idEvent" tabindex="-1" role="dialog"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Delete Event</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Are you sure you want to delete this event?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary"
+                                                        (click)="deleteEvent(event.idEvent)">Delete Event</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="modal fade" [id]="'details-' + event.idEvent" tabindex="-1"
+                                        role="dialog" aria-labelledby="detailsLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="detailsLabel">{{ event.nameEvent }}
+                                                    </h5>
+
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <img class="img-fluid"
+                                                                src="../../../assets/images/{{ event.imagePath }}"
+                                                                alt="">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="product-detail-content">
+                                                                <h1>{{ event.place }}</h1>
+
+                                                                <div class="d-table mb-1">
+                                                                    <p class="price float-start d-block">{{ event.price
+                                                                        }} TND</p>
+                                                                </div>
+
+                                                               
+                                                                <br>
+                                                                <h4>Availability : {{ event.nbt }} </h4>
+                                                                <h4>Event Type : {{ event.typeEvent }} </h4>
+
+                                                                <span *ngIf="event.nbt > 0; else soldOut">
+                                                                    <span class="badge badge-success">Available<span
+                                                                            class="ms-1 fa fa-check"></span></span>
+                                                                </span>
+                                                                <ng-template #soldOut>
+                                                                    <span class="badge badge-primary">Sold out<span
+                                                                            class="ms-1 fa fa-redo"></span></span>
+                                                                </ng-template>
+                                                                <p>Start at :</p>
+                                                                <span class="badge badge-success light">{{
+                                                                    event.dateStart | date}}</span>
+                                                                <p>End at : </p>
+                                                                <span class="badge badge-success light">{{
+                                                                    event.dateFinish | date}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <div class="col-md-12">
+                                                            <br>
+                                                            <div class="product-detail-content">
+                                                                <h1>Description of the event : </h1>
+                                                                <br>
+
+                                                                <p class="description">{{ event.description }}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+
+
+
+
+                                                <div class="btn-group mb-1" style="width: 80%; margin: 0 auto;">
+                                                    <button type="button"
+                                                        class="btn btn-primary light px-3" routerLink="/management-user/{{event.idEvent}}">Management</button>
+                                                    <button type="button"
+                                                        class="btn btn-primary light px-3"  routerLink="/tasksuser/{{event.idEvent}}">Tasks</button>
+                                                    <button type="button"
+                                                        class="btn btn-primary light px-3" routerLink="/equipement-history-user/{{event.idEvent}}">Equipements</button>
+                                                    <button type="button"
+                                                        class="btn btn-primary light px-3"  routerLink="/publication/user/{{event.idEvent}}">Publications</button>
+
+                                                </div>
+                                                <br>
+
+
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+
+
+
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+                        <br>
+                        <br>
+
+                        <br>
+
+                        <br>
+
+                        <br>
+
+                        <nav>
+                            <ul class="pagination pagination-gutter">
+                                <li class="page-item page-indicator">
+                                    <a class="page-link" href="javascript:void(0)" (click)="decrementPage()">
+                                        <i class="la la-angle-left"></i>
+                                    </a>
+                                </li>
+                                <li *ngFor="let chunk of eventsChunks; let i = index"
+                                    [class.active]="currentPage === i + 1" class="page-item">
+                                    <a class="page-link" href="javascript:void(0)" (click)="changePage(i + 1)">
+                                        {{ i + 1 }}
+                                    </a>
+                                </li>
+                                <li class="page-item page-indicator">
+                                    <a class="page-link" href="javascript:void(0)" (click)="incrementPage()">
+                                        <i class="la la-angle-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="EditAddevent" tabindex="-1" event="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered custom-width" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Event</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="d-flex justify-content-center">
+
+                            <div id="smartwizard" class="form-wizard order-create">
+                                <ul class="nav nav-wizard">
+                                    <li *ngFor="let section of [1, 2, 3, 4]; let i = index">
+                                        <a class="nav-link" [class.inactive]="currentSection !== i + 1"
+                                            [class.done]="currentSection === i + 1"
+                                            (click)="setCurrentSection(i + 1)">
+                                            <span class="circle" [ngClass]="{'highlight': currentSection === i + 1}">{{
+                                                i + 1 }}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+                        <div *ngIf="currentSection === 1" class="d-flex justify-content-center">
+                            <div class="col-md-8">
+                                <label for="validationServer01" class="form-label">Event Name</label>
+                                <input type="text" class="form-control" [(ngModel)]="newEvent.nameEvent" required
+                                    (blur)="nameEventTouched = true"
+                                    [ngClass]="{'is-valid': newEvent.nameEvent && nameEventTouched, 'is-invalid': !newEvent.nameEvent}">
+                                <!-- Feedback pour le champ "Event Name" -->
+                                <div class="valid-feedback" *ngIf="newEvent.nameEvent && nameEventTouched">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback" *ngIf="!newEvent.nameEvent">
+                                    Event Name is required!
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div *ngIf="currentSection === 1" class="d-flex justify-content-center">
+                            <div class="col-md-8">
+                                <label for="validationServer01" class="form-label">Event Description</label>
+                                <input type="text" class="form-control" [(ngModel)]="newEvent.description" required
+                                    (blur)="nameEventTouched = true"
+                                    [ngClass]="{'is-valid': newEvent.description && nameEventTouched, 'is-invalid': !newEvent.description}">
+                                <!-- Feedback pour le champ "Event Name" -->
+                                <div class="valid-feedback" *ngIf="newEvent.description && nameEventTouched">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback" *ngIf="!newEvent.description">
+                                    Event Description is required!
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div *ngIf="currentSection === 2" class="d-flex justify-content-center">
+                            <div class="col-md-8">
+                                <label for="validationServer01" class="form-label">Place</label>
+                                <input type="text" class="form-control" [(ngModel)]="newEvent.place" required
+                                    (blur)="nameEventTouched = true"
+                                    [ngClass]="{'is-valid': newEvent.place && nameEventTouched, 'is-invalid': !newEvent.place}">
+                                <!-- Feedback pour le champ "Event Name" -->
+                                <div class="valid-feedback" *ngIf="newEvent.place && nameEventTouched">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback" *ngIf="!newEvent.place">
+                                    Event place is required!
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div *ngIf="currentSection === 2" class="d-flex justify-content-center">
+                            <div class="col-md-8">
+                                <label for="validationServer01" class="form-label">Image</label>
+                                <input input type="file" class="form-control" (change)="onFileSelected($event)"
+                                    [(ngModel)]="newEvent.imagePath" required (blur)="nameEventTouched = true"
+                                    [ngClass]="{'is-valid': newEvent.imagePath && nameEventTouched, 'is-invalid': !newEvent.imagePath}">
+                                <!-- Feedback pour le champ "Event Name" -->
+                                <div class="valid-feedback" *ngIf="newEvent.imagePath && nameEventTouched">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback" *ngIf="!newEvent.imagePath">
+                                    Event Image is required!
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div *ngIf="currentSection === 3" class="d-flex justify-content-center">
+                            <div class="col-md-8">
+                                <label for="validationServer01" class="form-label">number of tickets</label>
+                                <input input type="number" class="form-control" [(ngModel)]="newEvent.nbt" required
+                                    (blur)="nameEventTouched = true"
+                                    [ngClass]="{'is-valid': newEvent.nbt && nameEventTouched, 'is-invalid': !newEvent.nbt}">
+                                <!-- Feedback pour le champ "Event Name" -->
+                                <div class="valid-feedback" *ngIf="newEvent.nbt && nameEventTouched">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback" *ngIf="!newEvent.nbt">
+                                    Event nbt is required!
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                        <br>
+                        <div *ngIf="currentSection === 3" class="d-flex justify-content-center">
+                            <div class="col-md-4"> <!-- Utilisez la classe col-md-4 pour chaque liste déroulante -->
+                                <label for="validationServer01" class="form-label">Type of ticket</label>
+                                <select class="default-select form-control wide" [(ngModel)]="newEvent.typeticket"
+                                    (ngModelChange)="handleTicketTypeChange()" required (blur)="nameEventTouched = true"
+                                    [ngClass]="{'is-valid': newEvent.typeticket && nameEventTouched, 'is-invalid': !newEvent.typeticket}">
+                                    <option selected>Choose...</option>
+                                    <option value="payante">Payante</option>
+                                    <option value="nonPayante">Non payante</option>
+                                </select>
+                                <!-- Feedback pour le champ "Event Name" -->
+                                <div class="valid-feedback" *ngIf="newEvent.typeticket && nameEventTouched">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback" *ngIf="!newEvent.typeticket">
+                                    Event typeticket is required!
+                                </div>
+                            </div>
+                            <div class="col-md-4"> <!-- Utilisez la classe col-md-4 pour chaque liste déroulante -->
+                                <label for="validationServer01" class="form-label">Type of event</label>
+                                <select class="default-select form-control wide" [(ngModel)]="newEvent.typeEvent">
+                                    <option selected disabled>Choose...</option>
+                                    <option value="Academic">Academic</option>
+                                    <option value="Arts">Arts</option>
+                                    <option value="Sports">Sports</option>
+                                    <option value="Technology">Technology</option>
+                                    <option value="Environmental">Environmental</option>
+                                    <option value="Cultural">Cultural</option>
+                                    <option value="Volunteer">Volunteer</option>
+                                </select>                                          
+                            </div>
+                        </div>
+                        
+                        <br>
+                        <div *ngIf="currentSection === 3" class="d-flex justify-content-center">
+                            <div class="col-md-8" *ngIf="newEvent.typeticket === 'payante'">
+                                <label for="validationServer01" class="form-label">Price</label>
+                                <input input type="number" class="form-control" [(ngModel)]="newEvent.price" required
+                                    (blur)="nameEventTouched = true"
+                                    [ngClass]="{'is-valid': newEvent.price && nameEventTouched, 'is-invalid': !newEvent.price}">
+                                <div class="valid-feedback" *ngIf="newEvent.price && nameEventTouched">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback" *ngIf="!newEvent.price">
+                                    Event price is required!
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="currentSection === 4" class="d-flex justify-content-center">
+                            <div class="col-md-8">
+                                <label for="validationServer01" class="form-label">Date Start</label>
+                                <input type="date" class="form-control" [(ngModel)]="newEvent.dateStart" required
+                                    (blur)="nameEventTouched = true"
+                                    [ngClass]="{'is-valid': newEvent.dateStart && nameEventTouched, 'is-invalid': !newEvent.dateStart}"
+                                    min="{{ today | date: 'yyyy-MM-dd' }}">
+                                <div class="valid-feedback" *ngIf="newEvent.dateStart && nameEventTouched">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback" *ngIf="!newEvent.dateStart">
+                                    Event dateStart is required!
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div *ngIf="currentSection === 4" class="d-flex justify-content-center">
+                            <div class="col-md-8">
+                                <label for="validationServer01" class="form-label">Date Finish</label>
+                                <input type="date" class="form-control" [(ngModel)]="newEvent.dateFinish" required
+                                    [ngModelOptions]="{standalone: true}"
+                                    [ngClass]="{'is-valid': newEvent.dateFinish && newEvent.dateStart && newEvent.dateFinish > newEvent.dateStart, 'is-invalid': !newEvent.dateFinish || !newEvent.dateStart || newEvent.dateFinish <= newEvent.dateStart}"
+                                    min="{{ today | date: 'yyyy-MM-dd' }}">
+                                <div class="valid-feedback"
+                                    *ngIf="newEvent.dateFinish && newEvent.dateStart && newEvent.dateFinish > newEvent.dateStart">
+                                    Dates are valid!
+                                </div>
+                                <div class="invalid-feedback"
+                                    *ngIf="!newEvent.dateFinish || !newEvent.dateStart || newEvent.dateFinish <= newEvent.dateStart">
+                                    Finish date must be after start date!
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                        
+                        <br>
+                        
+                        
+                    </div>
+
+                    <div class="modal-footer">
+                        <!-- Bouton "Précédent" -->
+
+
+                        <!-- Bouton "Close" -->
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                        <!-- Bouton "Create Event" ou "Modify Event" -->
+                        <button type="button" class="btn btn-primary"
+                            [disabled]="!newEvent.dateFinish || !newEvent.dateStart || newEvent.dateFinish <= newEvent.dateStart"
+                            *ngIf="creatingMode && currentSection === 4" (click)="createEvent()">Create Event</button>
+                        <button type="button" class="btn btn-primary"
+                            [disabled]="!newEvent.dateFinish || !newEvent.dateStart || newEvent.dateFinish <= newEvent.dateStart"
+                            *ngIf="!creatingMode && currentSection === 4" (click)="modifyEvent()">Modify Event</button>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="EditAddtask" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Task {{selectedEventId}}  </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="taskName">Task Name</label>
+                            <input type="text" class="form-control" id="taskName" name="nameTask" [(ngModel)]="newTask.nameTask" placeholder="Enter task name">
+                        </div>
+          
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="taskStart">Start Date</label>
+                                    <input type="date" class="form-control" id="taskStart" name="taskStart" [(ngModel)]="newTask.taskStart">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="taskFinish">Finish Date</label>
+                                    <input type="date" class="form-control" id="taskFinish" name="taskFinish" [(ngModel)]="newTask.taskFinish">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="taskDetails">Task Details</label>
+                            <input type="text" class="form-control" id="taskDetails" name="taskDetails" [(ngModel)]="newTask.details" placeholder="Enter task details">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+          
+                        <div class="form-group">
+                            <label for="numVolunteers">Number of Volunteers Desired</label>
+                            <input type="number" class="form-control" id="numVolunteers" name="numVolunteers" [(ngModel)]="newTask.numberVolunteer" placeholder="Enter number of volunteers">
+                        </div>
+                    </div>
+                </div>
+                       <div class="form-group">
+                            <label for="taskSkills">Skills  </label>
+                            <select multiple class="form-control" id="taskSkills" name="taskSkills" [(ngModel)]="newTask.skills" style="width: 100%; height: 205px;">
+                                <option value="GESTION_LOGISTIQUE">+ Gestion Logistique</option>
+                                <option value="PROMOTION_ET_MARKETING">+ Promotion & Marketing</option>
+                                <option value="ANIMATION_ET_DIVERTISSEMENT">+ Animation & Divertissement</option>
+                                <option value="GESTION_DES_PARTICIPANTS">+ Gestion des Participants</option>
+                                <option value="COLLECTE_DE_FONDS">+ Collecte de Fonds</option>
+                                <option value="GESTION_DES_VOLONTAIRES">+ Gestion des Volontaires</option>
+                                <option value="GESTION_DES_SPECTACLES">+ Gestion des Spectacles</option>
+                                <option value="PLANIFICATION_STRATEGIQUE">+ Planification Stratégique</option>
+                                <option value="COORDINATION_DES_EQUIPES">+ Coordination des Équipes</option>
+                                <option value="NEGOCIATION_DES_PARTENARIATS">+ Négociation des Partenariats</option>
+                                <option value="SECURITE_ET_SAUVEGARDE">+ Sécurité et Sauvegarde</option>
+                                <option value="GESTION_DES_COMMUNICATIONS">+ Gestion des Communications</option>
+                                <option value="ANALYSE_DES_RETROACTIONS">+ Analyse des Rétroactions</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" (click)="createTask(selectedEventId)">Create Task</button>
+                    </div>
+                </div>
+            </div>
+          </div>
+          
+
+
+
+
+
+
+
+
+    </div>
+</div>
+
+
+</html>

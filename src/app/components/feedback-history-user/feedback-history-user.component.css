@@ -1,0 +1,64 @@
+.card {
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.menu-product {
+    margin-bottom: 20px;
+}
+
+.content-detail-wrap h4 {
+    color: #333;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.content-detail-wrap span {
+    color: #666;
+    font-size: 14px;
+}
+
+.content-detail-wrap h5 {
+    color: #333;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+.content-detail-wrap .text-danger {
+    color: #dc3545;
+}
+
+.btn {
+    padding: 8px 20px;
+    font-size: 14px;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #333;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+}
+
+.btn-icon-end {
+    margin-left: 5px;
+}
+
+
+.transparent-hr {
+    border: none;
+    height: 1px;
+    background: transparent;
+}

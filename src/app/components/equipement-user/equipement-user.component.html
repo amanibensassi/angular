@@ -1,0 +1,209 @@
+<html lang="en">
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="col-lg-12">
+
+           <div class="shopping-cart  mb-2 me-3">
+                <a class="btn btn-primary text-white" data-toggle="modal" data-target="#EditAddEquipement"
+                    (click)="openModel()"><i class="fa fa-shopping-basket me-2"></i>Create New Equipement</a>
+                    
+            </div>-
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Liste des équipements</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-responsive-md">
+                            <thead>
+                                <tr>
+                                    <th scope="col">type équipement</th>
+                                    <th scope="col">équipement</th>
+                                    <th scope="col">Quantité</th>
+                                    <th scope="col">Prix éstimé</th>
+                                    <th scope="col">détails</th>
+                                    <th scope="col">Evenement concerné</th>
+                                    <th scope="col">Date administration</th>
+                                    <th scope="col">Autre équipement</th>
+                                    <th scope="col">Aprouvement</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let equipement of equipement" >
+                                    <td class="text-center">{{equipement.metric=="all"?"ND":equipement.metric}}</td>
+                                    <td class="text-center">{{equipement.equipement}}</td>
+                                    <td class="text-center">{{equipement.quantite}} {{equipement.typeequip=="nothing"?"":equipement.typeequip}}</td>
+                                    <td class="text-center">{{equipement.price}} DT</td>
+                                    <td class="text-center">{{equipement.details}}</td>
+                                    <td class="text-center">{{equipement.event.nameEvent}}</td>
+                                    <td class="text-center">{{equipement.datemeeting  | date:'MMM dd, yyyy à HH:mm '}}</td>
+                                    <td class="text-center">{{equipement.other}}</td>
+                                    <td class="text-center">{{equipement.approuvement?"Aprouvé":"Non aprouvé"}}</td>
+                                    
+                                    <td class="text-center">
+                                        <div class="d-flex justify-content-center">
+                                          <a type="button" class="btn btn-primary shadow btn-xs sharp me-1"
+                                                data-toggle="modal" data-target="#EditAddEquipement"
+                                                (click)="openModel(equipement)">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                            <a type="button" class="btn btn-danger shadow btn-xs sharp"
+                                                (click)="deleteEquipement(equipement.idEquipmenet)">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                             </tr>   
+                                
+                            </tbody>
+                        </table>
+                        <br>
+                        <nav>
+                            <ul class="pagination pagination-gutter">
+                              <li class="page-item page-indicator">
+                                <a class="page-link" href="javascript:void(0)" (click)="decrementPage()">
+                                  <i class="la la-angle-left"></i>
+                                </a>
+                              </li>
+                              <li *ngFor="let chunk of equipementChunks; let i = index"
+                                  [class.active]="currentPage === i + 1" class="page-item">
+                                <a class="page-link" href="javascript:void(0)" (click)="changePage(i + 1)">
+                                  {{ i + 1 }}
+                                </a>
+                              </li>
+                              <li class="page-item page-indicator">
+                                <a class="page-link" href="javascript:void(0)" (click)="incrementPage()">
+                                  <i class="la la-angle-right"></i>
+                                </a>
+                              </li>
+                            </ul>
+                          </nav>
+                          
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="EditAddEquipement" tabindex="-1" event="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" event="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Equipement</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="input-group mb-3">
+                    <label class="input-group-text mb-0">type équipement</label>
+                    <select class="default-select form-control wide" [(ngModel)]="newEquipement.metric">
+                        <option value="nouriture">nouriture</option>
+                        <option value="equipement">equipement</option>
+                        <option value="projection">projection</option>
+                        <option value="all">autre</option>
+                    </select>
+                </div>
+
+
+                <div class="input-group mb-3" *ngIf="newEquipement.metric === 'nouriture'">
+                    <label class="input-group-text mb-0">équipement</label>
+                    <select class="default-select form-control wide" [(ngModel)]="newEquipement.equipement">
+                        <option value="eau">eau</option>
+                        <option value="sucré">sucré</option>
+                        <option value="salée">salée</option>
+                        <option value="soda">soda</option>
+                        <option value="jus">jus</option>
+                        <option value="sandwichs">sandwitch</option>
+                        <option value="pizza">pizza</option>
+                    </select>
+                </div>
+                <div class="input-group mb-3" *ngIf="newEquipement.metric === 'equipement'">
+                    <label class="input-group-text mb-0">équipement</label>
+                    <select class="default-select form-control wide" [(ngModel)]="newEquipement.equipement">
+                        <option value="impression">impression</option>
+                        <option value="cables">cables</option>
+                        <option value="tapi">tapi</option>
+                        <option value="feutre">feutre</option>
+                        <option value="stylo">stylo</option>
+                        <option value="papier">papier</option>
+                    </select>
+                </div>
+                <div class="input-group mb-3" *ngIf="newEquipement.metric === 'projection'">
+                    <label class="input-group-text mb-0">équipement</label>
+                    <select class="default-select form-control wide" [(ngModel)]="newEquipement.equipement">
+                        <option value="sono">sono</option>
+                        <option value="lumiere">lumiere</option>
+                        <option value="projecteur">projecteur</option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-3" *ngIf="newEquipement.metric === 'all'">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">autre équipement</span>
+                    </div>
+                    <input type="text" class="form-control" [(ngModel)]="newEquipement.other">
+                </div>
+                <div class="input-group mb-3">
+                    
+                    <label class="input-group-text mb-0">Type de métrique</label>
+                    <select class="default-select form-control wide" [(ngModel)]="newEquipement.typeequip"
+                        (ngModelChange)="handleTypeChange()">
+
+                     <!--  <option selected>Veuillez choisir...</option>-->
+                     <option selected value="nothing">pas de métrique</option>
+                        <option value="Bouteille">Bouteille</option>
+                        <option value="kg">kg</option>
+                        <option value="littre">littre</option>
+                        
+                    </select>
+                </div>
+
+                <div class="input-group mb-3" *ngIf=" newEquipement.typeequip !== 'nothing'">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Quantité</span>
+                    </div>
+                    <input type="text" class="form-control" [(ngModel)]="newEquipement.quantite">
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Prix Estimé</span>
+                        </div>
+                        <input type="text" class="form-control" [(ngModel)]="newEquipement.price">
+                    </div>
+                    <div class="input-group mb-3" >
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">plus de détails</span>
+                        </div>
+                        <input type="text" class="form-control" [(ngModel)]="newEquipement.details">
+                    </div>
+                    <div class="input-group mb-3">
+
+            <div class="modal-body">
+                      
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" *ngIf="creatingMode == true"
+                        (click)="createEquipement()">Create Equipement</button>
+                    <button type="button" class="btn btn-primary" *ngIf="creatingMode == false"
+                        (click)="modifyEquipement()">Modify Equipement</button>
+                </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+
+
+
+              
+        </div>
+    </div>
+
+
+
+

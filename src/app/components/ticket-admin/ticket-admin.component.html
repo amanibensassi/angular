@@ -1,0 +1,54 @@
+<html lang="en">
+
+<div class="content-body">
+    <div class="container-fluid">
+        
+
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">List Des Tickets</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-responsive-md">
+                        <thead>
+                            <tr>
+                                <th><strong>Event ID</strong></th>
+                                <th><strong>User ID</strong></th>
+                                <th><strong>Ticket ID</strong></th>
+                                <th><strong>Number Of Tickets</strong></th>
+                                <th><strong>Date Achat</strong></th>
+                                <th><strong>Payement</strong></th>
+                                <th><strong>Qr Code</strong></th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let ticket of tickets">
+                                <td>{{ ticket.event.idEvent }}</td>
+                                <td>{{ ticket.user.idUser }}</td>
+                                <td>{{ ticket.idTicket }}</td>
+                                <td>{{ ticket.nbts }}</td>
+                                <td>{{ ticket.dateAchat | date }}</td>
+                                <td>{{ ticket.typePay }}</td>
+                                <td><img [src]="ticket.qrCodeURL" alt="QR Code"></td>
+                                
+
+                               
+                            </tr>
+
+                        </tbody>
+                    </table>
+              
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>
+
+</html>

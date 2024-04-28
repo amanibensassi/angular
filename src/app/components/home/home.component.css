@@ -1,0 +1,76 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Background Styles */
+.background-image {
+    background-color: #f0f0f0;
+    background-image: url('/../../assets/images/11.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    animation: fadeIn 1.5s ease; /* Simplified animation */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Button Styles */
+.buttons-container {
+    margin-top: 20px;
+    position: relative; /* Ensure buttons are positioned relative to the container */
+    z-index: 2; /* Ensure buttons are above the overlay */
+}
+
+button {
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 5px;
+    background-color: #ff0000; /* Red button color */
+    transition: background-color 0.3s ease; /* Smooth transition */
+    animation: buttonScale 0.3s ease; /* Button animation */
+    font-family: Arial, sans-serif; /* Use the same font as the title */
+}
+
+button:hover {
+    background-color: #000000; /* Black button color on hover */
+}
+
+@keyframes buttonScale {
+    0% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Title Styles */
+.title {
+    text-align: left; /* Align the title text to the left */
+    position: absolute; /* Position the title absolutely */
+    top: 20px; /* Adjust the top position as needed */
+    left: 20px; /* Adjust the left position as needed */
+}
+
+.title h1 {
+    font-weight: bold; /* Make the title bold */
+    color: white; /* Set the color of the title text */
+}

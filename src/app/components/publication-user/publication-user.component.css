@@ -1,0 +1,125 @@
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.card-header {
+
+    padding: 10px 20px;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-footer {
+
+    padding: 10px 20px;
+}
+
+.card-footer-link {
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 16px;
+    margin-bottom: 0;
+}
+
+.card-footer-buttons {
+    text-align: center;
+}
+
+.btn {
+    margin-right: 10px;
+}
+
+
+/* Style pour le titre du modal */
+.modal-title {
+    font-weight: bold;
+}
+
+/* Style pour le corps du modal */
+.modal-body {
+    padding: 20px;
+}
+
+/* Style pour les boutons du modal */
+.modal-footer .btn {
+    margin-right: 10px;
+}
+
+/* Style pour le bouton de fermeture du modal */
+.modal-footer .close {
+    color: #000;
+}
+
+/* Style pour l'arrière-plan du modal */
+.modal-content {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Style pour l'arrière-plan du modal lorsqu'il est affiché */
+.modal-backdrop {
+    opacity: 0.5;
+    background-color: #000;
+}
+
+/* Style pour le modal centré */
+.modal-dialog {
+    margin: 0 auto;
+    max-width: 50%;
+}
+
+/* Style pour le conteneur principal du modal */
+.modal {
+    overflow-y: auto;
+}
+
+/* Style pour les bordures du modal */
+.modal-content {
+    border: none;
+}
+
+/* Style pour l'en-tête du modal */
+.modal-header {
+    background-color: #f0f2f5;
+    border-bottom: 1px solid #dee2e6;
+}
+
+/* Style pour les icônes de fermeture du modal */
+.close {
+    opacity: 1;
+    color: #000;
+}
+
+/* Style pour le bouton de fermeture du modal lorsqu'il est survolé */
+.close:hover {
+    color: #ff0000;
+}
+
+.card-footer {
+
+    border-top: 1px solid #dee2e6;
+    padding: 10px 20px;
+    position: relative;
+}
+
+.card-footer .date {
+    font-size: 14px;
+    color: #666;
+    position: absolute; /* Positionnement absolu */
+    top: 50%;
+    transform: translateY(-50%);
+    right: 20px; /* Ajustez selon vos besoins */
+}
+

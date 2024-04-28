@@ -1,0 +1,208 @@
+<html lang="en">
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="col-lg-12">
+
+
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="card-title mb-0">Liste des événements</h4>
+                    <div>
+                        <button class="btn btn-outline-primary btn-xs mr-2" (click)="getAllEvents()">Upcoming events</button>
+                        <button class="btn btn-outline-primary btn-xs" (click)="showArchivedEvents()">Past events</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-responsive-md">
+                            <thead>
+                                <tr>
+                                    <th><strong>Event Name</strong></th>
+                                    <th><strong>date Start</strong></th>
+                                    <th><strong>date Finish</strong></th>
+                                    <th><strong>Tickets</strong></th>
+                                    <th><strong>Place</strong></th>
+                                    <th><strong>Ticket</strong></th>
+
+                                    <th><strong>Price</strong></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let event of getEventsForPage(currentPage)">
+                                    <td>{{ event.nameEvent }}</td>
+                                    <td class="text-center">{{ event.dateStart | date }}</td>
+                                    <td class="text-center">{{ event.dateFinish | date }}</td>
+                                    <td class="text-center">{{ event.nbt }}</td>
+                                    <td class="text-center">{{ event.place }}</td>
+                                    <td class="text-center">{{ event.typeticket }}</td>
+                                    <td class="text-center">{{ event.price }}</td>
+
+                                    <td class="text-center">
+                                        <div class="btn-group mb-1">
+
+
+
+
+
+  
+                                            <button type="button" class="btn btn-primary light px-3" data-toggle="modal"
+                                                [attr.data-target]="'#details-' + event.idEvent">
+                                                Details
+                                            </button>
+
+                                            <a class="btn btn-primary light px-3 nav-link"
+                                                routerLink="/tickets/{{ event.idEvent }}">
+                                                tickets
+                                            </a>
+
+
+                                        </div>
+                                    </td>
+                  
+
+
+                                    <div class="modal fade" [id]="'details-' + event.idEvent" tabindex="-1"
+                                        role="dialog" aria-labelledby="detailsLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="detailsLabel">{{ event.nameEvent }}
+                                                    </h5>
+
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <img class="img-fluid"
+                                                                src="../../../assets/images/{{ event.imagePath }}"
+                                                                alt="">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="product-detail-content">
+                                                                <h1>{{ event.place }}</h1>
+
+                                                                <div class="d-table mb-1">
+                                                                    <p class="price float-start d-block">{{ event.price
+                                                                        }} TND</p>
+                                                                </div>
+                                                                <br>
+                                                                <h4>Availability : {{ event.nbt }} </h4>
+                                                                <span *ngIf="event.nbt > 0; else soldOut">
+                                                                    <span class="badge badge-success">Available<span
+                                                                            class="ms-1 fa fa-check"></span></span>
+                                                                </span>
+                                                                <ng-template #soldOut>
+                                                                    <span class="badge badge-primary">Sold out<span
+                                                                            class="ms-1 fa fa-redo"></span></span>
+                                                                </ng-template>
+                                                                <p>Start at :</p>
+                                                                <span class="badge badge-success light">{{
+                                                                    event.dateStart | date}}</span>
+                                                                <p>End at : </p>
+                                                                <span class="badge badge-success light">{{
+                                                                    event.dateFinish | date}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <div class="col-md-12">
+                                                            <br>
+                                                            <div class="product-detail-content">
+                                                                <h1>Description of the event : </h1>
+                                                                <br>
+
+                                                                <p class="description">{{ event.description }}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+
+
+
+
+                                                <div class="btn-group mb-1" style="width: 80%; margin: 0 auto;">
+                                                    <button type="button"
+                                                        class="btn btn-primary light px-3">Management</button>
+                                                    <button type="button"
+                                                        class="btn btn-primary light px-3">Tasks</button>
+                                                    <button type="button"
+                                                        class="btn btn-primary light px-3">Equipements</button>
+                                                
+
+                                                    <button type="button"
+                                                        class="btn btn-primary light px-3">Tasks</button>
+                                                </div>
+                                                <br>
+
+
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+
+
+
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+                        <br>
+                        <br>
+
+                        <br>
+
+                        <br>
+
+                        <br>
+
+                        <nav>
+                            <ul class="pagination pagination-gutter">
+                                <li class="page-item page-indicator">
+                                    <a class="page-link" href="javascript:void(0)" (click)="decrementPage()">
+                                        <i class="la la-angle-left"></i>
+                                    </a>
+                                </li>
+                                <li *ngFor="let chunk of eventsChunks; let i = index"
+                                    [class.active]="currentPage === i + 1" class="page-item">
+                                    <a class="page-link" href="javascript:void(0)" (click)="changePage(i + 1)">
+                                        {{ i + 1 }}
+                                    </a>
+                                </li>
+                                <li class="page-item page-indicator">
+                                    <a class="page-link" href="javascript:void(0)" (click)="incrementPage()">
+                                        <i class="la la-angle-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <app-ticket-charts></app-ticket-charts>
+
+
+        <!-- Modal -->
+
+
+
+
+
+
+
+
+
+
+    </div>
+</div>
+
+
+</html>

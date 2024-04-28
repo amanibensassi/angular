@@ -1,0 +1,170 @@
+<html lang="en">
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="col-lg-12">
+
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Liste des Managements</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-responsive-md">
+                            <thead>
+                                <tr>
+                                    <th scope="col">évenement concerné</th>
+                                    <th scope="col">Détails</th>
+
+                                    <th scope="col">Emplacement</th>
+                                    <th scope="col">Début de l'évènement</th>
+                                    <th scope="col">Fin de l'évènement</th>
+                                    <th scope="col">Aprouvement</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let management of management">
+                                    <td class="text-center">{{management.event.nameEvent}}</td>
+                                    <td class="text-center">{{management.details}}</td>
+                                    <!-- <td class="text-center">{{management.approuvement?"Aprouvé":"Non aprouvé"}}</td>c-->
+                                    <td class="text-center">{{management.bloc}}, {{management.classe}}</td>
+                                    <td class="text-center">{{ management.event.dateStart | date:'MMM dd, yyyy à HH:mm '
+                                        }}</td>
+                                    <td class="text-center">{{ management.event.dateFinish | date:'MMM dd, yyyy à HH:mm'
+                                        }}</td>
+                                    <td class="text-center">
+                                        <ng-container *ngIf="management.approuvement; else editButton">
+                                            Approuvé
+                                        </ng-container>
+                                        <ng-template #editButton>
+                                            <a class="btn btn-primary light px-3"
+                                                (click)="EditApprouvement(management)">
+                                                <i class="fa fa-shopping-basket me-2"></i>Approuvé?
+                                            </a>
+                                        </ng-template>
+                                    </td>
+
+                                    <td class="text-center">
+                                        <div class="d-flex justify-content-center">
+                                            <a type="button" class="btn btn-primary light px-3" data-toggle="modal"
+                                                data-target="#EditAddManagement" (click)="openModel(management)">
+                                                <i class="fa fa-pencil"></i>Edit?
+                                            </a>
+
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <br>
+                        <nav>
+                            <ul class="pagination pagination-gutter">
+                                <li class="page-item page-indicator">
+                                    <a class="page-link" href="javascript:void(0)" (click)="decrementPage()">
+                                        <i class="la la-angle-left"></i>
+                                    </a>
+                                </li>
+                                <li *ngFor="let chunk of ManagementChunks; let i = index"
+                                    [class.active]="currentPage === i + 1" class="page-item">
+                                    <a class="page-link" href="javascript:void(0)" (click)="changePage(i + 1)">
+                                        {{ i + 1 }}
+                                    </a>
+                                </li>
+                                <li class="page-item page-indicator">
+                                    <a class="page-link" href="javascript:void(0)" (click)="incrementPage()">
+                                        <i class="la la-angle-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+
+<app-management-charts></app-management-charts>
+        <div class="modal fade" id="EditAddManagement" tabindex="-1" event="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl" event="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Management</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text mb-0">Bloc</label>
+                        <select class="default-select form-control wide" [(ngModel)]="newManagement.bloc">
+
+                            <option selected>Veuillez choisir...</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                            <option value="E">E</option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text mb-0">La salle</label>
+                        <select class="default-select form-control wide" [(ngModel)]="newManagement.classe">
+
+                            <option selected>Veuillez choisir...</option>
+                            <option value="S001">S001</option>
+                            <option value="S002">S002</option>
+                            <option value="S003">S003</option>
+                            <option value="S004">S004</option>
+                            <option value="S005">S005</option>
+                            <option value="S006">S006</option>
+                            <option value="S007">S007</option>
+                            <option value="S008">S008</option>
+                            <option value="S009">S009</option>
+                            <option value="S010">S010</option>
+                            <option value="S101">S101</option>
+                            <option value="S102">S102</option>
+                            <option value="S103">S103</option>
+                            <option value="S104">S104</option>
+                            <option value="S105">S105</option>
+                            <option value="S106">S106</option>
+                            <option value="S107">S107</option>
+                            <option value="S108">S108</option>
+                            <option value="S109">S109</option>
+                            <option value="S110">S110</option>
+                            <option value="amphi">amphi</option>
+                            <option value="cours">cours</option>
+
+                        </select>
+                    </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" *ngIf="!creatingMode"
+                            (click)="modifyManagement()">Modify Management</button>
+                    </div>
+                    <div *ngIf="test" class="alert alert-primary alert-dismissible fade show">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                            <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                            <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                        </svg>
+                        <strong>Error!</strong> Cannot select more tickets than available.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,87 @@
+<html lang="en">
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Liste des feedbacks</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-responsive-md">
+                            <thead>
+                                <tr>
+                                  <th scope="col">Type</th>
+                                  <th scope="col">Titre</th>
+                                  <th scope="col">Corps</th>
+                                  <th scope="col">Note</th>
+                                    <th scope="col">Date du feedback</th>
+                                    <th scope="col">User</th>
+                                    <th scope="col">Traitement</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let feedback of feedbackChunks" >
+                                  <td class="text-center">{{feedback.serviceType}}</td>
+                                  <td class="text-center">{{feedback.title}}</td>
+                                  <td class="text-center">{{feedback.body}}</td>
+                                  <td class="text-center">{{feedback.note}}</td>
+                                    <td class="text-center">{{feedback.dateFeedback | date:'MMM dd, yyyy à HH:mm '}}</td>
+                                   
+                                    <td class="text-center">{{feedback.user.firstName}} {{feedback.user.lastName}}</td>
+                                    
+                                    <td class="text-center">
+                                        <ng-container *ngIf="feedback.datevu !== null; else showButton">
+                                          {{ feedback.datevu | date:'MMM dd, yyyy à HH:mm ' }}
+                                        </ng-container>
+                                        <ng-template #showButton>
+                                          <button class="btn btn-primary text-white" (click)="traitementFeedback(feedback)">
+                                            Traitement
+                                          </button>
+                                        </ng-template>
+                                      </td>
+                                      
+                                    <!--    <td class="text-center">{{feedback.datevu !==""?| date:'MMM dd, yyyy à HH:mm ' }}</td>-->
+                                    
+                             </tr>   
+                                
+                            </tbody>
+                        </table>
+                        <br>
+                        <nav>
+                            <ul class="pagination pagination-gutter">
+                              <li class="page-item page-indicator">
+                                <a class="page-link" href="javascript:void(0)" (click)="decrementPage()">
+                                  <i class="la la-angle-left"></i>
+                                </a>
+                              </li>
+                              <li *ngFor="let chunk of feedbackChunks; let i = index"
+                                  [class.active]="currentPage === i + 1" class="page-item">
+                                <a class="page-link" href="javascript:void(0)" (click)="changePage(i + 1)">
+                                  {{ i + 1 }}
+                                </a>
+                              </li>
+                              <li class="page-item page-indicator">
+                                <a class="page-link" href="javascript:void(0)" (click)="incrementPage()">
+                                  <i class="la la-angle-right"></i>
+                                </a>
+                              </li>
+                            </ul>
+                          </nav>
+                          
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+           
+
+
+
+
+        </div>
+    </div>
+
+</html>

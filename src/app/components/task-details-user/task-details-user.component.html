@@ -1,0 +1,327 @@
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <!--Tab slider End-->
+                            <div class="col-xl-9 col-lg-6 col-md-6 col-xxl-7 col-sm-12">
+                                <div class="product-detail-content">
+                                    <!--Product details-->
+                                    <div class="new-arrival-content pr">
+                                        <h1>{{task.nameTask}}</h1>
+                                        <p>Start at :</p>
+                                        <span class="badge badge-success light">{{task.taskStart | date}}</span>
+                                        <p>End at : </p>
+                                        <span class="badge badge-success light">{{task.taskFinish | date}}</span>
+
+
+                                        <p>Number of Volunteers desired : <span class="item">{{task.numberVolunteer}}
+                                            </span>
+                                        </p>
+
+                                        <div class="d-inline-block" *ngIf="list.length === 0">
+                                            <a *ngIf="!(task.numberVolunteer===0) && (role === 'user') && (task.event.idEvent) "
+                                                class="btn btn-secondary mr-2" data-toggle="modal"
+                                                data-target="#EditAddvolunteer" (click)="openModel()">Create New
+                                                volunteer<span class="btn-icon-end"><i
+                                                        class="fa fa-envelope"></i></span></a>
+                                        </div>
+
+
+                                        <div class="d-inline-block" *ngIf="role === 'club'">
+
+                                            <button type="button" class="btn btn-warning mr-2"
+                                                (click)="openDialog()">Show List
+                                                volunteer</button>
+
+                                        </div>
+
+                                        <div class="d-flex justify-content-center" class="btn-group mb-1"
+                                            *ngIf="role === 'club'">
+                                            <a type="button" class="btn btn-primary light px-3" data-toggle="modal"
+                                                data-target="#EditAddtask" (click)="openModel1(task)">
+                                                <i class="fa fa-pencil"></i> Edit
+                                            </a>
+                                            <a type="button" class="btn btn-primary light px-3"
+                                                (click)="deleteTask(task.idTask)">
+                                                <i class="fa fa-trash"></i> Delete
+                                            </a>
+                                        </div>
+
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-md-6 col-xxl-5">
+                                <!-- Tab panes -->
+                                <br>
+
+                                <div class="tab-content">
+                                    <h1>Description of the task : </h1>
+                                    <br>
+                                    <br>
+                                    <p class="description">{{task.details}}</p>
+                                </div>
+
+                                <div class="d-inline-flex align-items-center" *ngIf="list.length === 1">
+                                    <button *ngIf="!(task.numberVolunteer === 0) && (role === 'user')"
+                                        class="btn btn-secondary me-2" routerLink="/volunteer/{{id}}">
+                                        View my application
+                                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor"
+                                            stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                                            class="ms-2">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                                            <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                                            <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                                        </svg>
+                                    </button>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="EditAddtask" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Task</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="taskName">Task Name</label>
+                        <input type="text" class="form-control" id="taskName" name="taskName"
+                            [(ngModel)]="newTask.nameTask" placeholder="Enter task name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="taskStart">Start Date</label>
+                        <input type="date" class="form-control" id="taskStart" name="taskStart"
+                            [(ngModel)]="newTask.taskStart">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="taskFinish">Finish Date</label>
+                        <input type="date" class="form-control" id="taskFinish" name="taskFinish"
+                            [(ngModel)]="newTask.taskFinish">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="taskDetails">Task Details</label>
+                        <input type="text" class="form-control" id="taskDetails" name="taskDetails"
+                            [(ngModel)]="newTask.details" placeholder="Enter task details">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="numVolunteers">Number of Volunteers Desired</label>
+                        <input type="number" class="form-control" id="numVolunteers" name="numVolunteers"
+                            [(ngModel)]="newTask.numberVolunteer" placeholder="Enter number of volunteers">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="taskSkills">Skills</label>
+                        <select multiple class="form-control" id="taskSkills" name="taskSkills"
+                            [(ngModel)]="newTask.skills">
+                            <option value="GESTION_LOGISTIQUE">+ Gestion Logistique</option>
+                            <option value="PROMOTION_ET_MARKETING">+ Promotion & Marketing</option>
+                            <option value="ANIMATION_ET_DIVERTISSEMENT">+ Animation & Divertissement</option>
+                            <option value="GESTION_DES_PARTICIPANTS">+ Gestion des Participants</option>
+                            <option value="COLLECTE_DE_FONDS">+ Collecte de Fonds</option>
+                            <option value="GESTION_DES_VOLONTAIRES">+ Gestion des Volontaires</option>
+                            <option value="GESTION_DES_SPECTACLES">+ Gestion des Spectacles</option>
+                            <option value="PLANIFICATION_STRATEGIQUE">+ Planification Stratégique</option>
+                            <option value="COORDINATION_DES_EQUIPES">+ Coordination des Équipes</option>
+                            <option value="NEGOCIATION_DES_PARTENARIATS">+ Négociation des Partenariats</option>
+                            <option value="SECURITE_ET_SAUVEGARDE">+ Sécurité et Sauvegarde</option>
+                            <option value="GESTION_DES_COMMUNICATIONS">+ Gestion des Communications</option>
+                            <option value="ANALYSE_DES_RETROACTIONS">+ Analyse des Rétroactions</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" *ngIf="!creatingMode" (click)="editTask()">Modify
+                        Task</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="EditAddvolunteer" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Volunteer</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Volunteer Name</span>
+                        </div>
+                        <input type="text" class="form-control" [(ngModel)]="newVolunteer.nameVolunteer">
+                    </div>
+
+
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Reason</span>
+                        </div>
+                        <input type="text" class="form-control" [(ngModel)]="newVolunteer.reason">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Availability</span>
+                        </div>
+                        <select class="form-select" [(ngModel)]="newVolunteer.availabilityVolunteer">
+                            <option value="Full_time">Full-time</option>
+                            <option value="Part_time">Part-time</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">First Available Date</span>
+                        </div>
+                        <input type="date" class="form-control" [(ngModel)]="newVolunteer.firstDate">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Last Available Date</span>
+                        </div>
+                        <input type="date" class="form-control" [(ngModel)]="newVolunteer.lastDate">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Skills</span>
+                        </div>
+                        <select multiple class="form-control" [(ngModel)]="newVolunteer.skills">
+                            <option value="GESTION_LOGISTIQUE">Gestion Logistique</option>
+                            <option value="PROMOTION_ET_MARKETING">Promotion & Marketing</option>
+                            <option value="ANIMATION_ET_DIVERTISSEMENT">Animation & Divertissement</option>
+                            <option value="GESTION_DES_PARTICIPANTS">Gestion des Participants</option>
+                            <option value="COLLECTE_DE_FONDS">Collecte de Fonds</option>
+                            <!-- Ajoutez les autres compétences ici -->
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" (click)="createVolunteerByTask()">Create
+                        Volunteer</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <div *ngIf="showDialog" class="d-flex justify-content-center" style="width: 100%; ">
+        <app-volunteertask></app-volunteertask>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <style>
+        /* Ajoutez ces styles dans votre fichier CSS */
+
+        /* Ajustement de la largeur de la zone de contenu */
+        .product-detail-content {
+            padding: 20px;
+        }
+
+        /* Ajustement de la taille du badge */
+        .badge {
+            padding: 8px 12px;
+            font-size: 14px;
+        }
+
+        /* Ajustement de la position du badge */
+        .badge-success.light {
+            position: relative;
+            top: -2px;
+        }
+
+        /* Ajustement de l'espacement entre les éléments */
+        .mb-2 {
+            margin-bottom: 10px;
+        }
+
+        /* Ajustement de la position du bouton "Buy a ticket" */
+        .shopping-cart {
+            margin-top: 20px;
+        }
+
+        /* Ajustement de la taille de la description de l'événement */
+        .tab-content h4,
+        .tab-content p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .tab-content p.description {
+            font-size: 16px;
+            /* Modifiez la taille de la police selon vos préférences */
+            line-height: 1.8;
+            /* Modifiez l'espacement entre les lignes selon vos préférences */
+        }
+
+        .col-push-right {
+            margin-left: 10px;
+            /* Ajustez la valeur selon vos besoins */
+        }
+    </style>
