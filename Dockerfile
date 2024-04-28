@@ -1,12 +1,13 @@
-
-#stage 1
-FROM node:20.11 as node
+FROM node:20 AS build
 WORKDIR /app
-COPY . .
+COPY package*.json ./
+RUN npm cache clean --force
 RUN npm install
-RUN npm run build --prod
+COPY . .
+RUN npm run build
 
-#stage 2
 FROM nginx:alpine
-COPY src/nginx/etc/conf.d/default.conf /etc/nginx/conf.d/default.conf
-COPY --from=node /app/dist/angular-frontend /usr/share/nginx/html
+COPY src/nginx/etc/conf.d/default.conf etc/nginx/conf.d/default.conf
+COPY --from=build /app/dist/back-test /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
