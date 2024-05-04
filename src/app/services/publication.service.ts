@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class PublicationService {
-  readonly API_URL = 'http://localhost:8089/espritgather/publication';
+  readonly API_URL = 'http://angular-service:8089/espritgather/publication';
 
   constructor(private router: Router, private httpClient: HttpClient) {}
 
