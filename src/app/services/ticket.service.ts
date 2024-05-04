@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class TicketService {
-  readonly API_URL = 'http://localhost:8089/espritgather/ticket';
+  readonly API_URL = 'http://angular-service:8089/espritgather/ticket';
   
   
   constructor(private router: Router,private httpClient: HttpClient) { }
