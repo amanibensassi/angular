@@ -40,6 +40,7 @@ export class ManagementUserComponent {
        this.managementService.getManagement(this.id).subscribe(data => {
         
         this.management = data;
+        //ajout window reload
       });}
       });
      

@@ -1,9 +1,14 @@
 .label {
-    font-size: 1.2rem;
-    color: #a42121; /* Couleur bleue */
+  font-size: 1.2rem;
+  color: #a42121; /* Couleur bleue */
 }
 
 .item {
-    font-size: 1.2rem;
-    color: #28a745; /* Couleur verte */
+  font-size: 1.2rem;
+  color: #28a745; /* Couleur verte */
+}
+.vertical-line {
+  border-left: 2px solid green; /* Bordure à gauche pour simuler la ligne verticale */
+  height: 80px; /* Hauteur de la ligne */
+  margin: 0 20px; /* Marge pour espacer la ligne des éléments adjacents */
 }

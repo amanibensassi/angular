@@ -1,96 +1,113 @@
-<body>
-    <div class="background-image">
-        <div class="title">
-            <h1 style="color: black;">Welcome to Esprit Gather</h1> <!-- Title added in the middle -->
-        </div>
-        <div class="buttons-container">
-            
-            <div class="text-center">
-                <button class="btn btn-primary btn-block club-button" routerLink="/ClubRegister">Sign up as a Club</button>
-            </div>
-            <div class="text-center">
-                <button class="btn btn-primary btn-block user-button"routerLink="/register">Sign up as a User</button>
-            </div>
-        </div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to EspritGather</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative; /* Position relative pour positionner l'image absolue */
+      }
+
+      .title {
+        font-size: 3em;
+        margin-bottom: 20px;
+        text-align: center;
+        color: black;
+        position: relative; /* Ajout de la position relative */
+        z-index: 1;
+      }
+
+      .buttons-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative; /* Ajout de la position relative */
+        z-index: 1;
+      }
+
+      .btn {
+        font-size: 1.5em;
+        padding: 15px 40px;
+        margin-bottom: 20px;
+      }
+
+      /* Style pour les logos */
+      .logo {
+        position: absolute;
+        top: 10px; /* Ajustez la position verticale selon vos besoins */
+        left: 10px; /* Ajustez la position horizontale selon vos besoins */
+        width: 150px; /* Ajustez la largeur selon vos besoins */
+        height: auto;
+        z-index: 2; /* Garantit que l'image conserve son rapport hauteur/largeur */
+      }
+      .a {
+        position: absolute;
+        top: 70px; /* Ajustez la position verticale selon vos besoins */
+        left: 150px; /* Ajustez la position horizontale selon vos besoins */
+        width: 150px; /* Ajustez la largeur selon vos besoins */
+        height: auto; /* Garantit que l'image conserve son rapport hauteur/largeur */
+      }
+      .b {
+        position: absolute;
+        top: 70px; /* Ajustez la position verticale selon vos besoins */
+        left: 220px; /* Ajustez la position horizontale selon vos besoins */
+        width: 150px; /* Ajustez la largeur selon vos besoins */
+        height: auto;
+        color: #b22222; /* Garantit que l'image conserve son rapport hauteur/largeur */
+      }
+
+      .esprit {
+        color: black; /* Couleur du texte */
+      }
+
+      .gather {
+        color: #b22222; /* Couleur du texte */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Ajout des logos -->
+    <img
+      class="logo"
+      src="../assets/images/espritgather.png"
+      alt="EspritGather Logo"
+    />
+    <h3>
+      <span class="a">Esprit</span><span class="b">Gather</span>
+
+      <span class="esprit">Esprit</span><span class="gather">Gather</span>
+    </h3>
+
+    <!-- Contenu principal -->
+    <div class="title">
+      <h1>Welcome to EspritGather</h1>
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const background = document.querySelector(".background-image");
-            const overlay = document.querySelector(".background-overlay");
-            const clubButton = document.querySelector(".club-button");
-            const userButton = document.querySelector(".user-button");
+    <div class="buttons-container">
+      <button class="btn btn-primary club-button" routerLink="/ClubRegister">
+        Sign up as a Club
+      </button>
+      <button class="btn btn-primary user-button" routerLink="/register">
+        Sign up as a User
+      </button>
+      <div class="new-account mt-3">
+        <p>
+          Already have an account?
+          <a class="text-primary" routerLink="/login">Sign in</a>
+        </p>
+      </div>
+    </div>
 
-            // Add hover effect to buttons
-            function addHoverEffect(button) {
-                button.addEventListener("mouseover", function() {
-                    button.style.backgroundColor = "#ff6666"; // Change color on hover to lighter red
-                });
-
-                button.addEventListener("mouseout", function() {
-                    button.style.backgroundColor = "#ff0000"; // Revert to original color (red)
-                });
-            }
-
-            // Add click effect to buttons
-            function addClickEffect(button) {
-                button.addEventListener("click", function() {
-                    button.style.transform = "scale(0.9)"; // Add scaling effect on click
-
-                    setTimeout(function() {
-                        button.style.transform = "scale(1)"; // Revert back to original size after a short delay
-                    }, 200); // Adjust the delay (in milliseconds) as needed
-                });
-            }
-
-            // Add hover and click effects to buttons
-            addHoverEffect(clubButton);
-            addHoverEffect(userButton);
-            addClickEffect(clubButton);
-            addClickEffect(userButton);
-
-            // Scroll event for the fade effect
-            window.addEventListener("scroll", function() {
-                let offset = window.pageYOffset;
-                let opacity = offset / 500; // Adjust the speed of the fade
-
-                // Limit the opacity to the range [0, 1]
-                opacity = Math.min(Math.max(opacity, 0), 1);
-
-                // Set the opacity of the overlay
-                overlay.style.opacity = opacity.toFixed(2);
-            });
-        });
-    </script>
-
-<style>
-    .background-image {
-        background-image: url('../../assets/images/etudiants.jpg');
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        height: 100vh;
-        position: relative;
-    }
-
-    .background-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.6); /* Réglage de l'opacité pour une teinte plus foncée */
-        
-    }
-
-    .title {
-        position: absolute;
-        top: 30%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: black; /* Couleur du texte */
-        text-align: center; /* Centrage horizontal */
-    }
-</style>
-
-</body>
+    <!-- Logo 2 derrière le contenu principal -->
+  </body>
+</html>

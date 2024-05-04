@@ -43,9 +43,11 @@ import { TaskUserComponent } from './components/task-user/task-user.component';
 import { DetailsUserComponent } from './components/task-details-user/task-details-user.component';
 import { VolunteerUserComponent } from './components/volunteer-user/volunteer-user.component';
 import { VolunteerDetailsUserComponent } from './components/volunteer-details-user/volunteer-details-user.component';
+import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
+import { RestPasswordComponent } from './components/rest-password/rest-password.component';
 
 const routes: Routes = [
-
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'events', component: EventComponent },
   { path: 'eventsuser', component: EventUserComponent },
   { path: 'event/:idEvent', component: EventDetailsUserComponent },
@@ -67,15 +69,27 @@ const routes: Routes = [
   { path: 'interactions', component: InteractionComponent },
   { path: 'publication/user/:id', component: PublicationUserComponent },
   { path: 'publication/users/:id', component: PublicationUserDetailComponent },
-  { path: 'recrutementprocessuser/:idRecrutement', component: RecrutementprocessUserComponent },
-  { path: 'recrutementprocessdetailsuser/:idProcess', component: RecrutementprocessDetailsUserComponent },
-  { path: 'recrutementuserdetails/:idRecrutement', component: RecrutementDetailsUserComponent },
+  {
+    path: 'recrutementprocessuser/:idRecrutement',
+    component: RecrutementprocessUserComponent,
+  },
+  {
+    path: 'recrutementprocessdetailsuser/:idProcess',
+    component: RecrutementprocessDetailsUserComponent,
+  },
+  {
+    path: 'recrutementuserdetails/:idRecrutement',
+    component: RecrutementDetailsUserComponent,
+  },
   { path: 'feedback', component: FeedbackComponent },
   { path: 'equipement', component: EquipementComponent },
   { path: 'management', component: ManagementComponent },
   { path: 'management-user/:idEvent', component: ManagementUserComponent },
   { path: 'equipement-user', component: EquipementUserComponent },
-  { path: 'equipement-history-user/:idEvent', component: EquipementHistoryUserComponent },
+  {
+    path: 'equipement-history-user/:idEvent',
+    component: EquipementHistoryUserComponent,
+  },
   { path: 'feedback-history-user', component: FeedbackHistoryUserComponent },
   { path: 'feedback-user', component: FeedbackUserComponent },
   { path: 'tasks', component: TaskComponent },
@@ -83,17 +97,21 @@ const routes: Routes = [
   { path: 'task/:idTask', component: DetailsUserComponent },
   { path: 'volunteers', component: VolunteerComponent },
   { path: 'volunteersuser', component: VolunteerUserComponent },
-  { path: 'volunteer/:idVolunteer', component: VolunteerDetailsUserComponent },
+  {
+    path: 'volunteer/:idTask/:idVolunteer',
+    component: VolunteerDetailsUserComponent,
+  },
   { path: 'volunteerstask/:idTask', component: VolunteerTaskComponent },
   { path: 'home', component: HomeComponent },
-
+  { path: 'forgetpasswords', component: ForgetPasswordComponent },
+  { path: 'resetpassword', component: RestPasswordComponent },
 
   { path: 'error', component: ErrorComponent },
-  { path: '**', redirectTo: '/error' }
+  { path: '**', redirectTo: '/error' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

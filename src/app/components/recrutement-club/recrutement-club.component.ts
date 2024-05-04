@@ -1,53 +1,38 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Recrutement, RecrutementAvecSkills, Skill, SkillLevel } from 'src/app/models/recrutement';
+import { Recrutement } from 'src/app/models/recrutement';
 import { RecrutementService } from 'src/app/services/recrutement.service';
 
 @Component({
   selector: 'app-recrutement-club',
   templateUrl: './recrutement-club.component.html',
-  styleUrls: ['./recrutement-club.component.css']
+  styleUrls: ['./recrutement-club.component.css'],
 })
 export class RecrutementClubComponent {
   recrutements: any;
   newRecrutement: Recrutement = new Recrutement();
   creatingMode: boolean = true;
+  today = new Date().toISOString().split('T')[0];
 
   recrutementsChunks: any[] = [];
   currentPage: number = 1;
   selectedFile!: File;
-  id : any;
-  
-  
-  
-  skillValues = Object.values(Skill);
-  skillLevelValues = Object.values(SkillLevel);
-  addedSkills: { skill: Skill; level: SkillLevel }[] = [];
-  
-  constructor(private recrutementService: RecrutementService, private router: Router) {
-    this.getUserFromLocalStorage() ;
+  id: any;
+  requiredSkills: string[] = [];
+
+  constructor(
+    private recrutementService: RecrutementService,
+    private router: Router
+  ) {
+    this.getUserFromLocalStorage();
     this.getAllRecrutements();
   }
   getUserFromLocalStorage() {
     const userString = localStorage.getItem('user');
     console.log(userString);
     const user = userString ? JSON.parse(userString) : null;
-    this.id = user ? user.idUser : "";
+    this.id = user ? user.idUser : '';
   }
-
-  getAllRecrutements() {
-    this.recrutementService.retrieveRecssByUser(this.id).subscribe(data => {
-      this.recrutements = data;
-      this.divideRecrutementsIntoChunks();
-    });
-  }
-
-  deleteRecrutement(idRecrutement: number) {
-    this.recrutementService.deleteRecrutement(idRecrutement).subscribe(() => {
-      this.recrutements = this.recrutements.filter((recrutement: any) => recrutement.idRecrutement !== idRecrutement);
-    });
-  }
-
 
   createRecrutement() {
     const newRecrutement = {
@@ -56,52 +41,76 @@ export class RecrutementClubComponent {
       dateStart: this.newRecrutement.dateStart,
       dateFinish: this.newRecrutement.dateFinish,
       niveau: this.newRecrutement.niveau,
-      // Add requiredSkills based on retrieved data from backend
-      requiredSkills: this.newRecrutement.requiredSkills || new Map<Skill, SkillLevel>(), // Use existing Map if populated, otherwise create a new one
+      requiredSkills: this.newRecrutement.requiredSkills, // Utiliser les compétences sélectionnées
     };
-  
-    // Loop through addedSkills and add them to the requiredSkills Map
-    this.addedSkills.forEach(skill => {
-      newRecrutement.requiredSkills.set(skill.skill, skill.level);
-    });
-  
-    this.recrutementService.addRecrutementByUser(newRecrutement,this.id).subscribe(() => {
+
+    this.recrutementService
+      .addRecrutementByUser(newRecrutement, this.id)
+      .subscribe(() => {
         this.newRecrutement = new Recrutement();
-        this.addedSkills =[];
+        this.requiredSkills = [];
         this.getAllRecrutements();
-        window.location.reload();
+      });
+  }
+
+  getAllRecrutements() {
+    this.recrutementService
+      .retrieveRecssByUser(this.id)
+      .subscribe((data: any) => {
+        // Filtrer les événements avec archive = false
+        this.recrutements = data.filter(
+          (recrutement: { archive: any }) => !recrutement.archive
+        );
+        this.divideRecrutementsIntoChunks();
+      });
+  }
+
+  showArchivedRecs() {
+    this.recrutementService
+      .retrieveRecssByUser(this.id)
+      .subscribe((data: any) => {
+        this.recrutements = data.filter(
+          (recrutement: { archive: any }) => recrutement.archive
+        );
+        this.divideRecrutementsIntoChunks();
+        //window.location.reload();
+      });
+  }
+
+  deleteRecrutement(idRecrutement: number) {
+    this.recrutementService.deleteRecrutement(idRecrutement).subscribe(() => {
+      this.recrutements = this.recrutements.filter(
+        (recrutement: any) => recrutement.idRecrutement !== idRecrutement
+      );
     });
-}
+  }
 
-getRequiredSkillsKeys(recrutement: any): string[] {
-  return Array.from(recrutement.requiredSkills.keys());
-}
-
-
+  getRequiredSkillsKeys(recrutement: any): string[] {
+    return Array.from(recrutement.requiredSkills.keys());
+  }
 
   modifyRecrutement() {
-    this.recrutementService.editRecrutement(this.newRecrutement).subscribe(() => {
-      
-      this.getAllRecrutements();
-      window.location.reload();
-    });
+    this.recrutementService
+      .editRecrutement(this.newRecrutement)
+      .subscribe(() => {
+        this.getAllRecrutements();
+        window.location.reload();
+      });
   }
 
   openModel(recrutement: Recrutement = new Recrutement()) {
     if (recrutement.idRecrutement == 0) {
+      this.creatingMode = true;
       this.newRecrutement = new Recrutement();
     } else {
       this.creatingMode = false;
       this.newRecrutement = recrutement;
-      this.recrutementService.getRecrutement(recrutement.idRecrutement)
-      .subscribe((retrievedRecrutement: object) => { // Cast to any (not recommended)
-        const requiredSkills = (retrievedRecrutement as RecrutementAvecSkills).requiredSkills;
-        this.newRecrutement.requiredSkills = requiredSkills || new Map<Skill, SkillLevel>();
-      });
+
+      // Assumant que la liste des compétences requises est une chaîne séparée par des virgules
     }
   }
-  
- /* openModel(recrutement: Recrutement = new Recrutement()) {
+
+  /* openModel(recrutement: Recrutement = new Recrutement()) {
     if (recrutement.idRecrutement === 0) {
       this.creatingMode = true;
       this.newRecrutement = new Recrutement();
@@ -135,29 +144,16 @@ getRequiredSkillsKeys(recrutement: any): string[] {
     const endIndex = startIndex + recrutementsPerPage;
     return this.recrutements.slice(startIndex, endIndex);
   }
-  
 
   incrementPage() {
     if (this.currentPage < this.recrutementsChunks.length) {
       this.currentPage++;
     }
   }
-  
+
   decrementPage() {
     if (this.currentPage > 1) {
       this.currentPage--;
     }
-  }
-  addSkill() {
-    console.log("Adding new skill...");
-    this.addedSkills.push({ skill: Skill.WRITTEN_COMMUNICATION, level: SkillLevel.NONE });
-    
-    
-}
-  
-
-  
-  removeSkill(index: number) {
-    this.addedSkills.splice(index, 1);
   }
 }

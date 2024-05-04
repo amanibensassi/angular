@@ -67,6 +67,12 @@ export class TicketService {
     return this.httpClient.get<any>(`${this.API_URL}/total-prices-by-event`);
   }
 
+  getTotalPricesByEventUser(userId: any){
+    return this.httpClient.get<any>(`${this.API_URL}/total-prices-by-event/${userId}`);
+
+  }
+  
+
 
 
 }

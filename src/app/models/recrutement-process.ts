@@ -1,34 +1,8 @@
-import { Recrutement } from "./recrutement";
-
-export enum Skill {
-  WRITTEN_COMMUNICATION = 'Written Communication',
-  ORAL_COMMUNICATION = 'Oral Communication',
-  TEAMWORK = 'Teamwork',
-  COLLABORATION = 'Collaboration',
-  PROJECT_MANAGEMENT = 'Project Management',
-  PROBLEM_SOLVING = 'Problem Solving',
-  ADAPTABILITY = 'Adaptability',
-  QUICK_LEARNING = 'Quick Learning',
-  CREATIVITY = 'Creativity',
-  INNOVATION = 'Innovation',
-  TIME_MANAGEMENT = 'Time Management',
-  PRIORITIZATION = 'Prioritization',
-  MARKETING_COMMUNICATION = 'Marketing Communication',
-  FINANCE_ACCOUNTING = 'Finance and Accounting',
-  HUMAN_RESOURCES = 'Human Resources',
-  ENGINEERING_CONSTRUCTION = 'Engineering and Construction',
-}
-
-export enum SkillLevel {
-  NONE = 'None',
-  BASIC = 'Basic',
-  INTERMEDIATE = 'Intermediate',
-  ADVANCED = 'Advanced',
-}
+import { Recrutement } from './recrutement';
 
 export class RecrutementProcess {
   idProcessRecrutement: number;
-  skills: Map<Skill, SkillLevel> = new Map();
+  skills: string[]; // Utilisation d'un ensemble pour les compétences
   whyToJoin: string;
   availability: string; // Full-time or Part-time
   integratedInOtherClubs: boolean;
@@ -42,13 +16,9 @@ export class RecrutementProcess {
     this.interviewDate = new Date();
     this.integratedInOtherClubs = false;
     this.availability = '';
-    // this.skills = new Map<Skill, SkillLevel>(); // Already set in the declaration
     this.whyToJoin = '';
     this.otherClubs = [];
     this.approved = false;
+    this.skills = []; // Initialisation de l'ensemble
   }
-}
-
-export interface RecrutementProcessAvecSkills extends RecrutementProcess {
-  skills: Map<Skill, SkillLevel>;
 }

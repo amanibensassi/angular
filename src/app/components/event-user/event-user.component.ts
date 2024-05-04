@@ -17,6 +17,9 @@ export class EventUserComponent implements OnInit {
   currentIndex: number = 0;
   selectedUser: any = {};
   type: string = '';
+  showCalendarComponent: boolean = false;
+  showEventsComponent: boolean = true;
+
   mostLikedEventType: string = ''; 
 id:any;
   cardWidth: number = 310;
@@ -35,6 +38,14 @@ eventsOfType: any;
     console.log(userString);
     const user = userString ? JSON.parse(userString) : null;
     this.id = user ? user.idUser : "";
+  }
+
+  showCalendar() {
+    this.showCalendarComponent = true;
+  }
+
+  showEventList() {
+    this.showCalendarComponent = false;
   }
 
   toggleFilterByPreferences(): void {

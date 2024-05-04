@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="row page-titles">
              <div>
-                <li><h4> Historique de mes feedbacks :</h4></li>
+                <li><h4> History of my feedbacks :</h4></li>
                 
          </div>
          <div class="row">
@@ -33,9 +33,9 @@
                                         <div class="col-md-12">
                                             <h4>{{feedback.title}}</h4>
                                             <span>{{feedback.body}}</span>
-                                            <h6 class="mb-0"><span class="fs-14 me-2">Ma note :</span>{{feedback.note}}</h6>
-                                            <h5 class="mb-0">Plus de détails : </h5>
-                                            <h5 class="mb-0">Traitée par l'administrateur le {{feedback.datevu | date:'MMM dd, yyyy à HH:mm '}}</h5>
+                                            <h6 class="mb-0"><span class="fs-14 me-2">My note :</span>{{feedback.note}}</h6>
+                                            <h5 class="mb-0">More details : </h5>
+                                            <h5 class="mb-0">Date of treatement: {{feedback.datevu | date:'MMM dd, yyyy à HH:mm '}}</h5>
                                         </div>
                                     </div>
                                     
@@ -86,20 +86,20 @@
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Titre du feedback</span>
+                        <span class="input-group-text" id="inputGroup-sizing-default">Title of feedback</span>
                     </div>
                     <input type="text" class="form-control" [(ngModel)]="newFeedback.title">
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Corps</span>
+                        <span class="input-group-text" id="inputGroup-sizing-default">Body</span>
                     </div>
                     <input type="text" class="form-control" [(ngModel)]="newFeedback.body">
                 </div>
 
                 <div class="input-group mb-3">
-                    <label class="input-group-text mb-0">Type</label>
+                    <label class="input-group-text mb-0">Note</label>
                     <select class="default-select form-control wide" [(ngModel)]="newFeedback.note">
                         <option value="mauvais">mauvais</option>
                         <option value="insuffisant">insuffisant</option>

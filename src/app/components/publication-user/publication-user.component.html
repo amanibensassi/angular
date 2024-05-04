@@ -1,110 +1,151 @@
 <div class="content-body">
-    <div class="container-fluid">
-        <div class="header-left d-flex justify-content-between">
-            <div class="nav-item">
-
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#EditAddPublication"
-                    (click)="openModel()">Create New Publication <span class="btn-icon-end"><i
-                            class="fa fa-envelope"></i></span>
-                </button>
-
-            </div>
-
-
-
-        </div>
-
-        <br>
-        <br>
-
-        <div class="row">
-            <div class="col-md-12" *ngFor="let publication of publications">
-                <div class="card" *ngIf="publication.event.idEvent == idEvent">
-                    <div class="card-header">
-                        <h6>{{ publication.user.firstName }} {{ publication.user.lastName }}</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-text">{{ publication.body }}</div>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between align-items-center" >
-                        <div *ngIf="role !== 'admin' && id == publication.user.idUser">
-                            <a type="button" class="btn tp-btn-light btn-warning" data-toggle="modal"
-                                data-target="#EditAddPublication" (click)="openModel(publication)">
-                                Edit
-                            </a>
-                            <a type="button" class="btn tp-btn-light btn-primary ms-2"
-                                (click)="deletePublication(publication.idPublication)">
-                                Delete
-                            </a>
-
-                        </div>
-                        <div>
-                            <a type="button" class="btn tp-btn-light btn-secondary"[routerLink]="['/publication/users', publication.idPublication]">Details !</a>
-
-                            <p class="card-text text-dark">{{ publication.datePublication | date }}</p>
-                        </div>
-                    </div>
-                    <hr>
-                </div>
-
-            </div>
-        </div>
-
-
-
-
-        <style>
-            .card {
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-            }
-
-            .card:hover {
-                transform: scale(1.05);
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            }
-
-            .gray-background {
-                background-color: #f7f7f7;
-            }
-        </style>
-
+  <div class="container-fluid">
+    <div class="header-left d-flex justify-content-between">
+      <div class="nav-item">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-toggle="modal"
+          data-target="#EditAddPublication"
+          (click)="openModel()"
+        >
+          Create New Publication
+          <span class="btn-icon-end"><i class="fa fa-envelope"></i></span>
+        </button>
+      </div>
     </div>
 
+    <br />
+    <br />
 
-
-
-
-
-
-
-    <div class="modal fade" id="EditAddPublication" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Publication</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Contenu</span>
-                        </div>
-                        <br>
-                        <input type="text" class="form-control" [(ngModel)]="newPublication.body">
-                    </div>
-                    
-                    <br>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" *ngIf="creatingMode"
-                        (click)="createPublication()">Save</button>
-                    <button type="button" class="btn btn-primary" *ngIf="!creatingMode"
-                        (click)="modifyPublication()">Update</button>
-                </div>
+    <div class="row">
+      <div class="col-md-12" *ngFor="let publication of publications">
+        <div class="card" *ngIf="publication.event.idEvent == idEvent">
+          <div class="card-header">
+            <h6>
+              {{ publication.user.firstName }} {{ publication.user.lastName }}
+            </h6>
+          </div>
+          <div class="card-body">
+            <div class="card-text">{{ publication.body }}</div>
+          </div>
+          <div
+            class="card-footer d-flex justify-content-between align-items-center"
+          >
+            <div *ngIf="role !== 'admin' && id == publication.user.idUser">
+              <a
+                type="button"
+                class="btn tp-btn-light btn-warning"
+                data-toggle="modal"
+                data-target="#EditAddPublication"
+                (click)="openModel(publication)"
+              >
+                Edit
+              </a>
+              <a
+                type="button"
+                class="btn tp-btn-light btn-primary ms-2"
+                (click)="deletePublication(publication.idPublication)"
+              >
+                Delete
+              </a>
             </div>
+            <div>
+              <a
+                type="button"
+                class="btn tp-btn-light btn-secondary"
+                [routerLink]="['/publication/users', publication.idPublication]"
+                >Details !</a
+              >
+
+              <p class="card-text text-dark">
+                {{ publication.datePublication | date }}
+              </p>
+            </div>
+          </div>
+          <hr />
         </div>
+      </div>
     </div>
+
+    <style>
+      .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .gray-background {
+        background-color: #f7f7f7;
+      }
+    </style>
+  </div>
+
+  <div
+    class="modal fade"
+    id="EditAddPublication"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">
+            Add a new publication
+          </h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Body</span>
+            </div>
+            <br />
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="newPublication.body"
+            />
+          </div>
+
+          <br />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            *ngIf="creatingMode"
+            (click)="createPublication()"
+            data-dismiss="modal"
+          >
+            Save
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            *ngIf="!creatingMode"
+            (click)="modifyPublication()"
+            data-dismiss="modal"
+          >
+            Update
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

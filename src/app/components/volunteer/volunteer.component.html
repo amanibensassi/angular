@@ -1,40 +1,39 @@
-
 <html lang="en">
-
-<div class="content-body">
+  <div class="content-body">
     <div class="container-fluid">
-        <div class="col-lg-12">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">List of volunteers</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-responsive-md">
+                <thead>
+                  <tr>
+                    <th scope="col">Volunter name</th>
 
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">List of volunteers </h4>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-responsive-md">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Volunter name</th>
+                    <th scope="col">Name Volunteer</th>
+                    <th scope="col">Approval</th>
+                    <th scope="col">Why do you want to join ?</th>
+                    <th scope="col">Availability</th>
+                    <th scope="col">Task</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="let volunteer of getVolunteersForPage(currentPage)"
+                  >
+                    <td class="text-center">{{ volunteer.user.firstName }}</td>
+                    <td class="text-center">{{ volunteer.nameVolunteer }}</td>
+                    <td class="text-center">{{ volunteer.approuvement }}</td>
+                    <td class="text-center">{{ volunteer.reason }}</td>
+                    <td class="text-center">
+                      {{ volunteer.availabilityVolunteer }}
+                    </td>
+                    <td class="text-center">{{ volunteer.task.nameTask }}</td>
 
-                                    <th scope="col">Name Volunteer</th>
-                                    <th scope="col">Approval</th>
-                                    <th scope="col">Why do you want to join ?</th>
-                                    <th scope="col">Availability</th>
-                                    <th scope="col">Task</th>
-
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let volunteer of getVolunteersForPage(currentPage)">
-                                    <td class="text-center">{{ volunteer.user.firstName }}</td>
-                                    <td class="text-center">{{ volunteer.nameVolunteer }}</td>
-                                    <td class="text-center">{{ volunteer.approuvement }}</td>
-                                    <td class="text-center">{{ volunteer.reason }}</td>
-                                    <td class="text-center">{{ volunteer.availabilityVolunteer }}</td>
-                                    <td class="text-center">{{ volunteer.task.nameTask }}</td>
-
-                                    <td class="text-center">
+                    <!--   <td class="text-center">
                                         <div class="d-flex justify-content-center" class="btn-group mb-1">
                                             <a type="button" class="btn btn-primary light px-3"
                                                 data-toggle="modal" data-target="#EditAddvolunteer"
@@ -46,127 +45,234 @@
                                                 <i class="fa fa-trash"></i> Delete
                                             </a>
                                         </div>
-                                    </td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                        <br>
-                        <nav>
-                            <ul class="pagination pagination-gutter">
-                              <li class="page-item page-indicator">
-                                <a class="page-link" href="javascript:void(0)" (click)="decrementPage()">
-                                  <i class="la la-angle-left"></i>
-                                </a>
-                              </li>
-                              <li *ngFor="let chunk of volunteersChunks; let i = index"
-                                  [class.active]="currentPage === i + 1" class="page-item">
-                                <a class="page-link" href="javascript:void(0)" (click)="changePage(i + 1)">
-                                  {{ i + 1 }}
-                                </a>
-                              </li>
-                              <li class="page-item page-indicator">
-                                <a class="page-link" href="javascript:void(0)" (click)="incrementPage()">
-                                  <i class="la la-angle-right"></i>
-                                </a>
-                              </li>
-                            </ul>
-                          </nav>
-
-                    </div>
-                </div>
+                                    </td>-->
+                  </tr>
+                </tbody>
+              </table>
+              <br />
+              <nav>
+                <ul class="pagination pagination-gutter">
+                  <li class="page-item page-indicator">
+                    <a
+                      class="page-link"
+                      href="javascript:void(0)"
+                      (click)="decrementPage()"
+                    >
+                      <i class="la la-angle-left"></i>
+                    </a>
+                  </li>
+                  <li
+                    *ngFor="let chunk of volunteersChunks; let i = index"
+                    [class.active]="currentPage === i + 1"
+                    class="page-item"
+                  >
+                    <a
+                      class="page-link"
+                      href="javascript:void(0)"
+                      (click)="changePage(i + 1)"
+                    >
+                      {{ i + 1 }}
+                    </a>
+                  </li>
+                  <li class="page-item page-indicator">
+                    <a
+                      class="page-link"
+                      href="javascript:void(0)"
+                      (click)="incrementPage()"
+                    >
+                      <i class="la la-angle-right"></i>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
             </div>
+          </div>
         </div>
+        <br />
+        <h4 class="centered">Volunteers Ranking</h4>
+        <br />
+        <br />
 
-        <!-- Modal -->
-        <div class="modal fade" id="EditAddvolunteer" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Volunteer</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Volunteer Name</span>
-                            </div>
-                            <input type="text" class="form-control" [(ngModel)]="newVolunteer.nameVolunteer">
-                        </div>
+        <div
+          class="centered"
+          *ngFor="let userCount of userVolunteerCounts; let i = index"
+        >
+          <p [class.first-volunteer]="i === 0 && userCount.count === 1">
+            {{ userCount.name }}: {{ userCount.count }}
+            <span *ngIf="i === 0">
+              <i class="fa-solid fa-star"></i>
+            </span>
+          </p>
+        </div>
+      </div>
 
-
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Reason</span>
-                            </div>
-                            <input type="text" class="form-control" [(ngModel)]="newVolunteer.reason">
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Availability</span>
-                            </div>
-                            <select class="form-select" [(ngModel)]="newVolunteer.availabilityVolunteer">
-                                <option value="Full_time">Full-time</option>
-                                <option value="Part_time">Part-time</option>
-                            </select>
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">First Available Date</span>
-                            </div>
-                            <input type="date" class="form-control" [(ngModel)]="newVolunteer.firstDate">
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Last Available Date</span>
-                            </div>
-                            <input type="date" class="form-control" [(ngModel)]="newVolunteer.lastDate">
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Skills</span>
-                            </div>
-                            <select multiple class="form-control" [(ngModel)]="newVolunteer.skills">
-                              <option value="GESTION_LOGISTIQUE">+ Gestion Logistique</option>
-                              <option value="PROMOTION_ET_MARKETING">+ Promotion & Marketing</option>
-                              <option value="ANIMATION_ET_DIVERTISSEMENT">+ Animation & Divertissement</option>
-                              <option value="GESTION_DES_PARTICIPANTS">+ Gestion des Participants</option>
-                              <option value="COLLECTE_DE_FONDS">+ Collecte de Fonds</option>
-                              <option value="GESTION_DES_VOLONTAIRES">+ Gestion des Volontaires</option>
-                              <option value="GESTION_DES_SPECTACLES">+ Gestion des Spectacles</option>
-                              <option value="PLANIFICATION_STRATEGIQUE">+ Planification Stratégique</option>
-                              <option value="COORDINATION_DES_EQUIPES">+ Coordination des Équipes</option>
-                              <option value="NEGOCIATION_DES_PARTENARIATS">+ Négociation des Partenariats</option>
-                              <option value="SECURITE_ET_SAUVEGARDE">+ Sécurité et Sauvegarde</option>
-                              <option value="GESTION_DES_COMMUNICATIONS">+ Gestion des Communications</option>
-                              <option value="ANALYSE_DES_RETROACTIONS">+ Analyse des Rétroactions</option>
-                            </select>
-                        </div>
-                    </div>
-
-
->
-
-
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" *ngIf="!creatingMode" (click)="modifyVolunteer()">Modify Volunteer</button>
-                    </div>
-                </div>
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="EditAddvolunteer"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+      >
+        <div
+          class="modal-dialog modal-dialog-centered modal-xl"
+          role="document"
+        >
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Volunteer</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
+            <div class="modal-body">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-sizing-default"
+                    >Volunteer Name</span
+                  >
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="newVolunteer.nameVolunteer"
+                />
+              </div>
+
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-sizing-default"
+                    >Reason</span
+                  >
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="newVolunteer.reason"
+                />
+              </div>
+
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-sizing-default"
+                    >Availability</span
+                  >
+                </div>
+                <select
+                  class="form-select"
+                  [(ngModel)]="newVolunteer.availabilityVolunteer"
+                >
+                  <option value="Full_time">Full-time</option>
+                  <option value="Part_time">Part-time</option>
+                </select>
+              </div>
+
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-sizing-default"
+                    >First Available Date</span
+                  >
+                </div>
+                <input
+                  type="date"
+                  class="form-control"
+                  [(ngModel)]="newVolunteer.firstDate"
+                />
+              </div>
+
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-sizing-default"
+                    >Last Available Date</span
+                  >
+                </div>
+                <input
+                  type="date"
+                  class="form-control"
+                  [(ngModel)]="newVolunteer.lastDate"
+                />
+              </div>
+
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-sizing-default"
+                    >Skills</span
+                  >
+                </div>
+                <select
+                  multiple
+                  class="form-control"
+                  [(ngModel)]="newVolunteer.skills"
+                >
+                  <option value="GESTION_LOGISTIQUE">
+                    + Gestion Logistique
+                  </option>
+                  <option value="PROMOTION_ET_MARKETING">
+                    + Promotion & Marketing
+                  </option>
+                  <option value="ANIMATION_ET_DIVERTISSEMENT">
+                    + Animation & Divertissement
+                  </option>
+                  <option value="GESTION_DES_PARTICIPANTS">
+                    + Gestion des Participants
+                  </option>
+                  <option value="COLLECTE_DE_FONDS">+ Collecte de Fonds</option>
+                  <option value="GESTION_DES_VOLONTAIRES">
+                    + Gestion des Volontaires
+                  </option>
+                  <option value="GESTION_DES_SPECTACLES">
+                    + Gestion des Spectacles
+                  </option>
+                  <option value="PLANIFICATION_STRATEGIQUE">
+                    + Planification Stratégique
+                  </option>
+                  <option value="COORDINATION_DES_EQUIPES">
+                    + Coordination des Équipes
+                  </option>
+                  <option value="NEGOCIATION_DES_PARTENARIATS">
+                    + Négociation des Partenariats
+                  </option>
+                  <option value="SECURITE_ET_SAUVEGARDE">
+                    + Sécurité et Sauvegarde
+                  </option>
+                  <option value="GESTION_DES_COMMUNICATIONS">
+                    + Gestion des Communications
+                  </option>
+                  <option value="ANALYSE_DES_RETROACTIONS">
+                    + Analyse des Rétroactions
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            >
+
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                *ngIf="!creatingMode"
+                (click)="modifyVolunteer()"
+              >
+                Modify Volunteer
+              </button>
+            </div>
+          </div>
         </div>
-
-
+      </div>
     </div>
-</div>
-
-
+  </div>
 </html>

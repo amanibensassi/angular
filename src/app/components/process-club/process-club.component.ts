@@ -1,51 +1,42 @@
 import { Component } from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
-import { RecrutementProcess, RecrutementProcessAvecSkills } from 'src/app/models/recrutement-process';
+import { RecrutementProcess } from 'src/app/models/recrutement-process';
 import { RecrutementprocessService } from 'src/app/services/recrutementprocess.service';
 import { formatDate } from '@angular/common';
 import { RecrutementComponent } from '../recrutement/recrutement.component';
 import { RecrutementService } from 'src/app/services/recrutement.service';
-import { Recrutement, Skill, SkillLevel } from 'src/app/models/recrutement';
+import { Recrutement } from 'src/app/models/recrutement';
 @Component({
   selector: 'app-process-club',
   templateUrl: './process-club.component.html',
-  styleUrls: ['./process-club.component.css']
+  styleUrls: ['./process-club.component.css'],
 })
 export class ProcessClubComponent {
-
   idRz: any;
   tickets: any[] = [];
   newTicket: any = {};
   creatingMode: boolean = true;
   event!: Event;
 
-
-
-
-
-
-
-
-
-
   skillSelectionPercentageChartOptions = {
     title: {
-      text: "Skill Selection Percentage"
+      text: 'Skill Selection Percentage',
     },
-    data: [{
-      type: "bar",
-      indexLabel: "{y}%",
-      yValueFormatString: "#,###K",
-      dataPoints: []
-    }]
+    data: [
+      {
+        type: 'bar',
+        indexLabel: '{y}%',
+        yValueFormatString: '#,###K',
+        dataPoints: [],
+      },
+    ],
   };
   processes: any;
   newRecrutementProcess: RecrutementProcess = new RecrutementProcess();
   //creatingMode: boolean = true;
   checkboxVisible: boolean = false;
-  otherClubsList
-    : string[] = ['Club 1', 'Club 2', 'Club 3']; // Remplacez avec les noms des autres clubs réels
+  otherClubsList: string[] = ['Club 1', 'Club 2', 'Club 3']; // Remplacez avec les noms des autres clubs réels
   showRecrutementForm: boolean = false;
   recrutementsprocessChunks: any[] = [];
   currentPage: number = 1;
@@ -53,10 +44,12 @@ export class ProcessClubComponent {
   selectedClubs: any = {};
   recrutement: Recrutement = new Recrutement();
   recId: any;
-  skillValues = Object.values(Skill);
-  skillLevelValues = Object.values(SkillLevel);
-  addedSkills: { skill: Skill; level: SkillLevel }[] = [];
-  constructor(private processService: RecrutementprocessService, private router: Router, private route: ActivatedRoute, private RecrutementService: RecrutementService) {
+  constructor(
+    private processService: RecrutementprocessService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private RecrutementService: RecrutementService
+  ) {
     //  this.getAllProcesses();
   }
   ngOnInit(): void {
@@ -70,8 +63,6 @@ export class ProcessClubComponent {
     this.processService.retrieveProcessesByRecrutement(idRecrutement).subscribe(
       (response: any) => {
         this.processes = response;
-
-
       },
       (error: any) => {
         console.error('Error fetching tickets by event:', error);
@@ -79,36 +70,14 @@ export class ProcessClubComponent {
     );
   }
 
-
   updateCheckboxVisibility() {
-    console.log('Integrated in Other Clubs value changed:', this.newRecrutementProcess.integratedInOtherClubs);
-    this.checkboxVisible = this.newRecrutementProcess.integratedInOtherClubs === true;
-
+    console.log(
+      'Integrated in Other Clubs value changed:',
+      this.newRecrutementProcess.integratedInOtherClubs
+    );
+    this.checkboxVisible =
+      this.newRecrutementProcess.integratedInOtherClubs === true;
   }
-
-
-
-
-
-
-
-
-
-
-  addSkill() {
-    console.log("Adding new skill...");
-    this.addedSkills.push({ skill: Skill.WRITTEN_COMMUNICATION, level: SkillLevel.NONE });
-
-
-  }
-
-
-
-  removeSkill(index: number) {
-    this.addedSkills.splice(index, 1);
-  }
-
-
 
   openModel(process: RecrutementProcess = new RecrutementProcess()) {
     if (process.idProcessRecrutement == 0) {
@@ -116,10 +85,10 @@ export class ProcessClubComponent {
     } else {
       this.creatingMode = false;
       this.newRecrutementProcess = process;
-      this.processService.getProcess(process.idProcessRecrutement)
-        .subscribe((retrievedprocess: object) => { // Cast to any (not recommended)
-          const Skills = (retrievedprocess as RecrutementProcessAvecSkills).skills;
-          this.newRecrutementProcess.skills = Skills || new Map<Skill, SkillLevel>();
+      this.processService
+        .getProcess(process.idProcessRecrutement)
+        .subscribe((retrievedprocess: object) => {
+          // Cast to any (not recommended)
         });
     }
   }
@@ -128,10 +97,12 @@ export class ProcessClubComponent {
   }
 
   divideRecrutementsIntoChunks() {
-    const chunkSize = 2;
+    const chunkSize = 5;
     this.recrutementsprocessChunks = [];
     for (let i = 0; i < this.processes.length; i += chunkSize) {
-      this.recrutementsprocessChunks.push(this.processes.slice(i, i + chunkSize));
+      this.recrutementsprocessChunks.push(
+        this.processes.slice(i, i + chunkSize)
+      );
     }
   }
 
@@ -141,7 +112,7 @@ export class ProcessClubComponent {
 
   getProcessesForPage(pageNumber: number): any[] {
     if (this.processes) {
-      const processesPerPage = 2;
+      const processesPerPage = 5;
       const startIndex = (pageNumber - 1) * processesPerPage;
       const endIndex = startIndex + processesPerPage;
       return this.processes.slice(startIndex, endIndex);
@@ -149,7 +120,6 @@ export class ProcessClubComponent {
       return []; // Ou tout autre comportement par défaut que vous souhaitez
     }
   }
-
 
   incrementPage() {
     if (this.currentPage < this.recrutementsprocessChunks.length) {

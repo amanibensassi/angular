@@ -25,7 +25,7 @@
 
                     <th>Address</th>
                     <th>Role</th>
-                    <th>Approuved</th>
+                  <!--  <th>Approuved</th> -->
 
                   </tr>
                 </thead>
@@ -41,7 +41,7 @@
                     <td class="py-2">{{user.telNumber}} </td>
                     <td class="py-2">{{user.address}}</td>
                     <td class="py-2 ">{{user.role}}</td>
-                    <td class="py-2">{{user.approuvement}} </td>
+                 <!--   <td class="py-2">{{user.approuvement}} </td>-->
 
                     <td class="py-2 text-end">
                       <div class="dropdown"><button class="btn btn-primary tp-btn-light sharp" type="button"
@@ -72,6 +72,21 @@
         </div>
       </div>
     </div>
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Statistiques</h4>
+      </div>
+      <div class="card-body">
+    <div *ngIf="chartOptions && chartOptions[0]">
+      <canvasjs-chart [options]="chartOptions[0]" id="pie-chart"></canvasjs-chart>
+    </div>
+    <br>
+    <br>
+    <div *ngIf="chartOptions && chartOptions[1]">
+      <canvasjs-chart [options]="chartOptions[1]" id="bar-chart"></canvasjs-chart>
+    </div>
+  </div>
+</div>
   </div>
 </div>
 

@@ -1,0 +1,44 @@
+.product-detail-content {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+}
+
+.new-arrival-content {
+  border: 0px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.tab-content {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+h1 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+h4 {
+  color: #555;
+  font-size: 18px;
+}
+
+p {
+  color: #777;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.item {
+  color: #555;
+  font-weight: bold;
+}
+
+.description {
+  color: #444;
+  font-size: 16px;
+}

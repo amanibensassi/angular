@@ -10,60 +10,73 @@
                                 <div class="product-detail-content">
                                     <!--Product details-->
                                     <div class="new-arrival-content pr">
-                                        
-                                        <div class="d-table mb-2">
-                                            <p class="price float-start d-block"> Availability: {{process.availability}} </p>
-                                        </div>
                                        
-                                        <p>Approuvement : <span class="item" > {{process.approved}} <p> </span>
-                                        </p>
-                                        <p>interview Start at :</p>
-                                            <span class="badge badge-success light">{{process.interviewDate| date}}</span>
-                                        
-                                 
-                                            <div class="d-flex align-items-end flex-wrap mt-4">
-                                               
-                                                <div class="me-2">
-                                                    <!-- Bouton de modification -->
-                                                    <a class="btn btn-info"  routerLink="/recrutementuser">View recrutements<span
-                                                    class="btn-icon-end"><i class="fa fa-heart"></i></span></a>
-                                                </div>
-                                                <div>
-                                                    <!-- Bouton de suppression avec modal de confirmation -->
-                                                    <button class="btn btn-danger nav-link" data-toggle="modal" data-target="#deleteConfirmationModal">Supprimer</button>
-                                                  </div>
-                                                  
+                                        <div role="tabpanel" class="tab-pane fade show active" id="first">
+                                            <img class="img-fluid" src="{{ process.imagePath }}" alt="" id="imageToDownload" data-toggle="modal" data-target="#imageModal">
+                                            <div class="d-inline-block"> <!-- Utilisation de d-inline-block pour aligner les boutons horizontalement -->
+                                                <button class="btn btn-primary mt-2 me-2" (click)="downloadAsPDF()">Télécharger en PDF</button>
+                                                <button class="btn btn-danger mt-2" data-toggle="modal" data-target="#aa">Zoom</button>
                                             </div>
+                                        </div>
+                                        
+                                        
 
-                                            <!-- Modal de confirmation de suppression -->
-<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirmation de suppression</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          Êtes-vous sûr de vouloir supprimer ce processus ?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-          <button type="button" class="btn btn-danger" (click)="confirmDelete()">Supprimer</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-                                            
+
+
+
+
+                                        <!-- Modal de confirmation de suppression -->
+                                        <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog"
+                                            aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="deleteConfirmationModalLabel">
+                                                            Confirmation de suppression</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Êtes-vous sûr de vouloir supprimer ce processus ?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Annuler</button>
+                                                        <button type="button" class="btn btn-danger"
+                                                            (click)="confirmDelete()">Supprimer</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal fade" id="aa" tabindex="-1" role="dialog" aria-labelledby="aa"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <img class="img-fluid" src="{{process.imagePath}}" alt=""
+                                                            data-toggle="modal" data-target="#imageModal">
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
                                     </div>
                                 </div>
                             </div>
-                            <div style="width: 600px;">
+                            <div style="width: 500px;margin-left: 100px; margin-top: 50px;">
                                 <!-- Tab panes -->
                                 <br>
-                                
+
                                 <div class="tab-content">
                                     <h1>Details of the interview Request : </h1>
                                     <br>
@@ -71,69 +84,97 @@
                                     <p class=""> Why To Join ? {{process.whyToJoin}}</p>
                                     <td class="text-center">
                                         <ul>
-                                          <li *ngFor="let skill of process.skills | keyvalue">
-                                            {{ skill.key }} : {{ skill.value }}
-                                          </li>
+                                            <li *ngFor="let skill of process.skills | keyvalue">
+                                                {{ skill.key }} : {{ skill.value }}
+                                            </li>
                                         </ul>
-                                      </td>
+                                    </td>
                                     <p class="">Availability : {{process.availability}}</p>
                                     <p class="">Interview Date : {{process.interviewDate |date}}</p>
                                     <p class=""> Am i integrated in other clubs ? {{process.integratedInOtherClubs}}</p>
+                                    <div class="d-table mb-2">
+                                        <p class="price float-start d-block"> Availability: {{process.availability}}
+                                        </p>
+                                    </div>
+
+                                    <p>Approuvement : <span class="item"> {{process.approved}} <p> </span>
+                                    </p>
+                                    <p>interview Start at :</p>
+                                    <span class="badge badge-success light">{{process.interviewDate| date}}</span>
+
+
+                                    <div class="d-flex align-items-end flex-wrap mt-4">
+
+                                        <div class="me-2">
+                                            <!-- Bouton de modification -->
+                                            <a class="btn btn-info" routerLink="/recrutementuser">View
+                                                recrutements<span class="btn-icon-end"><i
+                                                        class="fa fa-heart"></i></span></a>
+                                        </div>
+                                        <div>
+                                            <!-- Bouton de suppression avec modal de confirmation -->
+                                            <button class="btn btn-danger nav-link" data-toggle="modal"
+                                                data-target="#deleteConfirmationModal">Supprimer</button>
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
-</div>
 
-<style>
-    /* Ajoutez ces styles dans votre fichier CSS */
+    <style>
+        /* Ajoutez ces styles dans votre fichier CSS */
 
-/* Ajustement de la largeur de la zone de contenu */
-.product-detail-content {
-    padding: 20px;
-}
+        /* Ajustement de la largeur de la zone de contenu */
+        .product-detail-content {
+            padding: 20px;
+        }
 
-/* Ajustement de la taille du badge */
-.badge {
-    padding: 8px 12px;
-    font-size: 14px;
-}
+        /* Ajustement de la taille du badge */
+        .badge {
+            padding: 8px 12px;
+            font-size: 14px;
+        }
 
-/* Ajustement de la position du badge */
-.badge-success.light {
-    position: relative;
-    top: -2px;
-}
+        /* Ajustement de la position du badge */
+        .badge-success.light {
+            position: relative;
+            top: -2px;
+        }
 
-/* Ajustement de l'espacement entre les éléments */
-.mb-2 {
-    margin-bottom: 10px;
-}
+        /* Ajustement de l'espacement entre les éléments */
+        .mb-2 {
+            margin-bottom: 10px;
+        }
 
-/* Ajustement de la position du bouton "Buy a ticket" */
-.shopping-cart {
-    margin-top: 20px;
-}
+        /* Ajustement de la position du bouton "Buy a ticket" */
+        .shopping-cart {
+            margin-top: 20px;
+        }
 
-/* Ajustement de la taille de la description de l'événement */
-.tab-content h4,
-.tab-content p {
-    font-size: 14px;
-    line-height: 1.6;
-}
-.tab-content p.description {
-    font-size: 16px; /* Modifiez la taille de la police selon vos préférences */
-    line-height: 1.8; /* Modifiez l'espacement entre les lignes selon vos préférences */
-}
+        /* Ajustement de la taille de la description de l'événement */
+        .tab-content h4,
+        .tab-content p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
 
-.col-push-right {
-    margin-left: 10px; /* Ajustez la valeur selon vos besoins */
-}
+        .tab-content p.description {
+            font-size: 16px;
+            /* Modifiez la taille de la police selon vos préférences */
+            line-height: 1.8;
+            /* Modifiez l'espacement entre les lignes selon vos préférences */
+        }
 
-</style>
+        .col-push-right {
+            margin-left: 10px;
+            /* Ajustez la valeur selon vos besoins */
+        }
+    </style>

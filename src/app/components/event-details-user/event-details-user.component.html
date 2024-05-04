@@ -16,7 +16,7 @@
                             <div class="col-6">
                                 <div class="product-detail-content">
                                     <div role="tabpanel" class="tab-pane fade show active" id="first">
-                                        <img class="img-fluid" src="../../../assets/images/{{event.imagePath}}" alt="">
+                                        <img class="img-fluid" src="{{event.imagePath}}" alt="">
                                     </div>
 
                                     <br>
@@ -148,7 +148,7 @@
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Titre du
+                                <span class="input-group-text" id="inputGroup-sizing-default">Title of
                                     feedback</span>
                             </div>
                             <input type="text" class="form-control" [(ngModel)]="newFeedback.title">
@@ -156,13 +156,13 @@
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Corps</span>
+                                <span class="input-group-text" id="inputGroup-sizing-default">Body</span>
                             </div>
                             <input type="text" class="form-control" [(ngModel)]="newFeedback.body">
                         </div>
 
                         <div class="input-group mb-3">
-                            <label class="input-group-text mb-0">Type</label>
+                            <label class="input-group-text mb-0">Note</label>
                             <select class="default-select form-control wide" [(ngModel)]="newFeedback.note">
                                 <option value="mauvais">mauvais</option>
                                 <option value="insuffisant">insuffisant</option>

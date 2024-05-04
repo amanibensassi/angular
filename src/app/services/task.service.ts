@@ -5,12 +5,12 @@ import { Observable } from 'rxjs';
 import { Task } from '../models/task';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TaskService {
   readonly API_URL = 'http://localhost:8089/espritgather/task';
 
-  constructor(private router: Router, private httpClient: HttpClient) { }
+  constructor(private router: Router, private httpClient: HttpClient) {}
 
   getAllTasks(): Observable<Task[]> {
     return this.httpClient.get<Task[]>(`${this.API_URL}/retrieve-all-tasks`);
@@ -21,18 +21,29 @@ export class TaskService {
   }
 
   deleteTask(idTask: number): Observable<void> {
-    return this.httpClient.delete<void>(`${this.API_URL}/remove-task/${idTask}`);
+    return this.httpClient.delete<void>(
+      `${this.API_URL}/remove-task/${idTask}`
+    );
   }
 
   createTask(task: Task, idevent: number): Observable<Task> {
-    return this.httpClient.post<Task>(`${this.API_URL}/createtask/${idevent}`, task);
+    return this.httpClient.post<Task>(
+      `${this.API_URL}/createtask/${idevent}`,
+      task
+    );
   }
 
   retrieveTasksByEvent(idevent: number): Observable<Task[]> {
-    return this.httpClient.get<Task[]>(`${this.API_URL}/retrieve-tasks-by-event/${idevent}`);
+    return this.httpClient.get<Task[]>(
+      `${this.API_URL}/retrieve-tasks-by-event/${idevent}`
+    );
   }
 
-  getTask(idTask : any){
-    return this.httpClient.get(`${this.API_URL}/retrieve-task/${idTask}`)
+  getTask(idTask: any) {
+    return this.httpClient.get(`${this.API_URL}/retrieve-task/${idTask}`);
+  }
+
+  getCountSkills() {
+    return this.httpClient.get<Task[]>(`${this.API_URL}/skills/count`);
   }
 }

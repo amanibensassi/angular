@@ -6,20 +6,20 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Liste des Managements</h4>
+                    <h4 class="card-title">List of Managements</h4>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-responsive-md">
                             <thead>
                                 <tr>
-                                    <th scope="col">évenement concerné</th>
-                                    <th scope="col">Détails</th>
+                                    <th scope="col">Event name</th>
+                                    <th scope="col">Details</th>
 
-                                    <th scope="col">Emplacement</th>
-                                    <th scope="col">Début de l'évènement</th>
-                                    <th scope="col">Fin de l'évènement</th>
-                                    <th scope="col">Aprouvement</th>
+                                    <th scope="col">Place</th>
+                                    <th scope="col">Start date</th>
+                                    <th scope="col">Finish date</th>
+                                    <th scope="col">Aprovement</th>
                                     <th scope="col">Actions</th>
                                 </tr>
                             </thead>
@@ -40,7 +40,7 @@
                                         <ng-template #editButton>
                                             <a class="btn btn-primary light px-3"
                                                 (click)="EditApprouvement(management)">
-                                                <i class="fa fa-shopping-basket me-2"></i>Approuvé?
+                                                <i class="fa fa-shopping-basket me-2"></i>Approve?
                                             </a>
                                         </ng-template>
                                     </td>
@@ -84,10 +84,10 @@
                 </div>
             </div>
         </div>
-
+<app-management-charts></app-management-charts>
         <!-- Modal -->
 
-<app-management-charts></app-management-charts>
+
         <div class="modal fade" id="EditAddManagement" tabindex="-1" event="dialog"
             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl" event="document">

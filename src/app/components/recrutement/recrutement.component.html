@@ -1,78 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<div class="content-body">
+  <div class="content-body">
     <div class="container-fluid">
-        <div class="col-lg-12">
-
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Recrutement List</h4>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-responsive-md">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Recrutement ID</th>
-                                    <th scope="col">Recrutement Title</th>
-                                    <th scope="col">Start Date</th>
-                                    <th scope="col">End Date</th>
-                                    <th scope="col">Number of Vacancies</th>
-                                    <th scope="col">Description</th>
-                                    <th scope="col">Skills</th> <!-- Nouvelle colonne -->
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let recrutement of getRecrutementsForPage(currentPage)">
-                                    <td class="text-center">{{ recrutement.idRecrutement }}</td>
-                                    <td class="text-center">{{ recrutement.title }}</td>
-                                    <td class="text-center">{{ recrutement.dateStart | date }}</td>
-                                    <td class="text-center">{{ recrutement.dateFinish | date }}</td>
-                                    <td class="text-center">{{ recrutement.niveau }}</td>
-                                    <td class="text-center">{{ recrutement.description }}</td>
-                                    <td class="text-center">
-                                        <ul>
-                                            <li *ngFor="let skill of recrutement.requiredSkills | keyvalue">
-                                                {{ skill.key }}: {{ skill.value }}
-                                            </li>
-                                        </ul>
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                        <br>
-                        <nav>
-                            <ul class="pagination pagination-gutter">
-                                <li class="page-item page-indicator">
-                                    <a class="page-link" href="javascript:void(0)" (click)="decrementPage()">
-                                        <i class="la la-angle-left"></i>
-                                    </a>
-                                </li>
-                                <li *ngFor="let chunk of recrutementsChunks; let i = index"
-                                    [class.active]="currentPage === i + 1" class="page-item">
-                                    <a class="page-link" href="javascript:void(0)" (click)="changePage(i + 1)">
-                                        {{ i + 1 }}
-                                    </a>
-                                </li>
-                                <li class="page-item page-indicator">
-                                    <a class="page-link" href="javascript:void(0)" (click)="incrementPage()">
-                                        <i class="la la-angle-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Recrutement List</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-responsive-md">
+                <thead>
+                  <tr>
+                    <!--    <th scope="col">Recrutement ID</th>-->
+                    <th scope="col">Recrutement Title</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End Date</th>
+                    <th scope="col">Number of Vacancies</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Skills</th>
+                    <!-- Nouvelle colonne -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="
+                      let recrutement of getRecrutementsForPage(currentPage)
+                    "
+                  >
+                    <!--       <td class="text-center">{{ recrutement.idRecrutement }}</td>-->
+                    <td class="text-center">{{ recrutement.title }}</td>
+                    <td class="text-center">
+                      {{ recrutement.dateStart | date }}
+                    </td>
+                    <td class="text-center">
+                      {{ recrutement.dateFinish | date }}
+                    </td>
+                    <td class="text-center">{{ recrutement.niveau }}</td>
+                    <td class="text-center">{{ recrutement.description }}</td>
+                    <td class="text-center">
+                      <ul>
+                        <li
+                          *ngFor="
+                            let skill of recrutement.requiredSkills | keyvalue
+                          "
+                        >
+                          {{ skill.key }}: {{ skill.value }}
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <br />
+              <nav>
+                <ul class="pagination pagination-gutter">
+                  <li class="page-item page-indicator">
+                    <a
+                      class="page-link"
+                      href="javascript:void(0)"
+                      (click)="decrementPage()"
+                    >
+                      <i class="la la-angle-left"></i>
+                    </a>
+                  </li>
+                  <li
+                    *ngFor="let chunk of recrutementsChunks; let i = index"
+                    [class.active]="currentPage === i + 1"
+                    class="page-item"
+                  >
+                    <a
+                      class="page-link"
+                      href="javascript:void(0)"
+                      (click)="changePage(i + 1)"
+                    >
+                      {{ i + 1 }}
+                    </a>
+                  </li>
+                  <li class="page-item page-indicator">
+                    <a
+                      class="page-link"
+                      href="javascript:void(0)"
+                      (click)="incrementPage()"
+                    >
+                      <i class="la la-angle-right"></i>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
             </div>
+          </div>
         </div>
-        <app-process-chart></app-process-chart>
+      </div>
 
-        <!-- Modal -->
-        
+      <!-- Modal -->
     </div>
-</div>
-
+  </div>
 </html>

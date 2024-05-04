@@ -20,8 +20,8 @@
   <div id="main-wrapper">
     <div class="nav-header">
       <img alt="image" width="120" src="../assets/images/espritgather.png" style="margin-left: 2%;margin-top: -10px;">
-        <h3><span class="esprit">Esprit</span><span class="gather">Gather</span></h3>
-      
+      <h3><span class="esprit">Esprit</span><span class="gather">Gather</span></h3>
+
     </div>
     <div class="header">
       <div class="header-content">
@@ -29,8 +29,8 @@
           <div class="collapse navbar-collapse justify-content-between">
             <div class="header-left">
               <div class="nav-item">
-                <div class="input-group search-area" style="width: 700px; margin-left: -40px;">
-                  <h4>"Explorez, apprenez et célébrez ensemble à l'école avec nos événements exceptionnels !"
+                <div class="input-group search-area" style="width: 780px; margin-left: -40px;">
+                  <h4>Embark on a journey of exploration, learning, and celebration together with our extraordinary events!
 
 
                   </h4>
@@ -41,7 +41,7 @@
               <li class="nav-item recipe">
                 <a href="javascript:void(0);" class="btn btn-primary btn-rounded">EspritGather</a>
               </li>
-              <li class="nav-item dropdown notification_dropdown">
+             <!-- <li class="nav-item dropdown notification_dropdown">
                 <a class="nav-link  ai-icon" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
                   <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -53,8 +53,8 @@
                 <div class="dropdown-menu dropdown-menu-end">
 
                 </div>
-              </li>
-              <li class="nav-item dropdown notification_dropdown">
+              </li>-->
+             <!-- <li class="nav-item dropdown notification_dropdown">
                 <a class="nav-link bell-link ai-icon" href="javascript:void(0);">
                   <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -69,26 +69,28 @@
                   </svg>
 
                 </a>
-              </li>
+              </li>-->
               <li class="nav-item dropdown  header-profile">
-<!-- Pour les utilisateurs de type "club" ou "user" -->
-<ng-container *ngIf="selectedUser.role === 'club' || selectedUser.role === 'user'">
-  <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
-    <img class="img-fluid" src="../../../assets/images/{{selectedUser.imagePath}}" alt="">
-  </a>
-</ng-container>
-
-<!-- Pour les utilisateurs de type "admin" -->
-<ng-container *ngIf="selectedUser.role === 'admin'">
-  <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
-    <img class="img-fluid" src="../../../assets/images/ahna.jpg" alt="">
-  </a>
-</ng-container>
-
+                <!-- Pour les utilisateurs de type "club" ou "user" -->
+                <ng-container *ngIf="selectedUser.role === 'club' || selectedUser.role === 'user'">
+                  <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
+                    <img class="img-fluid" src="{{selectedUser.imagePath}}" alt=""
+                      data-toggle="modal" data-target="#EditAddUser" (click)="openModel(selectedUser)">
+                  </a>
+                </ng-container>
+              
+                <!-- Pour les utilisateurs de type "admin" -->
+                <ng-container *ngIf="selectedUser.role === 'admin'">
+                  <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
+                    <img class="img-fluid" src="../../../assets/images/ahna.jpg" alt=""
+                      data-toggle="modal" data-target="#EditAddUser" (click)="openModel(selectedUser)">
+                  </a>
+                </ng-container>
+              
                 <div class="dropdown-menu dropdown-menu-end">
                   <a class="dropdown-item ai-icon" data-toggle="modal" data-target="#EditAddUser"
                     (click)="openModel(selectedUser)">
-
+              
                     <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18"
                       viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                       stroke-linejoin="round">
@@ -97,7 +99,7 @@
                     </svg>
                     <span class="ms-2">Edit </span>
                   </a>
-
+              
                   <a class="dropdown-item ai-icon" (click)="logout()">
                     <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18"
                       viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -108,9 +110,9 @@
                     </svg>
                     <span class="ms-2">Logout </span>
                   </a>
-
                 </div>
               </li>
+              
 
             </ul>
           </div>
@@ -122,26 +124,25 @@
         <ul class="metismenu" id="menu">
           <li *ngIf="selectedUser.role === 'club'"><a class="has-arrow ai-icon" href="javascript:void()"
               aria-expanded="false" class="nav-link" routerLink="/club">
-              <i class="flaticon-025-dashboard"></i>
-              <span class="nav-text">club profile</span>
+              <i class="fa-solid fa-id-card"></i>
+                            <span class="nav-text">club profile</span>
             </a>
           </li>
           <li *ngIf="selectedUser.role === 'user'"><a class="has-arrow ai-icon" href="javascript:void()"
               aria-expanded="false" class="nav-link" routerLink="/user">
-              <i class="flaticon-025-dashboard"></i>
-              <span class="nav-text">user profile</span>
+              <i class="fa-solid fa-id-card"></i>              <span class="nav-text">user profile</span>
             </a>
           </li>
           <li *ngIf="selectedUser.role === 'admin'"><a class="has-arrow ai-icon" href="javascript:void()"
               class="nav-link" routerLink="/events" aria-expanded="false">
-              <i class="flaticon-050-info"></i>
+              <i class="fa-solid fa-calendar-days"></i>
 
               <span class="nav-text">All Events</span>
             </a>
           </li>
           <li *ngIf="selectedUser.role === 'user'"><a class="has-arrow ai-icon" href="javascript:void()"
               class="nav-link" routerLink="/eventsuser" aria-expanded="false">
-              <i class="flaticon-041-graph"></i>
+              <i class="fa-solid fa-calendar-days"></i>
               <span class="nav-text">Events</span>
             </a>
 
@@ -149,28 +150,25 @@
 
           <li *ngIf="selectedUser.role === 'club'"><a class="has-arrow ai-icon" href="javascript:void()"
               class="nav-link" routerLink="/eventsclub" aria-expanded="false">
-              <i class="flaticon-041-graph"></i>
+              <i class="fa-solid fa-calendar-days"></i>
               <span class="nav-text">Events club</span>
             </a>
 
           </li>
           <li *ngIf="selectedUser.role === 'admin'"><a class="has-arrow ai-icon" href="javascript:void()"
               aria-expanded="false" class="nav-link" routerLink="/admin">
-              <i class="flaticon-041-graph"></i>
-              <span class="nav-text">users</span>
+              <i class="fa-solid fa-masks-theater"></i>              <span class="nav-text">users</span>
             </a>
 
           </li>
           <li *ngIf="selectedUser.role === 'admin'"><a class="has-arrow ai-icon" href="javascript:void()"
               aria-expanded="false" class="nav-link" routerLink="/publication">
-              <i class="flaticon-086-star"></i>
-              <span class="nav-text">All Publications</span>
+              <i class="fa-solid fa-signs-post"></i>              <span class="nav-text">All Publications</span>
             </a>
           </li>
           <li *ngIf="selectedUser.role === 'admin'"><a class="has-arrow ai-icon" href="javascript:void()"
               aria-expanded="false" class="nav-link" routerLink="/feedback">
-              <i class="flaticon-045-heart"></i>
-              <span class="nav-text">All Feedbacks</span>
+              <i class="fa-solid fa-comments"></i>              <span class="nav-text">All Feedbacks</span>
             </a>
           </li>
 
@@ -181,17 +179,13 @@
             </a>
           </li>
           <li *ngIf="selectedUser.role === 'admin'"><a class="has-arrow ai-icon" href="javascript:void()"
-            class="nav-link" routerLink="/recrutement"
-              aria-expanded="false">
-              <i class="flaticon-072-printer"></i>
-              <span class="nav-text">All Recrutements</span>
+              class="nav-link" routerLink="/recrutement" aria-expanded="false">
+              <i class="fa-solid fa-users-rectangle"></i>              <span class="nav-text">All Recrutements</span>
             </a>
           </li>
           <li *ngIf="selectedUser.role === 'admin'"><a class="has-arrow ai-icon" href="javascript:void()"
-            class="nav-link" routerLink="/recrutementprocess"
-              aria-expanded="false">
-              <i class="flaticon-072-printer"></i>
-              <span class="nav-text">Process</span>
+              class="nav-link" routerLink="/recrutementprocess" aria-expanded="false">
+              <i class="fa-solid fa-users-rectangle"></i>              <span class="nav-text">Process</span>
             </a>
           </li>
 
@@ -206,54 +200,54 @@
 
           <li *ngIf="selectedUser.role === 'club'"><a class="has-arrow ai-icon" href="javascript:void()"
               aria-expanded="false" class="nav-link" routerLink="/clubrecrutement">
-              <i class="flaticon-072-printer"></i>
-              <span class="nav-text">My Recrutements</span>
+              <i class="fa-solid fa-users-rectangle"></i>              <span class="nav-text">My Recrutements</span>
             </a>
 
           </li>
-          
 
-       
 
-          <li *ngIf="selectedUser.role === 'club'"><a class="has-arrow ai-icon" [routerLink]="['/tasks']" class="nav-link" href="javascript:void()"
+
+
+        <!--  <li *ngIf="selectedUser.role === 'club'"><a class="has-arrow ai-icon" [routerLink]="['/tasks']"
+              class="nav-link" href="javascript:void()" aria-expanded="false">
+              <i class="fa-solid fa-list-check"></i>              <span class="nav-text">Club Tasks</span>
+            </a>
+          </li>-->
+
+          <li *ngIf="selectedUser.role === 'admin'"><a class="has-arrow ai-icon" [routerLink]="['/tasks']"
+              class="nav-link" href="javascript:void()" aria-expanded="false">
+              <i class="fa-solid fa-list-check"></i>              <span class="nav-text">All Tasks</span>
+            </a>
+
+          </li>
+
+
+
+
+          <li *ngIf="selectedUser.role === 'admin'"><a class="has-arrow ai-icon" [routerLink]="['/volunteers']"
+            class="nav-link" href="javascript:void()" aria-expanded="false">
+              <i class="fa-solid fa-comments"></i>
+              <span class="nav-text">Volunteers</span>
+            </a>
+          </li>
+
+
+
+
+          <li *ngIf="selectedUser.role === 'admin'">
+            <a class="has-arrow ai-icon" href="javascript:void()" class="nav-link" routerLink="/equipement"
               aria-expanded="false">
-              <i class="flaticon-072-printer"></i>
-              <span class="nav-text">Club Tasks</span>
+              <i class="fa-solid fa-hammer"></i>
+              <span class="nav-text">All Equipements</span>
             </a>
           </li>
 
-          <li *ngIf="selectedUser.role === 'admin'"><a class="has-arrow ai-icon" [routerLink]="['/tasks']" class="nav-link" href="javascript:void()" aria-expanded="false">
-            <i class="flaticon-072-printer"></i>
-            <span class="nav-text">All Tasks</span>
-          </a>
-
-        </li>
-
-     
-
-      
-        <li *ngIf="selectedUser.role === 'admin'"><a class="has-arrow ai-icon" [routerLink]="['/volunteers']"  href="javascript:void()" aria-expanded="false">
-          <i class="flaticon-072-printer"></i>
-          <span class="nav-text">Volunteers</span>
-        </a>
+          <li *ngIf="selectedUser.role === 'admin'">
+            <a class="has-arrow ai-icon" href="javascript:void()" class="nav-link" routerLink="/management"
+              aria-expanded="false">
+              <i class="fa-solid fa-hammer"></i>              <span class="nav-text">All Managements</span>
+            </a>
           </li>
-
-
-
-
-        <li *ngIf="selectedUser.role === 'admin'" >
-          <a class="has-arrow ai-icon" href="javascript:void()"  class="nav-link" routerLink="/equipement" aria-expanded="false">
-           <i class="flaticon-072-printer"></i>
-           <span class="nav-text">All Equipements</span>
-          </a>
-        </li>
-
-        <li *ngIf="selectedUser.role === 'admin'">
-          <a class="has-arrow ai-icon" href="javascript:void()" class="nav-link" routerLink="/management" aria-expanded="false">
-           <i class="flaticon-072-printer" ></i>
-           <span class="nav-text">All Managements</span>
-          </a>
-        </li>
 
         </ul>
 

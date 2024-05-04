@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ManagementService } from 'src/app/services/management.service';
+import { EventService } from 'src/app/services/event.service';
+
 import { Management } from 'src/app/models/management';
 import { User } from 'src/app/models/user';
 import { Event } from 'src/app/models/event';
@@ -21,7 +23,7 @@ export class ManagementComponent {
   ManagementChunks: any[] = [];
   currentPage: number = 1;
   selectedFile!: File;
-  constructor(private managementService: ManagementService, private router: Router) {
+  constructor(private managementService: ManagementService,private eventService :EventService, private router: Router) {
     this.getAllManagement();
   }
     getAllManagement() {
@@ -77,15 +79,21 @@ export class ManagementComponent {
     }*/
   
     modifyManagement() {
-    //  this.testManagement = this.managementService.AddClassroomsAcoordinally(this.newManagement);
-    console.log(this.newManagement);
-    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    console.log(this.managementService.AddClassroomsAcoordinally(this.newManagement));
+      console.log(this.newManagement);
+      console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+      console.log(this.managementService.AddClassroomsAcoordinally(this.newManagement));
       this.managementService.AddClassroomsAcoordinally(this.newManagement).subscribe(() => {
-        this.getAllManagement();
-        window.location.reload();
+        this.event = this.newManagement.event;
+        this.event.place = ' bloc ' + this.newManagement.bloc + ' - ' + this.newManagement.classe;   
+          this.eventService.editEvent(this.event).subscribe(() => {
+          this.getAllManagement();
+          window.location.reload();
+        }, error => {
+          console.error("Une erreur s'est produite lors de la mise à jour de l'événement :", error);
+        });
       });
     }
+    
   
     changePage(pageNumber: number) {
       this.currentPage = pageNumber;

@@ -1,139 +1,258 @@
-
 <html lang="en">
-
-<div class="content-body">
+  <div class="content-body">
     <div class="container-fluid">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">List of tasks </h4>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-responsive-md">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Name of Task</th>
-                                    <th scope="col">Start Date</th>
-                                    <th scope="col">Finish Date</th>
-                                    <th scope="col">Approuvement</th>
-                                    <th scope="col">Details</th>
-                                   
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">List of tasks</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-responsive-md">
+                <thead>
+                  <tr>
+                    <th scope="col">Name of Task</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">Finish Date</th>
+                    <th scope="col">Details</th>
 
-                                    <th scope="col">Number of Volunteers desired </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let task of getTasksForPage(currentPage)">
-                                    <td class="text-center">{{ task.nameTask }}</td>
-                                    <td class="text-center">{{ task.taskStart | date }}</td>
-                                    <td class="text-center">{{ task.taskFinish | date }}</td>
-                                    <td class="text-center">{{ task.approuvement }}</td>
-                                    <td class="text-center">{{ task.details }}</td>                            
-                                    <td class="text-center">{{ task.numberVolunteer }}</td>
-
-                               
-                                </tr>
-
-                            </tbody>
-                        </table>
-                        <br>
-                        <nav>
-                            <ul class="pagination pagination-gutter">
-                              <li class="page-item page-indicator">
-                                <a class="page-link" href="javascript:void(0)" (click)="decrementPage()">
-                                  <i class="la la-angle-left"></i>
-                                </a>
-                              </li>
-                              <li *ngFor="let chunk of tasksChunks; let i = index"
-                                  [class.active]="currentPage === i + 1" class="page-item">
-                                <a class="page-link" href="javascript:void(0)" (click)="changePage(i + 1)">
-                                  {{ i + 1 }}
-                                </a>
-                              </li>
-                              <li class="page-item page-indicator">
-                                <a class="page-link" href="javascript:void(0)" (click)="incrementPage()">
-                                  <i class="la la-angle-right"></i>
-                                </a>
-                              </li>
-                            </ul>
-                          </nav>
-
-                    </div>
-                </div>
+                    <th scope="col">Number of Volunteers desired</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let task of getTasksForPage(currentPage)">
+                    <td class="text-center">{{ task.nameTask }}</td>
+                    <td class="text-center">{{ task.taskStart | date }}</td>
+                    <td class="text-center">{{ task.taskFinish | date }}</td>
+                    <td class="text-center">{{ task.details }}</td>
+                    <td class="text-center">{{ task.numberVolunteer }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <br />
+              <nav>
+                <ul class="pagination pagination-gutter">
+                  <li class="page-item page-indicator">
+                    <a
+                      class="page-link"
+                      href="javascript:void(0)"
+                      (click)="decrementPage()"
+                    >
+                      <i class="la la-angle-left"></i>
+                    </a>
+                  </li>
+                  <li
+                    *ngFor="let chunk of tasksChunks; let i = index"
+                    [class.active]="currentPage === i + 1"
+                    class="page-item"
+                  >
+                    <a
+                      class="page-link"
+                      href="javascript:void(0)"
+                      (click)="changePage(i + 1)"
+                    >
+                      {{ i + 1 }}
+                    </a>
+                  </li>
+                  <li class="page-item page-indicator">
+                    <a
+                      class="page-link"
+                      href="javascript:void(0)"
+                      (click)="incrementPage()"
+                    >
+                      <i class="la la-angle-right"></i>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
             </div>
+          </div>
         </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Statistiques</h4>
+        </div>
+        <div class="card-body">
+          <div *ngIf="chartOptions && chartOptions[0]">
+            <canvasjs-chart
+              [options]="chartOptions[0]"
+              id="pie-chart"
+            ></canvasjs-chart>
+          </div>
+          <br />
+          <br />
+          <div *ngIf="chartOptions && chartOptions[1]">
+            <canvasjs-chart
+              [options]="chartOptions[1]"
+              id="bar-chart"
+            ></canvasjs-chart>
+          </div>
+        </div>
+      </div>
 
-        <!-- Modal -->
-<!-- Modal -->
-<div class="modal fade" id="EditAddtask" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-        <div class="modal-content">
+      <!-- Modal -->
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="EditAddtask"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+      >
+        <div
+          class="modal-dialog modal-dialog-centered modal-xl"
+          role="document"
+        >
+          <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Task</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+              <h5 class="modal-title" id="exampleModalLongTitle">Task</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <label for="taskName">Task Name</label>
-                    <input type="text" class="form-control" id="taskName" name="taskName" [(ngModel)]="newTask.nameTask" placeholder="Enter task name">
-                </div>
+              <div class="form-group">
+                <label for="taskName">Task Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="taskName"
+                  name="taskName"
+                  [(ngModel)]="newTask.nameTask"
+                  placeholder="Enter task name"
+                />
+              </div>
 
-                <div class="form-group">
-                    <label for="taskStart">Start Date</label>
-                    <input type="date" class="form-control" id="taskStart" name="taskStart" [(ngModel)]="newTask.taskStart">
-                </div>
+              <div class="form-group">
+                <label for="taskStart">Start Date</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="taskStart"
+                  name="taskStart"
+                  [(ngModel)]="newTask.taskStart"
+                />
+              </div>
 
-                <div class="form-group">
-                    <label for="taskFinish">Finish Date</label>
-                    <input type="date" class="form-control" id="taskFinish" name="taskFinish" [(ngModel)]="newTask.taskFinish">
-                </div>
+              <div class="form-group">
+                <label for="taskFinish">Finish Date</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="taskFinish"
+                  name="taskFinish"
+                  [(ngModel)]="newTask.taskFinish"
+                />
+              </div>
 
-                <div class="form-group">
-                    <label for="taskDetails">Task Details</label>
-                    <input type="text" class="form-control" id="taskDetails" name="taskDetails" [(ngModel)]="newTask.details" placeholder="Enter task details">
-                </div>
+              <div class="form-group">
+                <label for="taskDetails">Task Details</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="taskDetails"
+                  name="taskDetails"
+                  [(ngModel)]="newTask.details"
+                  placeholder="Enter task details"
+                />
+              </div>
 
-                <div class="form-group">
-                    <label for="numVolunteers">Number of Volunteers Desired</label>
-                    <input type="number" class="form-control" id="numVolunteers" name="numVolunteers" [(ngModel)]="newTask.numberVolunteer" placeholder="Enter number of volunteers">
-                </div>
+              <div class="form-group">
+                <label for="numVolunteers">Number of Volunteers Desired</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="numVolunteers"
+                  name="numVolunteers"
+                  [(ngModel)]="newTask.numberVolunteer"
+                  placeholder="Enter number of volunteers"
+                />
+              </div>
 
-                <div class="form-group">
-                    <label for="taskSkills">Skills</label>
-                    <select multiple class="form-control" id="taskSkills" name="taskSkills" [(ngModel)]="newTask.skills">
-                        <option value="GESTION_LOGISTIQUE">+ Gestion Logistique</option>
-                        <option value="PROMOTION_ET_MARKETING">+ Promotion & Marketing</option>
-                        <option value="ANIMATION_ET_DIVERTISSEMENT">+ Animation & Divertissement</option>
-                        <option value="GESTION_DES_PARTICIPANTS">+ Gestion des Participants</option>
-                        <option value="COLLECTE_DE_FONDS">+ Collecte de Fonds</option>
-                        <option value="GESTION_DES_VOLONTAIRES">+ Gestion des Volontaires</option>
-                        <option value="GESTION_DES_SPECTACLES">+ Gestion des Spectacles</option>
-                        <option value="PLANIFICATION_STRATEGIQUE">+ Planification Stratégique</option>
-                        <option value="COORDINATION_DES_EQUIPES">+ Coordination des Équipes</option>
-                        <option value="NEGOCIATION_DES_PARTENARIATS">+ Négociation des Partenariats</option>
-                        <option value="SECURITE_ET_SAUVEGARDE">+ Sécurité et Sauvegarde</option>
-                        <option value="GESTION_DES_COMMUNICATIONS">+ Gestion des Communications</option>
-                        <option value="ANALYSE_DES_RETROACTIONS">+ Analyse des Rétroactions</option>
-                    </select>                   
-                </div>
+              <div class="form-group">
+                <label for="taskSkills">Skills</label>
+                <select
+                  multiple
+                  class="form-control"
+                  id="taskSkills"
+                  name="taskSkills"
+                  [(ngModel)]="newTask.skills"
+                >
+                  <option value="GESTION_LOGISTIQUE">
+                    + Gestion Logistique
+                  </option>
+                  <option value="PROMOTION_ET_MARKETING">
+                    + Promotion & Marketing
+                  </option>
+                  <option value="ANIMATION_ET_DIVERTISSEMENT">
+                    + Animation & Divertissement
+                  </option>
+                  <option value="GESTION_DES_PARTICIPANTS">
+                    + Gestion des Participants
+                  </option>
+                  <option value="COLLECTE_DE_FONDS">+ Collecte de Fonds</option>
+                  <option value="GESTION_DES_VOLONTAIRES">
+                    + Gestion des Volontaires
+                  </option>
+                  <option value="GESTION_DES_SPECTACLES">
+                    + Gestion des Spectacles
+                  </option>
+                  <option value="PLANIFICATION_STRATEGIQUE">
+                    + Planification Stratégique
+                  </option>
+                  <option value="COORDINATION_DES_EQUIPES">
+                    + Coordination des Équipes
+                  </option>
+                  <option value="NEGOCIATION_DES_PARTENARIATS">
+                    + Négociation des Partenariats
+                  </option>
+                  <option value="SECURITE_ET_SAUVEGARDE">
+                    + Sécurité et Sauvegarde
+                  </option>
+                  <option value="GESTION_DES_COMMUNICATIONS">
+                    + Gestion des Communications
+                  </option>
+                  <option value="ANALYSE_DES_RETROACTIONS">
+                    + Analyse des Rétroactions
+                  </option>
+                </select>
+              </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" *ngIf="creatingMode" (click)="createTask()">Create Task</button>
-                <button type="button" class="btn btn-primary" *ngIf="!creatingMode" (click)="editTask()">Modify Task</button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                *ngIf="creatingMode"
+                (click)="createTask()"
+              >
+                Create Task
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                *ngIf="!creatingMode"
+                (click)="editTask()"
+              >
+                Modify Task
+              </button>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-
-
-
-
-    </div>
-</div>
-
-
+  </div>
 </html>

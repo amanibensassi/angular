@@ -1,0 +1,19 @@
+.first-volunteer {
+  font-weight: bold; /* Appliquer le style pour le premier volontaire */
+}
+
+.fa-star {
+  color: gold; /* Changer la couleur de l'étoile */
+  margin-right: 5px; /* Ajouter un espacement entre l'étoile et le nom de l'utilisateur */
+}
+.centered {
+  text-align: center; /* Centrer le contenu horizontalement */
+}
+
+.first-volunteer {
+  font-size: 24px; /* Taille du texte en gros */
+}
+
+.fa-star {
+  font-size: 24px; /* Taille de l'étoile en gros */
+}

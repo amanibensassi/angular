@@ -89,7 +89,7 @@ export class TicketChartsComponent {
         for (const eventId in data) {
           if (data.hasOwnProperty(eventId)) {
             const a = eventId;
-            const totalPrice = data[eventId]; 
+            const totalPrice = data[eventId];
             this.eventsData.push({ name: a, totalPrice: totalPrice });
           }
         }

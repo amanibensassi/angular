@@ -24,7 +24,7 @@ export class ManagementChartsComponent {
         animationEnabled: true,
      //   theme: "light2",
         title: {
-          text: "Costs per equipement"
+          text: "Classroom usage "
         },
         data: [
           {

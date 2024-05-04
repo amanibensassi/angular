@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
@@ -25,21 +25,22 @@ export class RegisterComponent implements OnInit {
       birthDay: ['', [Validators.required]],
       address: ['', [Validators.required]],
       password: ['', [Validators.required]],
-      imageFile: [null, [Validators.required]] // Initialize imageFile field with null
+      niveau: ['', [Validators.required]],
+      imageFile: [null, [Validators.required]], // Initialize imageFile field with null
     });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onFileSelected(event: any) {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
       this.registerForm.patchValue({
-        imageFile: this.selectedFile // Update imageFile field in form
+        imageFile: this.selectedFile, // Update imageFile field in form
       });
     }
   }
+
   submitForm() {
     if (this.registerForm.valid) {
       const formData = new FormData();
@@ -49,7 +50,8 @@ export class RegisterComponent implements OnInit {
       formData.append('telNumber', this.registerForm.get('telNumber')?.value);
       formData.append('address', this.registerForm.get('address')?.value);
       formData.append('password', this.registerForm.get('password')?.value);
-  
+      formData.append('niveau', this.registerForm.get('niveau')?.value);
+
       // Formatage de la date de naissance
       const birthDayValue = this.registerForm.get('birthDay')?.value;
       if (birthDayValue instanceof Date) {
@@ -58,12 +60,12 @@ export class RegisterComponent implements OnInit {
       } else {
         console.error('birthDay is not an instance of Date');
       }
-  
+
       // Ajout du fichier image s'il est sélectionné
       if (this.selectedFile) {
         formData.append('imageFile', this.selectedFile);
       }
-  
+
       this.service.register(formData).subscribe(
         (response) => {
           //alert("User Added Successfully");
@@ -76,8 +78,7 @@ export class RegisterComponent implements OnInit {
         }
       );
     } else {
-      alert("Please fill out all required fields and select an image.");
+      alert('Please fill out all required fields and select an image.');
     }
   }
-  
 }
