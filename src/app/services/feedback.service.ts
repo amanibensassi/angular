@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 
 export class FeedbackService {
-  readonly API_URL = 'http://localhost:8089/espritgather/feedback';
+  readonly API_URL = 'http://angular-service:8089/espritgather/feedback';
 
   constructor(private router: Router,private httpClient: HttpClient) { }
   getAllFeedback(): Observable<any> {
