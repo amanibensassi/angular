@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class EquipementService {
-  readonly API_URL = 'http://localhost:8089/espritgather/equipement';
+  readonly API_URL = 'http://sql-service:8089/espritgather/equipement';
 
   constructor(private router: Router, private httpClient: HttpClient) { }
   getAllEquipement() {
