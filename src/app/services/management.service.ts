@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class ManagementService {
-  readonly API_URL = 'http://localhost:8089/espritgather/management';
+  readonly API_URL = 'http://sql-service:8089/espritgather/management';
 
   constructor(private router: Router,private httpClient: HttpClient) { }
   getManagementByEvent(idEvent : any) {
