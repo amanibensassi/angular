@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class UserService {
-  private URL = 'http://localhost:8089/espritgather/user';
+  private URL = 'http://sql-service:8089/espritgather/user';
 
   constructor(private router: Router, private httpClient: HttpClient) {}
 
