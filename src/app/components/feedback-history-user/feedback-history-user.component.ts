@@ -19,11 +19,22 @@ creatingMode: boolean = true;
 iduser : any;
 feedbackChunks: any[] = [];
 currentPage: number = 1;
+role: any;
 selectedFile!: File;
   id: any;
 constructor(private feedbackService: FeedbackService, private router: Router) {
+  this.getrole();
   this.getUserFromLocalStorage() ;
   this.getAllFeedback();
+}
+getrole(){
+  const userString = localStorage.getItem('user');
+    console.log(userString);
+    const user = userString ? JSON.parse(userString) : null;
+     this.role = user ? user.role : "";
+     if(this.role !='user'){
+      this.router.navigateByUrl('/error')
+     }
 }
   getAllFeedback() {
     this.iduser=this.id;

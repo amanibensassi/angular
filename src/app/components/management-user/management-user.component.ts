@@ -21,14 +21,24 @@ export class ManagementUserComponent {
   managementId :any = 0 ;
   idEvent !: any;
   id : any;
+  role : any;
   selectedFile!: File;
   constructor(private managementService: ManagementService, private router: Router,private route: ActivatedRoute) {
-    
+    this.getrole();
   }
   ngOnInit(): void {
     this.idEvent = this.route.snapshot.paramMap.get('idEvent');
     
     this.getAllManagement();
+  }
+  getrole(){
+    const userString = localStorage.getItem('user');
+      console.log(userString);
+      const user = userString ? JSON.parse(userString) : null;
+       this.role = user ? user.role : "";
+       if(this.role !='club'){
+        this.router.navigateByUrl('/error')
+       }
   }
     getAllManagement() {
     

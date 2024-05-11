@@ -18,12 +18,13 @@ export class FeedbackComponent {
 feedback : any;
 newFeedback : Feedback = new Feedback();
 creatingMode: boolean = true;
-
+role : any;
 feedbackChunks: any[] = [];
 currentPage: number = 1;
 selectedFile!: File;
 constructor(private feedbackService: FeedbackService, private router: Router) {
   this.getAllFeedback();
+  this.getrole();
 }
   getAllFeedback() {
       this.feedbackService.getAllFeedback().subscribe(data => {
@@ -31,7 +32,15 @@ constructor(private feedbackService: FeedbackService, private router: Router) {
        // this.divideFeedbacksIntoChunks();
       });
   }
-
+  getrole(){
+    const userString = localStorage.getItem('user');
+      console.log(userString);
+      const user = userString ? JSON.parse(userString) : null;
+       this.role = user ? user.role : "";
+       if(this.role !='admin'){
+        this.router.navigateByUrl('/error')
+       }
+  }
   openModel(feedback: Feedback = new Feedback()) {
     if (feedback.idFeedback == 0) {
       this.newFeedback = new Feedback();

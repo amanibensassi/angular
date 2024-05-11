@@ -32,7 +32,7 @@ export class TicketComponent implements OnInit {
   creatingMode: boolean = true;
   event!: Event;
   exceedsAvailableTickets: boolean = false;
-
+role : any;
   @ViewChild('pdfTable')
   pdfTable!: ElementRef;
   id: any;
@@ -44,8 +44,19 @@ export class TicketComponent implements OnInit {
 
 
   constructor(private router: Router, private route: ActivatedRoute, private eventNbtService: EventNbtService, private eventService: EventService, private ticketService: TicketService) {
+    this.getrole();
     this.getUserFromLocalStorage();
 
+  }
+  
+  getrole(){
+    const userString = localStorage.getItem('user');
+      console.log(userString);
+      const user = userString ? JSON.parse(userString) : null;
+       this.role = user ? user.role : "";
+       if(this.role !='user'){
+        this.router.navigateByUrl('/error')
+       }
   }
 
   ngOnInit(): void {

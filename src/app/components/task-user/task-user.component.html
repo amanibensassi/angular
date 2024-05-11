@@ -30,10 +30,14 @@
 
               <br />
               <div class="d-flex justify-content-between align-items-center">
-                <a class="btn btn-info" routerLink="/task/{{ task.idTask }}"
-                  >View Details<span class="btn-icon-end"
-                    ><i class="fa fa-heart"></i></span
-                ></a>
+                <button
+                  class="btn btn-info"
+                  routerLink="/task/{{ task.idTask }}"
+                  [disabled]="task.status === 'COMPLETED'"
+                >
+                  View Details
+                  <span class="btn-icon-end"><i class="fa fa-heart"></i></span>
+                </button>
               </div>
             </div>
           </div>

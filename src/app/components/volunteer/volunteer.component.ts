@@ -20,6 +20,7 @@ export class VolunteerComponent {
   currentPage: number = 1;
   selectedFile!: File;
   id: any;
+  role : any;
 
   constructor(
     private VolunteerService: VolunteerService,
@@ -29,6 +30,16 @@ export class VolunteerComponent {
     this.getAllVolunteers();
     this.getUserFromLocalStorage();
     this.getUserVolunteerCounts();
+    this.getrole();
+  }
+  getrole(){
+    const userString = localStorage.getItem('user');
+      console.log(userString);
+      const user = userString ? JSON.parse(userString) : null;
+       this.role = user ? user.role : "";
+       if(this.role !='admin'){
+        this.router.navigateByUrl('/error')
+       }
   }
 
   getAllVolunteers() {
@@ -40,12 +51,10 @@ export class VolunteerComponent {
 
   getUserVolunteerCounts() {
     this.VolunteerService.getUserVolunteerCounts().subscribe((data: any) => {
-      // Convertir l'objet JSON en tableau d'objets
       this.userVolunteerCounts = Object.entries(data).map(([name, count]) => ({
         name,
         count,
       }));
-      // Trier le tableau par ordre décroissant du nombre de volontaires
       this.userVolunteerCounts.sort((a, b) => b.count - a.count);
     });
   }

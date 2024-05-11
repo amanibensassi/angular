@@ -1,113 +1,192 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100">
+  <head> </head>
 
-
-
-<head>
-
-
-</head>
-
-
-<body class="vh-200">
+  <body class="vh-200">
     <div class="authincation h-200">
-        <div class="container h-200">
-            <div class="row justify-content-center h-100 align-items-center">
-                <div class="col-md-10">
-                    <div class="authincation-content">
-                        <div class="row no-gutters">
-                            <div class="col-xl-14">
-                                <div class="auth-form">
-                                    <div class="text-center mb-3">
-                                        <a href="index.html"><img src="images/logo-full.png" alt=""></a>
-                                    </div>
-                                    <h4 class="text-center mb-4">Sign up your account</h4>
-                                    <form [formGroup]="registerForm" (ngSubmit)=submitForm() >
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="mb-3">
-                                                    <label class="mb-1"><strong>Club Creator</strong></label>
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <input type="text" class="form-control" placeholder="Firstname" formControlName="firstName">
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <input type="text" class="form-control" placeholder="LastName" formControlName="lastName">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="mb-3">
-                                                    <label class="mb-1"><strong>Club Name</strong></label>
-                                                    <input type="text" class="form-control" placeholder="ClubName" formControlName="clubName">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="mb-1"><strong>Email</strong></label>
-                                                    <input type="email" class="form-control" placeholder="hello@example.com" formControlName="mail">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="mb-1"><strong>Club Types</strong></label>
-                                                    <select class="default-select form-control wide" formControlName="clubTypes">
-                                                        <option selected disabled>Choose...</option>
-                                                        <option value="Academic">Academic</option>
-                                                        <option value="Arts">Arts</option>
-                                                        <option value="Sports">Sports</option>
-                                                        <option value="Technology">Technology</option>
-                                                        <option value="Environmental">Environmental</option>
-                                                        <option value="Cultural">Cultural</option>
-                                                        <option value="Volunteer">Volunteer</option>
-                                                    </select>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="mb-1"><strong>Image </strong></label>
-
-                                                    <input input type="file" class="form-control"
-                                                        (change)="onFileSelected($event)" formControlName="imageFile">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="mb-3">
-                                                    <label class="mb-1"><strong>Telephone</strong></label>
-                                                    <input type="email" class="form-control" placeholder="+216" formControlName="telNumber">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="mb-1"><strong>Creation date</strong></label>
-                                                    <input type="date" class="form-control" placeholder="YYYYY/MM/DD" formControlName="birthDay">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="mb-1"><strong>Address</strong></label>
-                                                    <input type="text" class="form-control" formControlName="address">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="mb-1"><strong>Club Description</strong></label>
-                                                    <input type="text" class="form-control" placeholder="Tell us more about the club" formControlName="clubDetails">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="mb-1"><strong>Password</strong></label>
-                                                    <input type="password" class="form-control" value="Password" formControlName="password">
-                                                </div>
-
-                                            </div>
-                                            <div class="mb-3">
-                                                <button type="submit" class="btn btn-primary btn-block" [disabled]="registerForm?.invalid">Sign me up</button>
-                                            </div>
-                                        </div>
-                                        
-                                    </form>
-                                    <div class="new-account mt-3">
-                                        <p>Already have an account? <a class="text-primary" routerLink="/login" >Sign in</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+      <div class="container h-200">
+        <div class="row justify-content-center h-100 align-items-center">
+          <div class="col-md-10">
+            <div class="authincation-content">
+              <div class="row no-gutters">
+                <div class="col-xl-14">
+                  <div class="auth-form">
+                    <div class="text-center mb-3">
+                      <a href="index.html"
+                        ><img src="images/logo-full.png" alt=""
+                      /></a>
                     </div>
+                    <h4 class="text-center mb-4">Sign up your account</h4>
+                    <form [formGroup]="registerForm" (ngSubmit)="submitForm()">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="mb-3">
+                            <label class="mb-1"
+                              ><strong>Club Creator</strong></label
+                            >
+                            <div class="row">
+                              <div class="col-md-6">
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  placeholder="Firstname"
+                                  formControlName="firstName"
+                                />
+                              </div>
+                              <div class="col-md-6">
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  placeholder="LastName"
+                                  formControlName="lastName"
+                                />
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="mb-3">
+                            <label class="mb-1"
+                              ><strong>Club Name</strong></label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="ClubName"
+                              formControlName="clubName"
+                            />
+                          </div>
+                          <div class="mb-3">
+                            <label class="mb-1"><strong>Email</strong></label>
+                            <input
+                              type="email"
+                              class="form-control"
+                              placeholder="hello@example.com"
+                              formControlName="mail"
+                            />
+                          </div>
+                          <div class="mb-3">
+                            <label class="mb-1"
+                              ><strong>Club Types</strong></label
+                            >
+                            <select
+                              class="default-select form-control wide"
+                              formControlName="clubTypes"
+                            >
+                              <option selected disabled>Choose...</option>
+                              <option value="Academic">Academic</option>
+                              <option value="Arts">Arts</option>
+                              <option value="Sports">Sports</option>
+                              <option value="Technology">Technology</option>
+                              <option value="Environmental">
+                                Environmental
+                              </option>
+                              <option value="Cultural">Cultural</option>
+                              <option value="Volunteer">Volunteer</option>
+                            </select>
+                          </div>
+                          <div class="mb-3">
+                            <label class="mb-1"><strong>Image </strong></label>
+
+                            <input
+                              input
+                              type="file"
+                              class="form-control"
+                              (change)="onFileSelected($event)"
+                              formControlName="imageFile"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="mb-3">
+                            <label class="mb-1"
+                              ><strong>Téléphone</strong></label
+                            >
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"
+                                  ><img
+                                    src="../../../assets/images/tn.png"
+                                    alt="Drapeau de la Tunisie"
+                                    width="20"
+                                /></span>
+                              </div>
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="+216"
+                                formControlName="telNumber"
+                              />
+                            </div>
+                          </div>
+
+                          <div class="mb-3">
+                            <label class="mb-1"
+                              ><strong>Creation date</strong></label
+                            >
+                            <input
+                              type="date"
+                              class="form-control"
+                              placeholder="YYYYY/MM/DD"
+                              formControlName="birthDay"
+                            />
+                          </div>
+                          <div class="mb-3">
+                            <label class="mb-1"><strong>Address</strong></label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              formControlName="address"
+                            />
+                          </div>
+                          <div class="mb-3">
+                            <label class="mb-1"
+                              ><strong>Club Description</strong></label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Tell us more about the club"
+                              formControlName="clubDetails"
+                            />
+                          </div>
+                          <div class="mb-3">
+                            <label class="mb-1"
+                              ><strong>Password</strong></label
+                            >
+                            <input
+                              type="password"
+                              class="form-control"
+                              value="Password"
+                              formControlName="password"
+                            />
+                          </div>
+                        </div>
+                        <div class="mb-3">
+                          <button
+                            type="submit"
+                            class="btn btn-primary btn-block"
+                            [disabled]="registerForm?.invalid"
+                          >
+                            Sign me up
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                    <div class="new-account mt-3">
+                      <p>
+                        Already have an account?
+                        <a class="text-primary" routerLink="/login">Sign in</a>
+                      </p>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </body>
 
-</body>
-
-
-<!-- Mirrored from lezato.dexignzone.com/xhtml/page-register.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 22 Feb 2024 17:42:57 GMT -->
+  <!-- Mirrored from lezato.dexignzone.com/xhtml/page-register.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 22 Feb 2024 17:42:57 GMT -->
 </html>

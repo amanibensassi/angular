@@ -17,9 +17,11 @@ export class EquipementComponent {
   equipementChunks: any[] = [];
   currentPage: number = 1;
   selectedFile!: File;
+  role : any;
   
   constructor(private equipementService: EquipementService, private router: Router) {
     this.getAllEquipement();
+    this.getrole();
   }
     getAllEquipement() {
         this.equipementService.getAllEquipement().subscribe(data => {
@@ -27,6 +29,7 @@ export class EquipementComponent {
          // this.divideEquipementsIntoChunks();
         });
     }
+    
   
    /* openModel(equipement : Equipement = new Equipement()) {
       if (this.equipement.idEquipement == 0) {
@@ -46,7 +49,15 @@ export class EquipementComponent {
       }
     }
 
-    
+    getrole(){
+      const userString = localStorage.getItem('user');
+        console.log(userString);
+        const user = userString ? JSON.parse(userString) : null;
+         this.role = user ? user.role : "";
+         if(this.role !='admin'){
+          this.router.navigateByUrl('/error')
+         }
+    }
     
 
     deleteEquipement(equipementId: string) {

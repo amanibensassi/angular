@@ -13,7 +13,7 @@ export class RecrutementClubComponent {
   newRecrutement: Recrutement = new Recrutement();
   creatingMode: boolean = true;
   today = new Date().toISOString().split('T')[0];
-
+  role : any;
   recrutementsChunks: any[] = [];
   currentPage: number = 1;
   selectedFile!: File;
@@ -24,8 +24,18 @@ export class RecrutementClubComponent {
     private recrutementService: RecrutementService,
     private router: Router
   ) {
+    this.getrole();
     this.getUserFromLocalStorage();
     this.getAllRecrutements();
+  }
+  getrole(){
+    const userString = localStorage.getItem('user');
+      console.log(userString);
+      const user = userString ? JSON.parse(userString) : null;
+       this.role = user ? user.role : "";
+       if(this.role !='club'){
+        this.router.navigateByUrl('/error')
+       }
   }
   getUserFromLocalStorage() {
     const userString = localStorage.getItem('user');

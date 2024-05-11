@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Volunteer } from 'src/app/models/volunteer';
 import { VolunteerService } from 'src/app/services/volunteer.service';
 
@@ -15,17 +15,29 @@ export class VolunteerDetailsUserComponent {
   idVolunteer: any;
   idTask: any;
   id: any;
-
+role : any;
   constructor(
     private volunteerservice: VolunteerService,
     private httpClient: HttpClient,
+    private router : Router,
     private route: ActivatedRoute
   ) {
+    this.getrole();
     this.getUserFromLocalStorage();
     this.idVolunteer = this.route.snapshot.paramMap.get('idVolunteer');
     this.idTask = this.route.snapshot.paramMap.get('idTask'); // Récupérer l'ID de tache à partir des paramètres de l'URL
 
     this.getVolunteer(this.id);
+  }
+  
+  getrole(){
+    const userString = localStorage.getItem('user');
+      console.log(userString);
+      const user = userString ? JSON.parse(userString) : null;
+       this.role = user ? user.role : "";
+       if(this.role !='user'){
+        this.router.navigateByUrl('/error')
+       }
   }
 
   getVolunteer(id: any) {

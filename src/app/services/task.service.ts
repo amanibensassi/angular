@@ -8,7 +8,7 @@ import { Task } from '../models/task';
   providedIn: 'root',
 })
 export class TaskService {
-  readonly API_URL = 'http://angular-service:8089/espritgather/task';
+  readonly API_URL = 'http://localhost:8089/espritgather/task';
 
   constructor(private router: Router, private httpClient: HttpClient) {}
 
@@ -45,5 +45,9 @@ export class TaskService {
 
   getCountSkills() {
     return this.httpClient.get<Task[]>(`${this.API_URL}/skills/count`);
+  }
+
+  getStatus() {
+    return this.httpClient.get<Task[]>(`${this.API_URL}/total-tasks-by-status`);
   }
 }

@@ -76,7 +76,6 @@
         <h5 class="card-title">{{ commentaire["body"] }}</h5>
         <p class="card-text">
           {{ commentaire["user"]["firstName"] }}
-          {{ publication["user"]["lastName"] }}
         </p>
         <div *ngIf="idU == commentaire.user.idUser">
           <i

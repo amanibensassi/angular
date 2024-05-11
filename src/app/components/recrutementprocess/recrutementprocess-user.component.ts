@@ -21,7 +21,7 @@ export class RecrutementprocessUserComponent implements OnInit {
   creatingMode: boolean = true;
   idRecrutement: any;
   selectedFile!: File;
-
+  role : any;
   selectedSkillLevel: any;
   selectedSkill: any;
   id: any;
@@ -32,7 +32,17 @@ export class RecrutementprocessUserComponent implements OnInit {
     private recrutementservice: RecrutementService,
     private RecrutementProcess: RecrutementprocessService
   ) {
+    this.getrole();
     this.getUserFromLocalStorage();
+  }
+  getrole(){
+    const userString = localStorage.getItem('user');
+      console.log(userString);
+      const user = userString ? JSON.parse(userString) : null;
+       this.role = user ? user.role : "";
+       if(this.role !='user'){
+        this.router.navigateByUrl('/error')
+       }
   }
 
   ngOnInit(): void {

@@ -18,7 +18,7 @@ export class EventClubComponent {
   events: any;
   e: any;
   newEvent: Event = new Event();
-
+role : any;
   creatingMode: boolean = true;
   show: boolean = false;
   eventsChunks: any[] = [];
@@ -46,11 +46,21 @@ export class EventClubComponent {
     private ticketService: TicketService,
     private equipementService: EquipementService
   ) {
+    this.getrole();
     this.getUserFromLocalStorage();
     this.getAllEvents();
     this.calcul();
     this.minDate = new Date().toISOString().split('T')[0];
     this.minDateTimeLocal = this.getDateTimeLocal(new Date());
+  }
+  getrole(){
+    const userString = localStorage.getItem('user');
+      console.log(userString);
+      const user = userString ? JSON.parse(userString) : null;
+       this.role = user ? user.role : "";
+       if(this.role !='club'){
+        this.router.navigateByUrl('/error')
+       }
   }
 
   getDateTimeLocal(date: Date): string {

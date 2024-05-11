@@ -18,10 +18,12 @@ export class TicketAdminComponent {
   newTicket: any = {};
   creatingMode: boolean = true;
   event!: Event;
+role :any;
 
 
-
-  constructor(private router: Router,private route: ActivatedRoute,private eventService:EventService, private ticketService: TicketService) { }
+  constructor(private router: Router,private route: ActivatedRoute,private eventService:EventService, private ticketService: TicketService) {
+    this.getrole();
+   }
 
   ngOnInit(): void {
     this.eventId = this.route.snapshot.paramMap.get('idEvent');
@@ -30,7 +32,15 @@ export class TicketAdminComponent {
     }
   }
 
- 
+  getrole(){
+    const userString = localStorage.getItem('user');
+      console.log(userString);
+      const user = userString ? JSON.parse(userString) : null;
+       this.role = user ? user.role : "";
+       if(this.role =='user'){
+        this.router.navigateByUrl('/error')
+       }
+  }
   
 
 

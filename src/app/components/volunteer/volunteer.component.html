@@ -89,7 +89,8 @@
           </div>
         </div>
         <br />
-        <h4 class="centered">Volunteers Ranking</h4>
+        <h1 class="centered">Volunteers Ranking</h1>
+        <hr class="hihi" />
         <br />
         <br />
 
@@ -97,12 +98,12 @@
           class="centered"
           *ngFor="let userCount of userVolunteerCounts; let i = index"
         >
-          <p [class.first-volunteer]="i === 0 && userCount.count === 1">
+          <h3 [class.first-volunteer]="i === 0 && userCount.count === 1">
             {{ userCount.name }}: {{ userCount.count }}
             <span *ngIf="i === 0">
               <i class="fa-solid fa-star"></i>
             </span>
-          </p>
+          </h3>
         </div>
       </div>
 

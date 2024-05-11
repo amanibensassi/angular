@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Feedback } from 'src/app/models/feedback';
 import { EventService } from 'src/app/services/event.service';
 import { FeedbackService } from 'src/app/services/feedback.service';
@@ -17,11 +17,22 @@ export class EventDetailsUserComponent {
   newFeedback: any;
   id: any;
   creatingMode: boolean = true;
-
-  constructor(private feedbackService: FeedbackService,private eventService: EventService, private httpClient: HttpClient, private route: ActivatedRoute) {
+role : any;
+  constructor(private router : Router , private feedbackService: FeedbackService,private eventService: EventService, private httpClient: HttpClient, private route: ActivatedRoute) {
+    this.getrole();
     this.getUserFromLocalStorage() ;
     this.idEvent = this.route.snapshot.paramMap.get('idEvent'); // Récupérer l'ID de l'événement à partir des paramètres de l'URL
     this.getEvent(this.idEvent);
+  }
+  
+  getrole(){
+    const userString = localStorage.getItem('user');
+      console.log(userString);
+      const user = userString ? JSON.parse(userString) : null;
+       this.role = user ? user.role : "";
+       if(this.role !='user'){
+        this.router.navigateByUrl('/error')
+       }
   }
 
   getEvent(idEvent: any) {

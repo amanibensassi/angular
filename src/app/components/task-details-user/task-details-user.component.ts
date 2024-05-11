@@ -35,6 +35,7 @@ export class DetailsUserComponent {
     private route: ActivatedRoute,
     private router: Router
   ) {
+    this.getrole();
     this.idTask = this.route.snapshot.paramMap.get('idTask');
     this.getTask(this.idTask);
     this.getUserFromLocalStorage();
@@ -52,6 +53,15 @@ export class DetailsUserComponent {
       this.task = data;
       const v = this.newVolunteer.idVolunteer;
     });
+  }
+  getrole(){
+    const userString = localStorage.getItem('user');
+      console.log(userString);
+      const user = userString ? JSON.parse(userString) : null;
+       this.role = user ? user.role : "";
+       if(this.role =='admin'){
+        this.router.navigateByUrl('/error')
+       }
   }
   editTask(): void {
     this.taskService.editTask(this.newTask).subscribe(() => {

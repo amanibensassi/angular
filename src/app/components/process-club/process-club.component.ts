@@ -18,7 +18,7 @@ export class ProcessClubComponent {
   newTicket: any = {};
   creatingMode: boolean = true;
   event!: Event;
-
+  role : any;
   skillSelectionPercentageChartOptions = {
     title: {
       text: 'Skill Selection Percentage',
@@ -50,6 +50,7 @@ export class ProcessClubComponent {
     private route: ActivatedRoute,
     private RecrutementService: RecrutementService
   ) {
+    this.getrole();
     //  this.getAllProcesses();
   }
   ngOnInit(): void {
@@ -57,6 +58,15 @@ export class ProcessClubComponent {
     if (this.recId !== null) {
       this.a(this.recId);
     }
+  }
+  getrole(){
+    const userString = localStorage.getItem('user');
+      console.log(userString);
+      const user = userString ? JSON.parse(userString) : null;
+       this.role = user ? user.role : "";
+       if(this.role !='club'){
+        this.router.navigateByUrl('/error')
+       }
   }
 
   a(idRecrutement: number): void {

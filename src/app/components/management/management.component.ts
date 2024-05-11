@@ -23,7 +23,9 @@ export class ManagementComponent {
   ManagementChunks: any[] = [];
   currentPage: number = 1;
   selectedFile!: File;
+  role : any;
   constructor(private managementService: ManagementService,private eventService :EventService, private router: Router) {
+    this.getrole();
     this.getAllManagement();
   }
     getAllManagement() {
@@ -31,6 +33,15 @@ export class ManagementComponent {
           this.management = data;
          // this.divideManagementsIntoChunks();
         });
+    }
+    getrole(){
+      const userString = localStorage.getItem('user');
+        console.log(userString);
+        const user = userString ? JSON.parse(userString) : null;
+         this.role = user ? user.role : "";
+         if(this.role !='admin'){
+          this.router.navigateByUrl('/error')
+         }
     }
   
     openModel(man : Management = new Management()) {

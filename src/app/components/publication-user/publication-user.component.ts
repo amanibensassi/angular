@@ -23,6 +23,7 @@ export class PublicationUserComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     //this.getAllPublications();
+    this.getrole();
     this.getUserFromLocalStorage();
   }
   getUserFromLocalStorage() {
@@ -31,6 +32,16 @@ export class PublicationUserComponent implements OnInit {
     const user = userString ? JSON.parse(userString) : null;
     this.id = user ? user.idUser : '';
     this.role = user ? user.role : '';
+  }
+
+  getrole(){
+    const userString = localStorage.getItem('user');
+      console.log(userString);
+      const user = userString ? JSON.parse(userString) : null;
+       this.role = user ? user.role : "";
+       if(this.role =='admin'){
+        this.router.navigateByUrl('/error')
+       }
   }
 
   ngOnInit(): void {

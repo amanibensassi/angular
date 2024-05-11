@@ -17,14 +17,24 @@ export class PublicationComponent implements OnInit {
   currentPage: number = 1;
   publicationsData: any[] = [];
   chartOptions: any[] = [];
-
-  constructor(private publicationService: PublicationService) {
+role : any;
+  constructor(private publicationService: PublicationService,private router : Router) {
+    this.getrole();
     //this.renderChart(); // Appel à la méthode pour rendre le graphique
   }
 
   ngOnInit(): void {
     this.getAllPublications();
     this.retrievePublicationByLike();
+  }
+  getrole(){
+    const userString = localStorage.getItem('user');
+      console.log(userString);
+      const user = userString ? JSON.parse(userString) : null;
+       this.role = user ? user.role : "";
+       if(this.role !='admin'){
+        this.router.navigateByUrl('/error')
+       }
   }
 
   retrievePublicationByLike() {

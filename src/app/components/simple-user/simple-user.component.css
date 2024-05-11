@@ -1,44 +1,52 @@
 .tab-content img {
-    width: 120%; /* Ajuste la largeur de l'image à 120% de sa taille d'origine */
-    height: auto; /* Permet à la hauteur de s'ajuster automatiquement pour conserver les proportions */
-    transition: transform 0.3s ease-in-out;
-    border-radius: 15px; /* Ajoute une transition fluide uniquement sur la transformation */
+  width: 120%; /* Ajuste la largeur de l'image à 120% de sa taille d'origine */
+  height: auto; /* Permet à la hauteur de s'ajuster automatiquement pour conserver les proportions */
+  transition: transform 0.3s ease-in-out;
+  border-radius: 15px; /* Ajoute une transition fluide uniquement sur la transformation */
 }
 
 .tab-content img:hover {
-    transform: scale(1.05); /* Légèrement agrandit l'image de 5% au survol */
+  transform: scale(1); /* Légèrement agrandit l'image de 5% au survol */
 }
 
+.product-detail-content {
+  height: auto; /* Permet à la hauteur de s'ajuster automatiquement pour conserver les proportions */
+  transition: transform 0.3s ease-in-out;
+  border-radius: 15px; /* Ajoute une transition fluide uniquement sur la transformation */
+}
+
+.product-detail-content:hover {
+  transform: scale(1.05);
+}
 
 .new-arrival-content {
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-   height: 300px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  height: 300px;
 }
 
 .name {
-    font-size: 24px;
-    margin-bottom: 10px;
+  font-size: 24px;
+  margin-bottom: 10px;
 }
 
 .info {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .detail {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .label {
-    font-weight: bold;
-    font-size: 18px; /* Ajuste la taille de police pour les labels */
-    color: #555;
+  font-weight: bold;
+  font-size: 18px; /* Ajuste la taille de police pour les labels */
+  color: #555;
 }
 
 .value {
-    font-size: 18px; /* Ajuste la taille de police pour les valeurs */
-    color: #333;
+  font-size: 18px; /* Ajuste la taille de police pour les valeurs */
+  color: #333;
 }
-

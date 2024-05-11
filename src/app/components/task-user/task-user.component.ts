@@ -1,6 +1,6 @@
 import { TaskService } from './../../services/task.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-task',
@@ -11,7 +11,9 @@ export class TaskUserComponent implements OnInit {
   tasks: any;
   task: any;
   idEvent: any;
-  constructor(private taskService: TaskService, private route: ActivatedRoute) {
+  role : any;
+  constructor(private taskService: TaskService, private route: ActivatedRoute, private router : Router) {
+    this.getrole();
     this.idEvent = this.route.snapshot.paramMap.get('idEvent');
   }
 
@@ -26,6 +28,15 @@ export class TaskUserComponent implements OnInit {
         
       }//
     });*/
+  }
+  getrole(){
+    const userString = localStorage.getItem('user');
+      console.log(userString);
+      const user = userString ? JSON.parse(userString) : null;
+       this.role = user ? user.role : "";
+       if(this.role =='admin'){
+        this.router.navigateByUrl('/error')
+       }
   }
 
   getAllTasks() {

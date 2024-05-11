@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class CommentairepubService {
-  readonly API_URL = 'http://angular-service:8089/espritgather/commentaire';
+  readonly API_URL = 'http://localhost:8089/espritgather/commentaire';
 
   constructor(private router: Router,private httpClient: HttpClient) { }
   getAllCommentaire() {

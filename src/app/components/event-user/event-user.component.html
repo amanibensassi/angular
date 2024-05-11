@@ -1,110 +1,166 @@
 <div class="content-body">
-    <div class="container-fluid">
-        <div class="header-left d-flex justify-content-between" *ngIf="!showCalendarComponent">
-            <div class="nav-item">
-                <div class="input-group search-area">
-                    <input type="text" class="form-control" placeholder="Search here" [(ngModel)]="searchQuery" (input)="searchEvents()">
-                    <span class="input-group-text"><a href="javascript:void(0)"><i class="flaticon-381-search-2"></i></a></span>
-                </div>
-            </div>
-        
-            <div class="nav-item" style="width: 30%;">
-                <div class="container" style="margin-right: -150px;">
-                    <h4 class="mb-3">FILTER</h4>
-                    <div class="form-check custom-checkbox mb-3 checkbox-warning">
-                        <input type="checkbox" class="form-check-input" checked id="customCheckBox4" [(ngModel)]="filterByPrice" (change)="toggleFilterByPrice()">
-                        <label class="form-check-label" for="customCheckBox4">Price</label>
-                    </div>
-                    <div class="form-check custom-checkbox mb-3 checkbox-info">
-                        <input type="checkbox" class="form-check-input" id="customCheckBox2" [(ngModel)]="filterByNbt" (change)="toggleFilterByNbt()">
-                        <label class="form-check-label" for="customCheckBox2">Number Of Tickets</label>
-                    </div>
-                    <div class="form-check custom-checkbox mb-3 checkbox-info">
-                        <input type="checkbox" class="form-check-input" id="customCheckBox3" [(ngModel)]="filterByPref" (click)="toggleFilterByPreferences()">
-                        <label class="form-check-label" for="customCheckBox3">Preferences</label>
-                    </div>
-                    <div *ngIf="mostLikedEventType" class="text-muted">You like <strong>{{ mostLikedEventType }}</strong></div>
-                </div>
-            </div>
+  <div class="container-fluid">
+    <div
+      class="header-left d-flex justify-content-between"
+      *ngIf="!showCalendarComponent"
+    >
+      <div class="nav-item">
+        <div class="input-group search-area" style="width: 330%">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search here"
+            [(ngModel)]="searchQuery"
+            (input)="searchEvents()"
+          />
+          <span class="input-group-text"
+            ><a href="javascript:void(0)"
+              ><i class="flaticon-381-search-2"></i></a
+          ></span>
         </div>
-        
+      </div>
 
-
-
-
-    </div>
-
-    <br>
-    <br>
-    <div class="container-fluid" *ngIf="!showCalendarComponent">
-        <!-- Contenu de l'événement ou autre contenu ici -->
-        <button type="button" class="btn btn-warning mr-2" (click)="showCalendar()">Afficher le calendrier <span class="btn-icon-end"><i class="fa-regular fa-calendar"></i></span>
-        </button>
-        <br>
-        <br>
-        <div class="col-lg-12">
-
-
-            <div class="row">
-                <div class="col-md-4" *ngFor="let event of filteredEvents">
-                    <div class="card" (mouseenter)="highlightCard($event)" (mouseleave)="resetCards()">
-                        <img class="card-img-top img-fluid" src="{{event.imagePath}}" alt="Card image cap"
-                            style="width: 470px; height: 400px;">
-                        <div class="card-header">
-                            <h5 class="card-title">{{ event.user.clubName}}</h5>
-                        </div>
-                        <div class="card-header">
-                            <h5 class="card-title">{{ event.nameEvent}}</h5>
-                        </div>
-                        <div class="card-header">
-                            <h3 class="card-title">{{ event.place}}</h3>
-                        </div>
-                        <div class="text-center">
-                            <div class="card-footer-link mb-4 mb-sm-0">
-                                <p class="card-text text-dark d-inline"><span class="fs-14 me-2">start
-                                        From</span><strong>{{event.price}} DT</strong></p>
-                            </div>
-
-                            <div class="card-footer-link mb-4 mb-sm-0">
-                                <p class="card-text text-dark d-inline">Tickets available <strong>{{event.nbt}}</strong>
-                                </p>
-                            </div>
-
-                            <div class="card-footer-link mb-4 mb-sm-0">
-                                <p class="card-text text-dark d-inline">Tickets available
-                                    <strong>{{event.typeEvent}}</strong>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <a class="card-link float-end" routerLink="/event/{{ event.idEvent }}"><strong>View
-                                    Details</strong></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <div class="nav-item" style="width: 30%">
+        <div class="container" style="margin-right: -150px">
+          <h4 class="mb-3">FILTER</h4>
+          <div class="form-check custom-checkbox mb-3 checkbox-warning">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              checked
+              id="customCheckBox4"
+              [(ngModel)]="filterByPrice"
+              (change)="toggleFilterByPrice()"
+            />
+            <label class="form-check-label" for="customCheckBox4">Price</label>
+          </div>
+          <div class="form-check custom-checkbox mb-3 checkbox-info">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="customCheckBox2"
+              [(ngModel)]="filterByNbt"
+              (change)="toggleFilterByNbt()"
+            />
+            <label class="form-check-label" for="customCheckBox2"
+              >Number Of Tickets</label
+            >
+          </div>
+          <div class="form-check custom-checkbox mb-3 checkbox-info">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="customCheckBox3"
+              [(ngModel)]="filterByPref"
+              (click)="toggleFilterByPreferences()"
+            />
+            <label class="form-check-label" for="customCheckBox3"
+              >Preferences</label
+            >
+          </div>
+          <div *ngIf="mostLikedEventType" class="text-muted">
+            You like <strong>{{ mostLikedEventType }}</strong>
+          </div>
         </div>
+      </div>
     </div>
-    <div class="container-fluid" *ngIf="showCalendarComponent" style="margin: auto;">
-        <button type="button" class="btn btn-warning mr-2" (click)="showEventList()">Afficher la liste <span class="btn-icon-end"><i class="fa-solid fa-list"></i></span></button>
+  </div>
 
-        <app-calendar></app-calendar>
+  <br />
+  <br />
+  <div class="container-fluid" *ngIf="!showCalendarComponent">
+    <!-- Contenu de l'événement ou autre contenu ici -->
+    <button type="button" class="btn btn-warning mr-2" (click)="showCalendar()">
+      Afficher le calendrier
+      <span class="btn-icon-end"><i class="fa-regular fa-calendar"></i></span>
+    </button>
+    <br />
+    <br />
+    <div class="col-lg-12">
+      <div class="row">
+        <div class="col-md-4" *ngFor="let event of filteredEvents">
+          <div
+            class="card"
+            (mouseenter)="highlightCard($event)"
+            (mouseleave)="resetCards()"
+          >
+            <img
+              class="card-img-top img-fluid"
+              src="{{ event.imagePath }}"
+              alt="Card image cap"
+              style="width: 470px; height: 400px"
+            />
+            <div class="card-header">
+              <h5 class="card-title">{{ event.user.clubName }}</h5>
+            </div>
+            <div class="card-header">
+              <h5 class="card-title">{{ event.nameEvent }}</h5>
+            </div>
+            <div class="card-header">
+              <h3 class="card-title">{{ event.place }}</h3>
+            </div>
+            <div class="text-center">
+              <div class="card-footer-link mb-4 mb-sm-0">
+                <p class="card-text text-dark d-inline">
+                  <span class="fs-14 me-2">start From</span
+                  ><strong>{{ event.price }} DT</strong>
+                </p>
+              </div>
+
+              <div class="card-footer-link mb-4 mb-sm-0">
+                <p class="card-text text-dark d-inline">
+                  Tickets available <strong>{{ event.nbt }}</strong>
+                </p>
+              </div>
+
+              <div class="card-footer-link mb-4 mb-sm-0">
+                <p class="card-text text-dark d-inline">
+                  Tickets available
+                  <strong>{{ event.typeEvent }}</strong>
+                </p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <a
+                class="card-link float-end"
+                routerLink="/event/{{ event.idEvent }}"
+                ><strong>View Details</strong></a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+  <div
+    class="container-fluid"
+    *ngIf="showCalendarComponent"
+    style="margin: auto"
+  >
+    <button
+      type="button"
+      class="btn btn-warning mr-2"
+      (click)="showEventList()"
+    >
+      Afficher la liste
+      <span class="btn-icon-end"><i class="fa-solid fa-list"></i></span>
+    </button>
 
+    <app-calendar></app-calendar>
+  </div>
 
-    <style>
-        .card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+  <style>
+    .card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-        .card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        }
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
 
-        .gray-background {
-            background-color: #f7f7f7;
-        }
-    </style>
-
+    .gray-background {
+      background-color: #f7f7f7;
+    }
+  </style>
 </div>

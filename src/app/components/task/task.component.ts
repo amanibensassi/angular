@@ -16,9 +16,44 @@ export class TaskComponent implements OnInit {
   tasksChunks: Task[][] = [];
   currentPage: number = 1;
   chartOptions: any[] = [];
+  role : any;
   userCountsDataPoints: { label: string; y: number }[] = [];
 
   constructor(private taskService: TaskService, private router: Router) {
+    this.getrole();
+    this.taskService.getStatus().subscribe((pieData: any) => {
+      const pieDataPoints = [];
+      for (const type in pieData) {
+        if (pieData.hasOwnProperty(type)) {
+          pieDataPoints.push({ y: pieData[type], label: type });
+        }
+      }
+      const pieChartOptions = {
+        animationEnabled: true,
+        theme: 'light2',
+        title: {
+          text: 'Count Tasks Status',
+        },
+        data: [
+          {
+            type: 'pie',
+            showInLegend: true,
+            startAngle: -90,
+            indexLabel: '{label}',
+            yValueFormatString: '#',
+            dataPoints: pieDataPoints,
+          },
+        ],
+        margin: {
+          top: 20,
+          bottom: 50,
+          left: 20,
+          right: 20,
+        },
+      };
+
+      this.chartOptions.push(pieChartOptions);
+    });
     this.taskService.getCountSkills().subscribe((data: any) => {
       console.log(data);
 
@@ -30,7 +65,7 @@ export class TaskComponent implements OnInit {
       const barChartOptions = {
         theme: 'light2',
         title: {
-          text: 'Tasks skills count',
+          text: 'Most required skills',
         },
         axisX: {
           title: 'Count', // Définir le titre de l'axe X comme "Count"
@@ -61,6 +96,15 @@ export class TaskComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllTasks();
+  }
+  getrole(){
+    const userString = localStorage.getItem('user');
+      console.log(userString);
+      const user = userString ? JSON.parse(userString) : null;
+       this.role = user ? user.role : "";
+       if(this.role !='admin'){
+        this.router.navigateByUrl('/error')
+       }
   }
 
   getAllTasks(): void {

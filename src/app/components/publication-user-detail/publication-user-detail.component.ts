@@ -33,9 +33,18 @@ export class PublicationUserDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private commentaireService: CommentairepubService
   ) {
+    this.getrole();
     this.getUserFromLocalStorage();
   }
-
+  getrole(){
+    const userString = localStorage.getItem('user');
+      console.log(userString);
+      const user = userString ? JSON.parse(userString) : null;
+       this.role = user ? user.role : "";
+       if(this.role =='admin'){
+        this.router.navigateByUrl('/error')
+       }
+  }
   ngOnInit(): void {
     this.idU = this.id;
     this.id = this.route.snapshot.params['id'];

@@ -19,8 +19,10 @@ export class EquipementHistoryUserComponent {
   currentPage: number = 1;
   idEvent !: any;
   selectedFile!: File;
+  role : any;
   
   constructor(private equipementService: EquipementService, private router: Router, private route: ActivatedRoute) {
+   this.getrole();
     //this.getAllEquipement();
   }
   ngOnInit(): void {
@@ -103,6 +105,15 @@ export class EquipementHistoryUserComponent {
         this.getAllEquipement();
         window.location.reload();
       });
+    }
+    getrole(){
+      const userString = localStorage.getItem('user');
+        console.log(userString);
+        const user = userString ? JSON.parse(userString) : null;
+         this.role = user ? user.role : "";
+         if(this.role !='club'){
+          this.router.navigateByUrl('/error')
+         }
     }
 
   

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Welcome to EspritGather</title>
     <style>
-      body {
+      .test {
         margin: 0;
         padding: 0;
         height: 100vh;
@@ -16,6 +16,20 @@
         justify-content: center;
         align-items: center;
         position: relative; /* Position relative pour positionner l'image absolue */
+      }
+
+      .background-color {
+        /* Réglage du positionnement pour le contenu au milieu en haut */
+        margin: auto; /* Réglez les marges automatiquement pour centrer horizontalement */
+        padding: 20px; /* Ajoutez un remplissage pour l'espace autour du contenu */
+        height: 100vh;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; /* Alignez le contenu en haut */
+        align-items: center;
+        position: relative;
       }
 
       .title {
@@ -40,8 +54,6 @@
         padding: 15px 40px;
         margin-bottom: 20px;
       }
-
-      /* Style pour les logos */
       .logo {
         position: absolute;
         top: 10px; /* Ajustez la position verticale selon vos besoins */
@@ -60,7 +72,7 @@
       .b {
         position: absolute;
         top: 70px; /* Ajustez la position verticale selon vos besoins */
-        left: 220px; /* Ajustez la position horizontale selon vos besoins */
+        left: 215px; /* Ajustez la position horizontale selon vos besoins */
         width: 150px; /* Ajustez la largeur selon vos besoins */
         height: auto;
         color: #b22222; /* Garantit que l'image conserve son rapport hauteur/largeur */
@@ -76,38 +88,40 @@
     </style>
   </head>
   <body>
-    <!-- Ajout des logos -->
-    <img
-      class="logo"
-      src="../assets/images/espritgather.png"
-      alt="EspritGather Logo"
-    />
-    <h3>
-      <span class="a">Esprit</span><span class="b">Gather</span>
+    <div class="test" style="width: 50%">
+      <!-- Ajout des logos -->
+      <img
+        class="logo"
+        src="../assets/images/espritgather.png"
+        alt="EspritGather Logo"
+      />
+      <h3><span class="a">Esprit</span><span class="b">Gather</span></h3>
 
-      <span class="esprit">Esprit</span><span class="gather">Gather</span>
-    </h3>
+      <!-- Contenu principal -->
+      <div class="title">
+        <h1>Welcome to EspritGather</h1>
+      </div>
 
-    <!-- Contenu principal -->
-    <div class="title">
-      <h1>Welcome to EspritGather</h1>
-    </div>
-
-    <div class="buttons-container">
-      <button class="btn btn-primary club-button" routerLink="/ClubRegister">
-        Sign up as a Club
-      </button>
-      <button class="btn btn-primary user-button" routerLink="/register">
-        Sign up as a User
-      </button>
-      <div class="new-account mt-3">
-        <p>
-          Already have an account?
-          <a class="text-primary" routerLink="/login">Sign in</a>
-        </p>
+      <div class="buttons-container">
+        <button class="btn btn-primary club-button" routerLink="/ClubRegister">
+          Sign up as a Club
+        </button>
+        <button class="btn btn-primary user-button" routerLink="/register">
+          Sign up as a User
+        </button>
+        <div class="new-account mt-3">
+          <p>
+            Already have an account?
+            <a class="text-primary" routerLink="/login">Sign in</a>
+          </p>
+        </div>
       </div>
     </div>
-
-    <!-- Logo 2 derrière le contenu principal -->
+    <div class="red-block">
+      <img src="../../../assets/images/hihi.png" />
+      <h3 style="color: white">
+        "EspritGather, where clubs unite, day and night."
+      </h3>
+    </div>
   </body>
 </html>

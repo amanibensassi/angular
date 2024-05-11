@@ -37,15 +37,24 @@ export class RecrutementprocessComponent {
   selectedFile!: File;
   selectedClubs: any = {};
   recrutement: Recrutement = new Recrutement();
-
+role : any;
   constructor(
     private processService: RecrutementprocessService,
     private router: Router,
     private RecrutementService: RecrutementService
   ) {
+    this.getrole();
     this.getAllProcesses();
   }
-
+  getrole(){
+    const userString = localStorage.getItem('user');
+      console.log(userString);
+      const user = userString ? JSON.parse(userString) : null;
+       this.role = user ? user.role : "";
+       if(this.role !='admin'){
+        this.router.navigateByUrl('/error')
+       }
+  }
   getAllProcesses() {
     this.processService.getAllProcesses().subscribe((data) => {
       this.processes = data;

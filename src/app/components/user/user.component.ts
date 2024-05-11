@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { CanvasJS } from '@canvasjs/angular-charts';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
@@ -14,8 +15,10 @@ export class UserComponent {
   creatingMode : boolean = true;
   chartOptions: any[] = [];
   userCountsDataPoints: { label: string, y: number }[] = [];
+  role : any;
 
-  constructor(private userService: UserService,){
+  constructor(private userService: UserService,private router : Router){
+    this.getrole()
     this.getUsers();
     this.userService.countUsersByNiveau().subscribe((pieData: any) => {
       const pieDataPoints = [];
@@ -104,6 +107,18 @@ export class UserComponent {
         });
       }
     }
+
+
+getrole(){
+  const userString = localStorage.getItem('user');
+    console.log(userString);
+    const user = userString ? JSON.parse(userString) : null;
+     this.role = user ? user.role : "";
+     if(this.role !='admin'){
+      this.router.navigateByUrl('/error')
+     }
+}
+    
 
     modifyUser(){
       this.userService.modifyUser(this.userToModify).subscribe(()=>{

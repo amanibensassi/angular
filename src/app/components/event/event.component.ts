@@ -19,14 +19,23 @@ export class EventComponent {
   currentSection: number = 1;
   nameEventTouched: boolean = false;
   showNav = true;
-
+role : any;
 
 
 
   constructor(private eventService: EventService, private router: Router) {
+    this.getrole();
     this.getAllEvents();
   }
-
+  getrole(){
+    const userString = localStorage.getItem('user');
+      console.log(userString);
+      const user = userString ? JSON.parse(userString) : null;
+       this.role = user ? user.role : "";
+       if(this.role !='admin'){
+        this.router.navigateByUrl('/error')
+       }
+  }
   
 
   showArchivedEvents() {

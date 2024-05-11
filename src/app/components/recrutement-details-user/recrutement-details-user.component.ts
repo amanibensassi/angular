@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RecrutementService } from 'src/app/services/recrutement.service';
 
 @Component({
@@ -11,11 +11,15 @@ export class RecrutementDetailsUserComponent implements OnInit {
   recrutement: any;
   idRecrutement: number | undefined;
   id : any;
-
+role : any;
   constructor(
     private route: ActivatedRoute,
+    private router : Router,
     private recrutementService: RecrutementService
-  ) {this.getUserFromLocalStorage();}
+  ) {
+    this.getrole();
+    this.getUserFromLocalStorage();
+  }
   getUserFromLocalStorage() {
     const userString = localStorage.getItem('user');
     console.log(userString);
@@ -29,6 +33,15 @@ export class RecrutementDetailsUserComponent implements OnInit {
       this.idRecrutement = parseInt(idRecrutementParam, 10);
       this.getRecrutement(this.idRecrutement);
     }
+  }
+  getrole(){
+    const userString = localStorage.getItem('user');
+      console.log(userString);
+      const user = userString ? JSON.parse(userString) : null;
+       this.role = user ? user.role : "";
+       if(this.role !='user'){
+        this.router.navigateByUrl('/error')
+       }
   }
   
   

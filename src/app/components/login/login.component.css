@@ -1,0 +1,57 @@
+.logo {
+  position: absolute;
+  top: 10px; /* Ajustez la position verticale selon vos besoins */
+  left: 10px; /* Ajustez la position horizontale selon vos besoins */
+  width: 150px; /* Ajustez la largeur selon vos besoins */
+  height: auto;
+  z-index: 2; /* Garantit que l'image conserve son rapport hauteur/largeur */
+}
+.a {
+  position: absolute;
+  top: 70px; /* Ajustez la position verticale selon vos besoins */
+  left: 150px; /* Ajustez la position horizontale selon vos besoins */
+  width: 150px; /* Ajustez la largeur selon vos besoins */
+  height: auto; /* Garantit que l'image conserve son rapport hauteur/largeur */
+}
+.b {
+  position: absolute;
+  top: 70px; /* Ajustez la position verticale selon vos besoins */
+  left: 215px; /* Ajustez la position horizontale selon vos besoins */
+  width: 150px; /* Ajustez la largeur selon vos besoins */
+  height: auto;
+  color: #b22222; /* Garantit que l'image conserve son rapport hauteur/largeur */
+}
+
+.esprit {
+  color: black; /* Couleur du texte */
+}
+
+.gather {
+  color: #b22222; /* Couleur du texte */
+}
+
+.red-block {
+  width: 50%; /* ajustez la largeur selon vos besoins */
+  height: 100vh; /* assurez-vous qu'il a la même hauteur que la fenêtre */
+  background-color: white; /* couleur de l'arrière-plan rouge */
+  position: absolute;
+  top: 0;
+  right: 0; /* alignement à droite */
+  display: flex; /* utiliser flexbox */
+  flex-direction: column; /* empiler les é
+  léments en colonne */
+  justify-content: center; /* centrer horizontalement */
+  align-items: center; /* centrer verticalement */
+}
+
+.red-block img {
+  margin-top: -170px;
+  max-width: 100%; /* pour que l'image s'adapte à la taille de la div */
+  max-height: 100%; /* pour que l'image s'adapte à la taille de la div */
+}
+
+.auth-form {
+  margin-bottom: 80px;
+  border: solid 5px white;
+  border-radius: 10px;
+}

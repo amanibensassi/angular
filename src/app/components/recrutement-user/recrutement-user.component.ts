@@ -11,11 +11,14 @@ import { RecrutementService } from 'src/app/services/recrutement.service';
 export class RecrutementUserComponent {
   recrutements: any;
   recrutement: any;
+  role : any;
   constructor(
     private recrutementService: RecrutementService,
     private httpClient: HttpClient,
+    private router : Router,
     private route: ActivatedRoute
   ) {
+    this.getrole();
     this.getAllRecrutements();
   }
 
@@ -25,5 +28,14 @@ export class RecrutementUserComponent {
         (recrutement: { archive: any }) => !recrutement.archive
       );
     });
+  }
+  getrole(){
+    const userString = localStorage.getItem('user');
+      console.log(userString);
+      const user = userString ? JSON.parse(userString) : null;
+       this.role = user ? user.role : "";
+       if(this.role !='user'){
+        this.router.navigateByUrl('/error')
+       }
   }
 }

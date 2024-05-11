@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-simple-user',
@@ -7,8 +8,9 @@ import { Component } from '@angular/core';
 })
 export class SimpleUserComponent {
   selectedUser: any = {};
-
-  constructor() {
+role :any;
+  constructor(private router : Router) {
+    this.getrole();
     this.getUserFromLocalStorage();
   }
 
@@ -19,4 +21,15 @@ export class SimpleUserComponent {
       console.log(this.selectedUser); // Log the user object separately
     }
   }
+
+  getrole(){
+    const userString = localStorage.getItem('user');
+      console.log(userString);
+      const user = userString ? JSON.parse(userString) : null;
+       this.role = user ? user.role : "";
+       if(this.role !='user'){
+        this.router.navigateByUrl('/error')
+       }
+  }
+
 }

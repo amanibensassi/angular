@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { RoundedRect } from 'chart.js/dist/types/geometric';
 import { EventService } from 'src/app/services/event.service';
 import { TicketService } from 'src/app/services/ticket.service';
 
@@ -19,12 +21,13 @@ export class EventUserComponent implements OnInit {
   type: string = '';
   showCalendarComponent: boolean = false;
   showEventsComponent: boolean = true;
-
+role : any;
   mostLikedEventType: string = ''; 
 id:any;
   cardWidth: number = 310;
 eventsOfType: any;
-  constructor(private eventService: EventService,private ticketService: TicketService) {
+  constructor(private eventService: EventService,private ticketService: TicketService, private router : Router) {
+    this.getrole();
     this.getUserFromLocalStorage();
 
    }
@@ -33,6 +36,15 @@ eventsOfType: any;
     this.retrieveAllEvents();
   }
 
+  getrole(){
+    const userString = localStorage.getItem('user');
+      console.log(userString);
+      const user = userString ? JSON.parse(userString) : null;
+       this.role = user ? user.role : "";
+       if(this.role !='user'){
+        this.router.navigateByUrl('/error')
+       }
+  }
   getUserFromLocalStorage() {
     const userString = localStorage.getItem('user');
     console.log(userString);
