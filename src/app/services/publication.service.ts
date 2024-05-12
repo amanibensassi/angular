@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class PublicationService {
-  readonly API_URL = 'http://sql-service:8089/espritgather/publication';
+  readonly API_URL = 'http://52.238.248.18:8089/espritgather/publication';
 
   constructor(private router: Router, private httpClient: HttpClient) {}
 
