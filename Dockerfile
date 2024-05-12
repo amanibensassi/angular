@@ -9,8 +9,10 @@ COPY package*.json ./
 # Install Angular CLI globally (if not already installed)
 RUN npm install -g @angular/cli@15.2.10
 
+RUN npm cache clean --force
+
 # Install project dependencies
-RUN npm install
+RUN npm install --force
 
 # Copy the entire project to the container
 COPY . .
