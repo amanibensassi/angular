@@ -7,7 +7,7 @@ import { Recrutement } from '../models/recrutement';
   providedIn: 'root'
 })
 export class RecrutementService {
-  readonly API_URL = 'http://sql-service:8089/espritgather/recrutement';
+  readonly API_URL = 'http://52.238.248.18:8089/espritgather/recrutement';
 
   constructor(private router: Router,private httpClient: HttpClient) { }
     getAllRecrutements() {
