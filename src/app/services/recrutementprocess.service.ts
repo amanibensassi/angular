@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 })
 export class RecrutementprocessService {
 
-  readonly API_URL = 'http://52.238.248.18:8089/espritgather/process';
+  readonly API_URL = '/espritgather/process';
 
   constructor(private router: Router,private httpClient: HttpClient) { }
     getAllProcesses() {
