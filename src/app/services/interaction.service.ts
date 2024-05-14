@@ -7,7 +7,7 @@ import { Observable, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class InteractionService {
-  readonly API_URL = 'http://52.238.248.18:8089/espritgather/interaction';
+  readonly API_URL = '/espritgather/interaction';
 
   constructor(private httpClient: HttpClient) {}
 
