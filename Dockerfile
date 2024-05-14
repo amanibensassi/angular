@@ -23,6 +23,7 @@ RUN ng build
 # Use a lightweight Nginx image to serve the Angular app
 FROM nginx:latest
 
+COPY src/nginx/etc/conf.d/default.conf /etc/nginx/conf.d/default.conf
 # Copy the built Angular app from the previous stage to Nginx's web root directory
 COPY --from=build /app/dist/back-test /usr/share/nginx/html
 
