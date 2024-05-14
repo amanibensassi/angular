@@ -8,7 +8,7 @@ import { Task } from '../models/task';
   providedIn: 'root',
 })
 export class TaskService {
-  readonly API_URL = 'http://52.238.248.18:8089/espritgather/task';
+  readonly API_URL = '/espritgather/task';
 
   constructor(private router: Router, private httpClient: HttpClient) {}
 
